@@ -110,6 +110,7 @@
       border-radius: 8px;
       cursor: pointer;
       transition: background 0.3s;
+      user-select: none;
     }
     .quantity-control button:hover { background: #d32f2f; }
     .quantity-control button:active { transform: scale(0.95); }
@@ -118,6 +119,7 @@
       text-align: center;
       font-size: 1.2em;
       font-weight: bold;
+      pointer-events: none;
     }
     .total-section {
       background: #f8f9fa;
@@ -225,7 +227,7 @@
           <div class="notice" id="freeShipNotice">🎉 購買10罐(含)以上免運費！</div>
 
           <div class="form-group"><label>姓名 *</label><input type="text" id="name" required></div>
-          <div class="form-group"><label>電話 *</label><input type="tel" id="phone" required></div>
+          <div class="form-group"><label>電話 *</label><input type="tel" id="phone" required placeholder="例：0912345678"></div>
           <div class="form-group"><label>Email *</label><input type="email" id="email" required></div>
           <div class="form-group">
             <label>取貨方式 *</label>
@@ -263,29 +265,17 @@
     </div>
   </div>
 
-  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+  <script src="https://cdn.emailjs.com/dist/email.min.js"></script>
   <script>
-    // 等待頁面和 EmailJS 都載入完成
-    (function() {
-      var checkEmailJS = setInterval(function() {
-        if (typeof emailjs !== 'undefined') {
-          clearInterval(checkEmailJS);
-          initApp();
-        }
-      }, 100);
+    (function(){
+      emailjs.init("GwHiFRfQTUQLLEuqi");
+      console.log('EmailJS 初始化完成');
+    })();
 
-      function initApp() {
-        console.log('EmailJS 載入成功');
-        
-        // 初始化 EmailJS
-        emailjs.init('GwHiFRfQTUQLLEuqi');
-        console.log('EmailJS 初始化完成');
-
-      var PRICE = 250;
+    var PRICE = 250;
     var SHIPPING = 130;
     var FREE_SHIPPING_QTY = 10;
 
-    // 取得 DOM 元素
     var qtyInput = document.getElementById('qty');
     var btnPlus = document.getElementById('btnPlus');
     var btnMinus = document.getElementById('btnMinus');
@@ -294,7 +284,15 @@
     var totalDisplay = document.getElementById('totalDisplay');
     var freeShipNotice = document.getElementById('freeShipNotice');
 
-    // 計算並更新顯示
+    function generateOrderId() {
+      var now = new Date();
+      var year = now.getFullYear();
+      var month = String(now.getMonth() + 1).padStart(2, '0');
+      var day = String(now.getDate()).padStart(2, '0');
+      var random = Math.floor(Math.random() * 10000).toString().padStart(4, '0');
+      return 'YW' + year + month + day + random;
+    }
+
     function updatePrice() {
       var qty = parseInt(qtyInput.value);
       if (isNaN(qty) || qty < 1) {
@@ -320,28 +318,48 @@
       }
     }
 
-    // 增加數量
-    btnPlus.onclick = function() {
+    btnPlus.addEventListener('click', function(e) {
+      e.preventDefault();
       var current = parseInt(qtyInput.value);
       qtyInput.value = current + 1;
       updatePrice();
-    };
+      console.log('增加數量:', qtyInput.value);
+    });
 
-    // 減少數量
-    btnMinus.onclick = function() {
+    btnMinus.addEventListener('click', function(e) {
+      e.preventDefault();
       var current = parseInt(qtyInput.value);
       if (current > 1) {
         qtyInput.value = current - 1;
         updatePrice();
+        console.log('減少數量:', qtyInput.value);
       }
-    };
+    });
 
-    // 表單提交
-    document.getElementById('orderForm').onsubmit = function(e) {
+    document.getElementById('orderForm').addEventListener('submit', function(e) {
       e.preventDefault();
 
       var submitBtn = document.getElementById('submitBtn');
       var messageDiv = document.getElementById('message');
+
+      var phone = document.getElementById('phone').value.trim();
+      var account = document.getElementById('accountLast5').value.trim();
+      var address = document.getElementById('address').value.trim();
+
+      if (!/^09\d{8}$/.test(phone)) {
+        messageDiv.innerHTML = '<div class="error-message">❌ 請輸入正確的手機號碼格式（例：0912345678）</div>';
+        return;
+      }
+
+      if (!/^\d{5}$/.test(account)) {
+        messageDiv.innerHTML = '<div class="error-message">❌ 帳號後5碼必須是5位數字</div>';
+        return;
+      }
+
+      if (address.length < 5) {
+        messageDiv.innerHTML = '<div class="error-message">❌ 請填寫完整的收貨地址或超商店名</div>';
+        return;
+      }
 
       submitBtn.disabled = true;
       submitBtn.textContent = '處理中...';
@@ -351,17 +369,12 @@
       var subtotal = PRICE * qty;
       var shipping = (qty >= FREE_SHIPPING_QTY) ? 0 : SHIPPING;
       var total = subtotal + shipping;
+      var orderId = generateOrderId();
 
-      // 檢查 EmailJS 是否已載入
-      if (typeof emailjs === 'undefined') {
-        messageDiv.innerHTML = '<div class="error-message">❌ 系統載入中，請稍後再試</div>';
-        submitBtn.disabled = false;
-        submitBtn.textContent = '確認訂購';
-        return;
-      }
+      console.log('準備發送郵件，訂單編號:', orderId);
 
-      // 商家郵件參數
       var merchantParams = {
+        order_id: orderId,
         product_name: '【渝味食記】重慶小麵手工辣椒醬',
         quantity: qty,
         unit_price: PRICE,
@@ -369,17 +382,17 @@
         shipping: (shipping === 0) ? '免運費' : shipping,
         total: total,
         customer_name: document.getElementById('name').value,
-        customer_phone: document.getElementById('phone').value,
+        customer_phone: phone,
         customer_email: document.getElementById('email').value,
         pickup_method: document.getElementById('pickup').value,
-        address: document.getElementById('address').value,
-        account_last5: document.getElementById('accountLast5').value,
+        address: address,
+        account_last5: account,
         note: document.getElementById('note').value || '無',
         to_email: 'bonnywu992@gmail.com'
       };
 
-      // 客戶郵件參數
       var customerParams = {
+        order_id: orderId,
         product_name: '【渝味食記】重慶小麵手工辣椒醬',
         quantity: qty,
         unit_price: PRICE,
@@ -388,28 +401,37 @@
         total: total,
         customer_name: document.getElementById('name').value,
         pickup_method: document.getElementById('pickup').value,
-        address: document.getElementById('address').value,
+        address: address,
         to_email: document.getElementById('email').value
       };
 
-      // 同時發送兩封郵件
-      Promise.all([
+      Promise.allSettled([
         emailjs.send('service_wu888', 'template_76gxwe5', merchantParams),
         emailjs.send('service_wu888', 'template_hrlozlc', customerParams)
       ])
-      .then(function(response) {
-        console.log('郵件發送成功:', response);
-        messageDiv.innerHTML = '<div class="success-message">✅ 訂單已送出成功！<br>商家和您都已收到訂單確認信，請留意信箱。<br>如選擇面交請私訊 Instagram 確認。</div>';
-        document.getElementById('orderForm').reset();
-        qtyInput.value = 1;
-        updatePrice();
+      .then(function(results) {
+        var merchantSuccess = results[0].status === 'fulfilled';
+        var customerSuccess = results[1].status === 'fulfilled';
+        
+        if (merchantSuccess && customerSuccess) {
+          messageDiv.innerHTML = '<div class="success-message">✅ 訂單已送出成功！<br>訂單編號：' + orderId + '<br>商家和您都已收到訂單確認信，請留意信箱。<br>如選擇面交請私訊 Instagram 確認。</div>';
+          document.getElementById('orderForm').reset();
+          qtyInput.value = 1;
+          updatePrice();
+        } else if (merchantSuccess) {
+          messageDiv.innerHTML = '<div class="success-message">✅ 訂單已送出！<br>訂單編號：' + orderId + '<br>商家已收到訂單。<br>⚠️ 客戶確認信發送失敗，請記錄您的訂單編號。</div>';
+          document.getElementById('orderForm').reset();
+          qtyInput.value = 1;
+          updatePrice();
+        } else {
+          throw new Error('郵件發送失敗');
+        }
+        
         submitBtn.disabled = false;
         submitBtn.textContent = '確認訂購';
       })
       .catch(function(error) {
         console.error('發送失敗詳細資訊:', error);
-        console.error('錯誤訊息:', error.text);
-        console.error('錯誤狀態:', error.status);
         
         var errorMsg = '❌ 訂單送出失敗<br>';
         if (error.text) {
@@ -424,13 +446,11 @@
         submitBtn.disabled = false;
         submitBtn.textContent = '確認訂購';
       });
-    };
+    });
 
-    // 初始化
     updatePrice();
     console.log('訂購系統初始化完成');
-      }
-    })();
+    console.log('按鈕元素:', btnPlus, btnMinus);
   </script>
 </body>
 </html>
