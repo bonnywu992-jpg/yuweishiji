@@ -171,12 +171,6 @@
       box-shadow: 0 8px 20px rgba(183, 28, 28, 0.4);
     }
     .submit-btn:disabled { background: #ccc; cursor: not-allowed; transform: none; }
-    .test-btn {
-      background: linear-gradient(135deg, #1976D2 0%, #2196F3 100%);
-    }
-    .test-btn:hover {
-      box-shadow: 0 8px 20px rgba(25, 118, 210, 0.4);
-    }
     .success-message {
       background: #d3f9d8;
       padding: 20px;
@@ -196,16 +190,6 @@
       color: #b71c1c;
       font-weight: bold;
       border: 2px solid #f44336;
-    }
-    .info-message {
-      background: #e3f2fd;
-      padding: 15px;
-      border-radius: 10px;
-      margin: 20px 0;
-      text-align: center;
-      color: #1976d2;
-      font-weight: bold;
-      border: 2px solid #2196F3;
     }
   </style>
 </head>
@@ -275,7 +259,6 @@
             <div class="total-row final"><span>總計：</span><span id="totalDisplay">NT$ 380</span></div>
           </div>
 
-          <button type="button" class="submit-btn test-btn" id="testBtn">🔧 測試 EmailJS 連線</button>
           <button type="submit" class="submit-btn" id="submitBtn">確認訂購</button>
           <div id="message"></div>
         </form>
@@ -283,17 +266,17 @@
     </div>
   </div>
 
-  <script src="https://cdn.emailjs.com/dist/email.min.js"></script>
   <script>
-    (function(){
-      emailjs.init("GwHiFRfQTUQLLEuqi");
-      console.log('EmailJS 初始化完成');
-    })();
+    // ⚠️ 重要：請替換成你的 Web3Forms Access Key
+    const WEB3FORMS_ACCESS_KEY = '63c8b2d8-bddb-46cb-b683-e3c0becf31b';
+    
+    // 商家收件 Email（你會收到訂單通知）
+    const MERCHANT_EMAIL = 'bonnywu992@gmail.com';
 
     var PRICE = 250;
     var SHIPPING = 130;
     var FREE_SHIPPING_QTY = 10;
-
+    
     var qtyInput = document.getElementById('qty');
     var btnPlus = document.getElementById('btnPlus');
     var btnMinus = document.getElementById('btnMinus');
@@ -352,88 +335,17 @@
       }
     });
 
-    document.getElementById('testBtn').addEventListener('click', function() {
-      var messageDiv = document.getElementById('message');
-      var testBtn = document.getElementById('testBtn');
-      
-      testBtn.disabled = true;
-      testBtn.textContent = '測試中...';
-      messageDiv.innerHTML = '<div class="info-message">📡 正在測試 EmailJS 連線...</div>';
-      
-      console.log('=== EmailJS 測試開始 ===');
-      console.log('Public Key:', 'GwHiFRfQTUQLLEuqi');
-      console.log('Service ID:', 'service_wu888');
-      console.log('Template ID (商家):', 'template_76gxwe5');
-      
-      var testParams = {
-        order_id: 'TEST' + Date.now(),
-        product_name: '【測試】重慶小麵手工辣椒醬',
-        quantity: 1,
-        unit_price: 250,
-        subtotal: 250,
-        shipping: 130,
-        total: 380,
-        customer_name: '測試客戶',
-        customer_phone: '0912345678',
-        customer_email: 'test@example.com',
-        pickup_method: '7-11',
-        address: '測試地址測試店名',
-        account_last5: '12345',
-        note: '這是系統測試訂單',
-        to_email: 'bonnywu992@gmail.com'
-      };
-      
-      emailjs.send('service_wu888', 'template_76gxwe5', testParams)
-        .then(function(response) {
-          console.log('✅ 測試成功!', response);
-          messageDiv.innerHTML = '<div class="success-message">✅ EmailJS 連線測試成功！<br>狀態碼: ' + response.status + '<br>服務正常運作中。<br><br>商家模板 (template_76gxwe5) 正常✓<br><br>如果訂購還是失敗，請檢查：<br>• 客戶模板 (template_hrlozlc) 是否存在<br>• 模板內變數名稱是否正確</div>';
-          testBtn.disabled = false;
-          testBtn.textContent = '🔧 測試 EmailJS 連線';
-        })
-        .catch(function(error) {
-          console.error('❌ 測試失敗!', error);
-          console.error('錯誤詳情:', JSON.stringify(error, null, 2));
-          
-          var errorMsg = '❌ EmailJS 連線測試失敗<br><br>';
-          
-          if (error.status === 418) {
-            errorMsg += '<strong>錯誤 418 - 請求被拒絕</strong><br>';
-            errorMsg += '可能原因：<br>';
-            errorMsg += '• Public Key 錯誤或無效<br>';
-            errorMsg += '• EmailJS 帳號狀態異常<br>';
-            errorMsg += '• 網域未在 Allowed Domains 中<br><br>';
-            errorMsg += '👉 請到 EmailJS Dashboard → Account 檢查設定';
-          } else if (error.status === 400) {
-            errorMsg += '<strong>錯誤 400 - 請求格式錯誤</strong><br>';
-            errorMsg += '可能原因：<br>';
-            errorMsg += '• Service ID (service_wu888) 不存在<br>';
-            errorMsg += '• Template ID (template_76gxwe5) 不存在<br>';
-            errorMsg += '• 模板變數名稱不匹配<br><br>';
-            errorMsg += '👉 請檢查 Service 和 Template 是否正確建立';
-          } else if (error.status === 403) {
-            errorMsg += '<strong>錯誤 403 - 權限不足</strong><br>';
-            errorMsg += '可能原因：<br>';
-            errorMsg += '• 網域未授權<br>';
-            errorMsg += '• EmailJS 帳號被停用<br><br>';
-            errorMsg += '👉 請到 EmailJS Account 設定 Allowed Domains';
-          } else {
-            errorMsg += '<strong>未知錯誤</strong><br>';
-          }
-          
-          errorMsg += '<br>錯誤代碼: ' + (error.status || '未知') + '<br>';
-          errorMsg += '錯誤訊息: ' + (error.text || '未知') + '<br>';
-          
-          messageDiv.innerHTML = '<div class="error-message">' + errorMsg + '</div>';
-          testBtn.disabled = false;
-          testBtn.textContent = '🔧 測試 EmailJS 連線';
-        });
-    });
-
-    document.getElementById('orderForm').addEventListener('submit', function(e) {
+    document.getElementById('orderForm').addEventListener('submit', async function(e) {
       e.preventDefault();
 
       var submitBtn = document.getElementById('submitBtn');
       var messageDiv = document.getElementById('message');
+
+      // 檢查 Access Key 是否設定
+      if (WEB3FORMS_ACCESS_KEY === 'YOUR_ACCESS_KEY_HERE') {
+        messageDiv.innerHTML = '<div class="error-message">❌ 系統設定錯誤<br>請先設定 Web3Forms Access Key<br><br>到 <a href="https://web3forms.com" target="_blank" style="color:#b71c1c;text-decoration:underline;">web3forms.com</a> 註冊並取得免費 Key</div>';
+        return;
+      }
 
       var phone = document.getElementById('phone').value.trim();
       var account = document.getElementById('accountLast5').value.trim();
@@ -463,89 +375,137 @@
       var shipping = (qty >= FREE_SHIPPING_QTY) ? 0 : SHIPPING;
       var total = subtotal + shipping;
       var orderId = generateOrderId();
-
-      console.log('準備發送郵件，訂單編號:', orderId);
-
-      var merchantParams = {
-        order_id: orderId,
-        product_name: '【渝味食記】重慶小麵手工辣椒醬',
-        quantity: qty,
-        unit_price: PRICE,
-        subtotal: subtotal,
-        shipping: (shipping === 0) ? '免運費' : shipping,
-        total: total,
-        customer_name: document.getElementById('name').value,
-        customer_phone: phone,
-        customer_email: document.getElementById('email').value,
-        pickup_method: document.getElementById('pickup').value,
-        address: address,
-        account_last5: account,
-        note: document.getElementById('note').value || '無',
-        to_email: 'bonnywu992@gmail.com'
-      };
-
-      var customerParams = {
-        order_id: orderId,
-        product_name: '【渝味食記】重慶小麵手工辣椒醬',
-        quantity: qty,
-        unit_price: PRICE,
-        subtotal: subtotal,
-        shipping: (shipping === 0) ? '免運費' : 'NT$ ' + shipping,
-        total: total,
-        customer_name: document.getElementById('name').value,
-        pickup_method: document.getElementById('pickup').value,
-        address: address,
-        to_email: document.getElementById('email').value
-      };
-
-      Promise.allSettled([
-        emailjs.send('service_wu888', 'template_76gxwe5', merchantParams),
-        emailjs.send('service_wu888', 'template_hrlozlc', customerParams)
-      ])
-      .then(function(results) {
-        var merchantSuccess = results[0].status === 'fulfilled';
-        var customerSuccess = results[1].status === 'fulfilled';
-        
-        console.log('商家郵件:', merchantSuccess ? '成功' : '失敗', results[0]);
-        console.log('客戶郵件:', customerSuccess ? '成功' : '失敗', results[1]);
-        
-        if (merchantSuccess && customerSuccess) {
-          messageDiv.innerHTML = '<div class="success-message">✅ 訂單已送出成功！<br>訂單編號：' + orderId + '<br>商家和您都已收到訂單確認信，請留意信箱。<br>如選擇面交請私訊 Instagram 確認。</div>';
-          document.getElementById('orderForm').reset();
-          qtyInput.value = 1;
-          updatePrice();
-        } else if (merchantSuccess) {
-          messageDiv.innerHTML = '<div class="success-message">✅ 訂單已送出！<br>訂單編號：' + orderId + '<br>商家已收到訂單。<br>⚠️ 客戶確認信發送失敗，請記錄您的訂單編號。</div>';
-          document.getElementById('orderForm').reset();
-          qtyInput.value = 1;
-          updatePrice();
-        } else {
-          throw new Error('郵件發送失敗');
-        }
-        
-        submitBtn.disabled = false;
-        submitBtn.textContent = '確認訂購';
-      })
-      .catch(function(error) {
-        console.error('發送失敗詳細資訊:', error);
-        
-        var errorMsg = '❌ 訂單送出失敗<br><br>';
-        errorMsg += '<strong>可能原因：</strong><br>';
-        errorMsg += '1. EmailJS 設定錯誤（Service ID 或 Template ID）<br>';
-        errorMsg += '2. EmailJS 郵件額度已用完<br>';
-        errorMsg += '3. 模板變數名稱不匹配<br><br>';
-        errorMsg += '請使用「測試 EmailJS 連線」按鈕進行診斷，<br>';
-        errorMsg += '或截圖此畫面透過 Instagram 聯繫我們。<br>';
-        errorMsg += 'Instagram: @yuweishiji';
-        
-        messageDiv.innerHTML = '<div class="error-message">' + errorMsg + '</div>';
-        submitBtn.disabled = false;
-        submitBtn.textContent = '確認訂購';
+      var orderTime = new Date().toLocaleString('zh-TW', { 
+        year: 'numeric', 
+        month: '2-digit', 
+        day: '2-digit', 
+        hour: '2-digit', 
+        minute: '2-digit',
+        hour12: false 
       });
+
+      var customerName = document.getElementById('name').value;
+      var customerEmail = document.getElementById('email').value;
+      var pickupMethod = document.getElementById('pickup').value;
+      var note = document.getElementById('note').value || '無';
+
+      console.log('準備發送訂單通知，訂單編號:', orderId);
+
+      // 準備發送給商家的郵件內容
+      var merchantEmailContent = `
+╔═══════════════════════════════════╗
+    🛒 新訂單通知 - 渝味食記
+╚═══════════════════════════════════╝
+
+訂單編號：${orderId}
+訂單時間：${orderTime}
+
+┌─────────────────────────────────┐
+│  📋 客戶資訊                      │
+└─────────────────────────────────┘
+姓名：${customerName}
+電話：${phone}
+Email：${customerEmail}
+取貨方式：${pickupMethod}
+收貨地址/店名：${address}
+匯款帳號後5碼：${account}
+
+┌─────────────────────────────────┐
+│  🌶️ 訂購商品                     │
+└─────────────────────────────────┘
+商品名稱：【渝味食記】重慶小麵手工辣椒醬
+單價：NT$ ${PRICE}
+數量：${qty} 罐
+小計：NT$ ${subtotal}
+
+┌─────────────────────────────────┐
+│  💰 金額明細                      │
+└─────────────────────────────────┘
+商品小計：NT$ ${subtotal}
+運費：${shipping === 0 ? '免運費 ✓' : 'NT$ ' + shipping}
+訂單總額：NT$ ${total}
+
+┌─────────────────────────────────┐
+│  📝 備註                          │
+└─────────────────────────────────┘
+${note}
+
+═══════════════════════════════════
+💡 提醒事項：
+${pickupMethod === '面交' ? '⚠️ 此訂單選擇面交，請透過 Instagram 與客戶確認時間地點' : ''}
+${shipping === 0 ? '✅ 此訂單已達免運門檻' : ''}
+請盡快處理此訂單，謝謝！
+═══════════════════════════════════
+      `.trim();
+
+      // 發送訂單通知到商家信箱
+      try {
+        const response = await fetch('https://api.web3forms.com/submit', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'Accept': 'application/json'
+          },
+          body: JSON.stringify({
+            access_key: WEB3FORMS_ACCESS_KEY,
+            subject: `🛒 新訂單 ${orderId} - 渝味食記`,
+            from_name: '渝味食記訂購系統',
+            email: MERCHANT_EMAIL, // 商家收件信箱
+            message: merchantEmailContent
+          })
+        });
+
+        const result = await response.json();
+
+        if (result.success) {
+          messageDiv.innerHTML = `
+            <div class="success-message">
+              ✅ 訂單已成功送出！<br><br>
+              <strong>訂單編號：${orderId}</strong><br><br>
+              我們已收到您的訂單，會盡快與您聯繫。<br>
+              ${pickupMethod === '面交' ? '<br>⚠️ 您選擇了面交，請透過 Instagram 私訊我們確認時間地點。<br>' : ''}
+              <br>請記住您的訂單編號以便查詢。<br>
+              <br>📧 確認信已發送至商家信箱<br>
+              Instagram: @yuweishiji
+            </div>
+          `;
+          
+          // 重置表單
+          document.getElementById('orderForm').reset();
+          qtyInput.value = 1;
+          updatePrice();
+          
+          console.log('✅ 訂單通知發送成功:', orderId);
+        } else {
+          throw new Error('訂單發送失敗');
+        }
+
+      } catch (error) {
+        console.error('❌ 訂單發送錯誤:', error);
+        
+        messageDiv.innerHTML = `
+          <div class="error-message">
+            ❌ 訂單送出失敗<br><br>
+            <strong>可能原因：</strong><br>
+            • 網路連線問題<br>
+            • Web3Forms 服務異常<br>
+            • Access Key 設定錯誤<br><br>
+            請稍後再試，或直接透過 Instagram 聯繫我們：<br>
+            <strong>@yuweishiji</strong><br><br>
+            訂單資訊：<br>
+            訂單編號：${orderId}<br>
+            商品數量：${qty} 罐<br>
+            總金額：NT$ ${total}
+          </div>
+        `;
+      } finally {
+        submitBtn.disabled = false;
+        submitBtn.textContent = '確認訂購';
+      }
     });
 
     updatePrice();
-    console.log('訂購系統初始化完成');
+    console.log('渝味食記訂購系統初始化完成（Web3Forms 版本）');
   </script>
 </body>
 </html>
