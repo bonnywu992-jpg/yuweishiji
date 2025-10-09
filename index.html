@@ -202,7 +202,7 @@
       <div class="product-card">
         <div class="product-header">
           <div>
-            <span class="product-name">重慶小麵手工辣椒醬</span>
+            <span class="product-name">手工辣椒醬</span>
             <span class="special-badge">🔥 麻辣勁爆</span>
           </div>
           <div class="product-price">NT$ 250 / 罐</div>
@@ -377,7 +377,8 @@
         emailjs.send('service_wu888', 'template_76gxwe5', merchantParams),
         emailjs.send('service_wu888', 'template_hrlozlc', customerParams)
       ])
-      .then(function() {
+      .then(function(response) {
+        console.log('郵件發送成功:', response);
         messageDiv.innerHTML = '<div class="success-message">✅ 訂單已送出成功！<br>商家和您都已收到訂單確認信，請留意信箱。<br>如選擇面交請私訊 Instagram 確認。</div>';
         document.getElementById('orderForm').reset();
         qtyInput.value = 1;
@@ -386,8 +387,20 @@
         submitBtn.textContent = '確認訂購';
       })
       .catch(function(error) {
-        console.error('發送失敗:', error);
-        messageDiv.innerHTML = '<div class="error-message">❌ 訂單送出失敗，請稍後再試或透過 Instagram 聯繫我們。<br>Instagram: @yuweishiji</div>';
+        console.error('發送失敗詳細資訊:', error);
+        console.error('錯誤訊息:', error.text);
+        console.error('錯誤狀態:', error.status);
+        
+        var errorMsg = '❌ 訂單送出失敗<br>';
+        if (error.text) {
+          errorMsg += '錯誤原因: ' + error.text + '<br>';
+        }
+        if (error.status) {
+          errorMsg += '錯誤代碼: ' + error.status + '<br>';
+        }
+        errorMsg += '請截圖此畫面並透過 Instagram 聯繫我們。<br>Instagram: @yuweishiji';
+        
+        messageDiv.innerHTML = '<div class="error-message">' + errorMsg + '</div>';
         submitBtn.disabled = false;
         submitBtn.textContent = '確認訂購';
       });
