@@ -1,511 +1,348 @@
 <!DOCTYPE html>
 <html lang="zh-TW">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>渝味食記 - 重慶小麵手工辣椒醬</title>
-  <style>
-    * { margin: 0; padding: 0; box-sizing: border-box; }
-    body {
-      font-family: 'Microsoft JhengHei', Arial, sans-serif;
-      background: linear-gradient(135deg, #d32f2f 0%, #f44336 100%);
-      min-height: 100vh;
-      padding: 20px;
-    }
-    .container {
-      max-width: 800px;
-      margin: 0 auto;
-      background: white;
-      border-radius: 20px;
-      box-shadow: 0 20px 60px rgba(0,0,0,0.3);
-      overflow: hidden;
-    }
-    .header {
-      background: linear-gradient(135deg, #b71c1c 0%, #d32f2f 100%);
-      color: white;
-      padding: 40px 30px;
-      text-align: center;
-    }
-    .header h1 { font-size: 2.5em; margin-bottom: 10px; text-shadow: 2px 2px 4px rgba(0,0,0,0.2); }
-    .header p { font-size: 1.1em; opacity: 0.95; }
-    .ig-link {
-      display: inline-block;
-      margin-top: 10px;
-      padding: 8px 20px;
-      background: rgba(255,255,255,0.2);
-      border-radius: 20px;
-      color: white;
-      text-decoration: none;
-      transition: background 0.3s;
-    }
-    .ig-link:hover { background: rgba(255,255,255,0.3); }
-    .product-section { padding: 40px 30px; }
-    .product-card {
-      background: linear-gradient(135deg, #fff5f5 0%, #ffebee 100%);
-      border-radius: 15px;
-      padding: 30px;
-      border: 3px solid #f44336;
-    }
-    .product-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      flex-wrap: wrap;
-      margin-bottom: 20px;
-    }
-    .product-name { font-size: 1.8em; color: #b71c1c; font-weight: bold; }
-    .product-price { font-size: 1.6em; color: #d32f2f; font-weight: bold; }
-    .special-badge {
-      display: inline-block;
-      background: #ff6b6b;
-      color: white;
-      padding: 5px 15px;
-      border-radius: 20px;
-      font-size: 0.9em;
-      margin-left: 10px;
-    }
-    .highlight {
-      background: #fff3bf;
-      padding: 15px;
-      border-radius: 10px;
-      margin: 15px 0;
-      border-left: 4px solid #f44336;
-    }
-    .highlight strong { color: #b71c1c; }
-    .form-group { margin: 20px 0; }
-    .form-group label {
-      display: block;
-      margin-bottom: 8px;
-      color: #333;
-      font-weight: bold;
-    }
-    .form-group input,
-    .form-group select,
-    .form-group textarea {
-      width: 100%;
-      padding: 12px;
-      border: 2px solid #ddd;
-      border-radius: 8px;
-      font-size: 1em;
-      transition: border-color 0.3s;
-    }
-    .form-group input:focus,
-    .form-group select:focus,
-    .form-group textarea:focus {
-      outline: none;
-      border-color: #f44336;
-    }
-    .quantity-control {
-      display: flex;
-      align-items: center;
-      gap: 15px;
-    }
-    .quantity-control button {
-      width: 40px;
-      height: 40px;
-      border: none;
-      background: #f44336;
-      color: white;
-      font-size: 1.5em;
-      border-radius: 8px;
-      cursor: pointer;
-      transition: background 0.3s;
-      user-select: none;
-    }
-    .quantity-control button:hover { background: #d32f2f; }
-    .quantity-control button:active { transform: scale(0.95); }
-    .quantity-control input {
-      width: 80px;
-      text-align: center;
-      font-size: 1.2em;
-      font-weight: bold;
-      pointer-events: none;
-    }
-    .total-section {
-      background: #f8f9fa;
-      padding: 20px;
-      border-radius: 10px;
-      margin: 20px 0;
-      transition: all 0.3s ease;
-    }
-    .total-row {
-      display: flex;
-      justify-content: space-between;
-      margin: 10px 0;
-      font-size: 1.1em;
-    }
-    .total-row.final {
-      font-size: 1.5em;
-      font-weight: bold;
-      color: #b71c1c;
-      border-top: 2px solid #ddd;
-      padding-top: 10px;
-      margin-top: 15px;
-    }
-    .notice {
-      background: #fff3bf;
-      padding: 15px;
-      border-radius: 10px;
-      margin: 20px 0;
-      text-align: center;
-      font-weight: bold;
-      color: #b71c1c;
-      border: 2px dashed #ffa94d;
-      transition: all 0.3s ease;
-    }
-    .submit-btn {
-      width: 100%;
-      padding: 18px;
-      background: linear-gradient(135deg, #b71c1c 0%, #d32f2f 100%);
-      color: white;
-      border: none;
-      border-radius: 12px;
-      font-size: 1.3em;
-      font-weight: bold;
-      cursor: pointer;
-      transition: transform 0.2s, box-shadow 0.2s;
-      margin-bottom: 10px;
-    }
-    .submit-btn:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 8px 20px rgba(183, 28, 28, 0.4);
-    }
-    .submit-btn:disabled { background: #ccc; cursor: not-allowed; transform: none; }
-    .success-message {
-      background: #d3f9d8;
-      padding: 20px;
-      border-radius: 10px;
-      margin: 20px 0;
-      text-align: center;
-      color: #2b8a3e;
-      font-weight: bold;
-      border: 2px solid #51cf66;
-    }
-    .error-message {
-      background: #ffe3e3;
-      padding: 20px;
-      border-radius: 10px;
-      margin: 20px 0;
-      text-align: center;
-      color: #b71c1c;
-      font-weight: bold;
-      border: 2px solid #f44336;
-    }
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>渝味食記 - 重慶小麵手工辣椒醬</title>
+<style>
+/* --- 原有樣式不變 --- */
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: 'Microsoft JhengHei', Arial, sans-serif; background: linear-gradient(135deg, #d32f2f 0%, #f44336 100%); min-height: 100vh; padding: 20px; }
+.container { max-width: 800px; margin: 0 auto; background: white; border-radius: 20px; box-shadow: 0 20px 60px rgba(0,0,0,0.3); overflow: hidden; }
+.header { background: linear-gradient(135deg, #b71c1c 0%, #d32f2f 100%); color: white; padding: 40px 30px; text-align: center; }
+.header h1 { font-size: 2.5em; margin-bottom: 10px; text-shadow: 2px 2px 4px rgba(0,0,0,0.2); }
+.header p { font-size: 1.1em; opacity: 0.95; }
+.ig-link { display: inline-block; margin-top: 10px; padding: 8px 20px; background: rgba(255,255,255,0.2); border-radius: 20px; color: white; text-decoration: none; transition: background 0.3s; }
+.ig-link:hover { background: rgba(255,255,255,0.3); }
+.product-section { padding: 40px 30px; }
+.product-card { background: linear-gradient(135deg, #fff5f5 0%, #ffebee 100%); border-radius: 15px; padding: 30px; border: 3px solid #f44336; }
+.product-header { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; margin-bottom: 20px; }
+.product-name { font-size: 1.8em; color: #b71c1c; font-weight: bold; }
+.product-price { font-size: 1.6em; color: #d32f2f; font-weight: bold; }
+.special-badge { display: inline-block; background: #ff6b6b; color: white; padding: 5px 15px; border-radius: 20px; font-size: 0.9em; margin-left: 10px; }
+.highlight { background: #fff3bf; padding: 15px; border-radius: 10px; margin: 15px 0; border-left: 4px solid #f44336; }
+.highlight strong { color: #b71c1c; }
+.form-group { margin: 20px 0; }
+.form-group label { display: block; margin-bottom: 8px; color: #333; font-weight: bold; }
+.form-group input, .form-group select, .form-group textarea { width: 100%; padding: 12px; border: 2px solid #ddd; border-radius: 8px; font-size: 1em; transition: border-color 0.3s; }
+.form-group input:focus, .form-group select:focus, .form-group textarea:focus { outline: none; border-color: #f44336; }
+.quantity-control { display: flex; align-items: center; gap: 15px; }
+.quantity-control button { width: 40px; height: 40px; border: none; background: #f44336; color: white; font-size: 1.5em; border-radius: 8px; cursor: pointer; transition: background 0.3s; user-select: none; }
+.quantity-control button:hover { background: #d32f2f; }
+.quantity-control button:active { transform: scale(0.95); }
+.quantity-control input { width: 80px; text-align: center; font-size: 1.2em; font-weight: bold; pointer-events: none; }
+.total-section { background: #f8f9fa; padding: 20px; border-radius: 10px; margin: 20px 0; transition: all 0.3s ease; }
+.total-row { display: flex; justify-content: space-between; margin: 10px 0; font-size: 1.1em; }
+.total-row.final { font-size: 1.5em; font-weight: bold; color: #b71c1c; border-top: 2px solid #ddd; padding-top: 10px; margin-top: 15px; }
+.notice { background: #fff3bf; padding: 15px; border-radius: 10px; margin: 20px 0; text-align: center; font-weight: bold; color: #b71c1c; border: 2px dashed #ffa94d; transition: all 0.3s ease; }
+.submit-btn { width: 100%; padding: 18px; background: linear-gradient(135deg, #b71c1c 0%, #d32f2f 100%); color: white; border: none; border-radius: 12px; font-size: 1.3em; font-weight: bold; cursor: pointer; transition: transform 0.2s, box-shadow 0.2s; margin-bottom: 10px; }
+.submit-btn:hover { transform: translateY(-2px); box-shadow: 0 8px 20px rgba(183, 28, 28, 0.4); }
+.submit-btn:disabled { background: #ccc; cursor: not-allowed; transform: none; }
+.success-message { background: #d3f9d8; padding: 20px; border-radius: 10px; margin: 20px 0; text-align: center; color: #2b8a3e; font-weight: bold; border: 2px solid #51cf66; }
+.error-message { background: #ffe3e3; padding: 20px; border-radius: 10px; margin: 20px 0; text-align: center; color: #b71c1c; font-weight: bold; border: 2px solid #f44336; }
+</style>
 </head>
 <body>
-  <div class="container">
-    <div class="header">
-      <h1>🌶️ 渝味食記 🌶️</h1>
-      <p>重慶小麵 - 手工辣椒醬</p>
-      <a href="https://www.instagram.com/yuweishiji" target="_blank" class="ig-link">📷 追蹤我們的 Instagram</a>
-    </div>
+<div class="container">
+<div class="header">
+<h1>🌶️ 渝味食記 🌶️</h1>
+<p>重慶小麵 - 手工辣椒醬</p>
+<a href="https://www.instagram.com/yuweishiji" target="_blank" class="ig-link">📷 追蹤我們的 Instagram</a>
+</div>
 
-    <div class="product-section">
-      <div class="product-card">
-        <div class="product-header">
-          <div>
-            <span class="product-name">手工辣椒醬</span>
-            <span class="special-badge">🔥 麻辣勁爆</span>
-          </div>
-          <div class="product-price">NT$ 250 / 罐</div>
-        </div>
+<div class="product-section">
+<div class="product-card">
+<div class="product-header">
+<div>
+<span class="product-name">手工辣椒醬</span>
+<span class="special-badge">🔥 麻辣勁爆</span>
+</div>
+<div class="product-price">NT$ 250 / 罐</div>
+</div>
 
-        <div class="highlight">
-          <strong>手工製作、無添加防腐劑，開封後需冷藏保存 ⚠️</strong>
-        </div>
+<div class="highlight">
+<strong>手工製作、無添加防腐劑，開封後需冷藏保存 ⚠️</strong>
+</div>
 
-        <form id="orderForm">
-          <div class="form-group">
-            <label>購買數量</label>
-            <div class="quantity-control">
-              <button type="button" id="btnMinus">−</button>
-              <input type="number" id="qty" value="1" min="1" readonly>
-              <button type="button" id="btnPlus">+</button>
-            </div>
-          </div>
+<form id="orderForm">
+<div class="form-group">
+<label>購買數量</label>
+<div class="quantity-control">
+<button type="button" id="btnMinus">−</button>
+<input type="number" id="qty" value="1" min="1" readonly>
+<button type="button" id="btnPlus">+</button>
+</div>
+</div>
 
-          <div class="notice" id="freeShipNotice">🎉 購買10罐(含)以上免運費！</div>
+<div class="notice" id="freeShipNotice">🎉 購買10罐(含)以上免運費！</div>
 
-          <div class="form-group"><label>姓名 *</label><input type="text" id="name" required></div>
-          <div class="form-group"><label>電話 *</label><input type="tel" id="phone" required placeholder="例：0912345678"></div>
-          <div class="form-group"><label>Email *</label><input type="email" id="email" required></div>
-          <div class="form-group">
-            <label>取貨方式 *</label>
-            <select id="pickup" required>
-              <option value="">請選擇取貨方式</option>
-              <option value="7-11">7-11 超商取貨</option>
-              <option value="全家">全家超商取貨</option>
-              <option value="宅配">宅配</option>
-              <option value="面交">面交 (請先私訊IG確認)</option>
-            </select>
-          </div>
-          <div class="form-group">
-            <label>收貨地址 / 超商店名 *</label>
-            <textarea id="address" rows="3" required placeholder="請填寫完整地址或超商店名"></textarea>
-          </div>
-          <div class="form-group">
-            <label>匯款帳號後5碼 *</label>
-            <input type="text" id="accountLast5" maxlength="5" pattern="[0-9]{5}" required placeholder="請填寫5位數字">
-          </div>
-          <div class="form-group">
-            <label>備註</label>
-            <textarea id="note" rows="2" placeholder="其他需求或備註"></textarea>
-          </div>
+<div class="form-group"><label>姓名 *</label><input type="text" id="name" required></div>
+<div class="form-group"><label>電話 *</label><input type="tel" id="phone" required placeholder="例：0912345678"></div>
+<div class="form-group"><label>Email *</label><input type="email" id="email" required></div>
+<div class="form-group">
+<label>取貨方式 *</label>
+<select id="pickup" required>
+<option value="">請選擇取貨方式</option>
+<option value="7-11">7-11 超商取貨</option>
+<option value="全家">全家超商取貨</option>
+<option value="宅配">宅配</option>
+<option value="面交">面交 (請先私訊IG確認)</option>
+</select>
+</div>
+<div class="form-group">
+<label>收貨地址 / 超商店名 *</label>
+<textarea id="address" rows="3" required placeholder="請填寫完整地址或超商店名"></textarea>
+</div>
+<div class="form-group">
+<label>匯款帳號後5碼 *</label>
+<input type="text" id="accountLast5" maxlength="5" pattern="[0-9]{5}" required placeholder="請填寫5位數字">
+</div>
+<div class="form-group">
+<label>備註</label>
+<textarea id="note" rows="2" placeholder="其他需求或備註"></textarea>
+</div>
 
-          <div class="total-section">
-            <div class="total-row"><span>小計：</span><span id="subtotalDisplay">NT$ 250</span></div>
-            <div class="total-row"><span>運費：</span><span id="shippingDisplay">NT$ 130</span></div>
-            <div class="total-row final"><span>總計：</span><span id="totalDisplay">NT$ 380</span></div>
-          </div>
+<div class="total-section">
+<div class="total-row"><span>小計：</span><span id="subtotalDisplay">NT$ 250</span></div>
+<div class="total-row"><span>運費：</span><span id="shippingDisplay">NT$ 130</span></div>
+<div class="total-row final"><span>總計：</span><span id="totalDisplay">NT$ 380</span></div>
+</div>
 
-          <button type="submit" class="submit-btn" id="submitBtn">確認訂購</button>
-          <div id="message"></div>
-        </form>
-      </div>
-    </div>
-  </div>
+<button type="submit" class="submit-btn" id="submitBtn">確認訂購</button>
+<div id="message"></div>
+</form>
+</div>
+</div>
+</div>
 
-  <script>
-    // ⚠️ 重要：請替換成你的 Web3Forms Access Key
-    const WEB3FORMS_ACCESS_KEY = '63c8b2d8-bddb-46cb-b683-e3c0becf31b';
-    
-    // 商家收件 Email（你會收到訂單通知）
-    const MERCHANT_EMAIL = 'bonnywu992@gmail.com';
+<script>
+// --- 設定 ---
+const WEB3FORMS_ACCESS_KEY = '63c8b2d8-bddb-46cb-b683-e3c0becf31b';
+const MERCHANT_EMAIL = 'bonnywu992@gmail.com';
+var PRICE = 250;
+var SHIPPING = 130;
+var FREE_SHIPPING_QTY = 10;
 
-    var PRICE = 250;
-    var SHIPPING = 130;
-    var FREE_SHIPPING_QTY = 10;
-    
-    var qtyInput = document.getElementById('qty');
-    var btnPlus = document.getElementById('btnPlus');
-    var btnMinus = document.getElementById('btnMinus');
-    var subtotalDisplay = document.getElementById('subtotalDisplay');
-    var shippingDisplay = document.getElementById('shippingDisplay');
-    var totalDisplay = document.getElementById('totalDisplay');
-    var freeShipNotice = document.getElementById('freeShipNotice');
+// --- 元素 ---
+var qtyInput = document.getElementById('qty');
+var btnPlus = document.getElementById('btnPlus');
+var btnMinus = document.getElementById('btnMinus');
+var subtotalDisplay = document.getElementById('subtotalDisplay');
+var shippingDisplay = document.getElementById('shippingDisplay');
+var totalDisplay = document.getElementById('totalDisplay');
+var freeShipNotice = document.getElementById('freeShipNotice');
 
-    function generateOrderId() {
-      var now = new Date();
-      var year = now.getFullYear();
-      var month = String(now.getMonth() + 1).padStart(2, '0');
-      var day = String(now.getDate()).padStart(2, '0');
-      var random = Math.floor(Math.random() * 10000).toString().padStart(4, '0');
-      return 'YW' + year + month + day + random;
-    }
+// --- 計算金額 ---
+function updatePrice() {
+    var qty = parseInt(qtyInput.value);
+    if (isNaN(qty) || qty < 1) qty = 1;
+    qtyInput.value = qty;
 
-    function updatePrice() {
-      var qty = parseInt(qtyInput.value);
-      if (isNaN(qty) || qty < 1) {
-        qty = 1;
-        qtyInput.value = 1;
-      }
+    var subtotal = PRICE * qty;
+    var shipping = (qty >= FREE_SHIPPING_QTY) ? 0 : SHIPPING;
+    var total = subtotal + shipping;
 
-      var subtotal = PRICE * qty;
-      var shipping = (qty >= FREE_SHIPPING_QTY) ? 0 : SHIPPING;
-      var total = subtotal + shipping;
+    subtotalDisplay.textContent = 'NT$ ' + subtotal;
+    shippingDisplay.textContent = (shipping === 0) ? '免運費 ✓' : 'NT$ ' + shipping;
+    totalDisplay.textContent = 'NT$ ' + total;
 
-      subtotalDisplay.textContent = 'NT$ ' + subtotal;
-      shippingDisplay.textContent = (shipping === 0) ? '免運費 ✓' : 'NT$ ' + shipping;
-      totalDisplay.textContent = 'NT$ ' + total;
-
-      if (qty < FREE_SHIPPING_QTY) {
-        var left = FREE_SHIPPING_QTY - qty;
-        freeShipNotice.textContent = '再買 ' + left + ' 罐即可免運 🎁';
+    if (qty < FREE_SHIPPING_QTY) {
+        freeShipNotice.textContent = '再買 ' + (FREE_SHIPPING_QTY - qty) + ' 罐即可免運 🎁';
         freeShipNotice.style.background = '#fff3bf';
-      } else {
+    } else {
         freeShipNotice.textContent = '🎉 已達免運門檻！恭喜省下 NT$ ' + SHIPPING + ' 運費！';
         freeShipNotice.style.background = '#d3f9d8';
-      }
+    }
+}
+
+// --- 數量控制 ---
+btnPlus.addEventListener('click', function(e){ e.preventDefault(); qtyInput.value = parseInt(qtyInput.value) + 1; updatePrice(); });
+btnMinus.addEventListener('click', function(e){ e.preventDefault(); if (parseInt(qtyInput.value) > 1) { qtyInput.value = parseInt(qtyInput.value)-1; updatePrice(); }});
+
+// --- 生成訂單編號 ---
+function generateOrderId(){
+    var now = new Date();
+    var year = now.getFullYear();
+    var month = String(now.getMonth()+1).padStart(2,'0');
+    var day = String(now.getDate()).padStart(2,'0');
+    var random = Math.floor(Math.random()*10000).toString().padStart(4,'0');
+    return 'YW'+year+month+day+random;
+}
+
+// --- 提交表單 ---
+document.getElementById('orderForm').addEventListener('submit', async function(e){
+    e.preventDefault();
+    var submitBtn = document.getElementById('submitBtn');
+    var messageDiv = document.getElementById('message');
+
+    // --- 驗證 ---
+    var phone = document.getElementById('phone').value.trim();
+    var account = document.getElementById('accountLast5').value.trim();
+    var address = document.getElementById('address').value.trim();
+    if (!/^09\d{8}$/.test(phone)){
+        messageDiv.innerHTML='<div class="error-message">❌ 請輸入正確手機號碼（例：0912345678）</div>'; return;
+    }
+    if (!/^\d{5}$/.test(account)){
+        messageDiv.innerHTML='<div class="error-message">❌ 帳號後5碼必須是5位數字</div>'; return;
+    }
+    if (address.length<5){
+        messageDiv.innerHTML='<div class="error-message">❌ 請填寫完整收貨地址或超商店名</div>'; return;
     }
 
-    btnPlus.addEventListener('click', function(e) {
-      e.preventDefault();
-      var current = parseInt(qtyInput.value);
-      qtyInput.value = current + 1;
-      updatePrice();
-    });
+    submitBtn.disabled=true;
+    submitBtn.textContent='處理中...';
+    messageDiv.innerHTML='';
 
-    btnMinus.addEventListener('click', function(e) {
-      e.preventDefault();
-      var current = parseInt(qtyInput.value);
-      if (current > 1) {
-        qtyInput.value = current - 1;
-        updatePrice();
-      }
-    });
+    var qty=parseInt(qtyInput.value);
+    var subtotal=PRICE*qty;
+    var shipping=(qty>=FREE_SHIPPING_QTY)?0:SHIPPING;
+    var total=subtotal+shipping;
+    var orderId=generateOrderId();
+    var orderTime=new Date().toLocaleString('zh-TW',{year:'numeric',month:'2-digit',day:'2-digit',hour:'2-digit',minute:'2-digit',hour12:false});
+    var customerName=document.getElementById('name').value;
+    var customerEmail=document.getElementById('email').value;
+    var pickupMethod=document.getElementById('pickup').value;
+    var note=document.getElementById('note').value||'無';
 
-    document.getElementById('orderForm').addEventListener('submit', async function(e) {
-      e.preventDefault();
-
-      var submitBtn = document.getElementById('submitBtn');
-      var messageDiv = document.getElementById('message');
-
-      // 檢查 Access Key 是否設定
-      if (WEB3FORMS_ACCESS_KEY === 'YOUR_ACCESS_KEY_HERE') {
-        messageDiv.innerHTML = '<div class="error-message">❌ 系統設定錯誤<br>請先設定 Web3Forms Access Key<br><br>到 <a href="https://web3forms.com" target="_blank" style="color:#b71c1c;text-decoration:underline;">web3forms.com</a> 註冊並取得免費 Key</div>';
-        return;
-      }
-
-      var phone = document.getElementById('phone').value.trim();
-      var account = document.getElementById('accountLast5').value.trim();
-      var address = document.getElementById('address').value.trim();
-
-      if (!/^09\d{8}$/.test(phone)) {
-        messageDiv.innerHTML = '<div class="error-message">❌ 請輸入正確的手機號碼格式（例：0912345678）</div>';
-        return;
-      }
-
-      if (!/^\d{5}$/.test(account)) {
-        messageDiv.innerHTML = '<div class="error-message">❌ 帳號後5碼必須是5位數字</div>';
-        return;
-      }
-
-      if (address.length < 5) {
-        messageDiv.innerHTML = '<div class="error-message">❌ 請填寫完整的收貨地址或超商店名</div>';
-        return;
-      }
-
-      submitBtn.disabled = true;
-      submitBtn.textContent = '處理中...';
-      messageDiv.innerHTML = '';
-
-      var qty = parseInt(qtyInput.value);
-      var subtotal = PRICE * qty;
-      var shipping = (qty >= FREE_SHIPPING_QTY) ? 0 : SHIPPING;
-      var total = subtotal + shipping;
-      var orderId = generateOrderId();
-      var orderTime = new Date().toLocaleString('zh-TW', { 
-        year: 'numeric', 
-        month: '2-digit', 
-        day: '2-digit', 
-        hour: '2-digit', 
-        minute: '2-digit',
-        hour12: false 
-      });
-
-      var customerName = document.getElementById('name').value;
-      var customerEmail = document.getElementById('email').value;
-      var pickupMethod = document.getElementById('pickup').value;
-      var note = document.getElementById('note').value || '無';
-
-      console.log('準備發送訂單通知，訂單編號:', orderId);
-
-      // 準備發送給商家的郵件內容
-      var merchantEmailContent = `
+    // --- 商家信件 ---
+    var merchantEmailContent=`
 ╔═══════════════════════════════════╗
-    🛒 新訂單通知 - 渝味食記
+🛒 新訂單通知 - 渝味食記
 ╚═══════════════════════════════════╝
-
 訂單編號：${orderId}
 訂單時間：${orderTime}
-
-┌─────────────────────────────────┐
-│  📋 客戶資訊                      │
-└─────────────────────────────────┘
+-------------------------
+📋 客戶資訊
 姓名：${customerName}
 電話：${phone}
 Email：${customerEmail}
 取貨方式：${pickupMethod}
 收貨地址/店名：${address}
 匯款帳號後5碼：${account}
-
-┌─────────────────────────────────┐
-│  🌶️ 訂購商品                     │
-└─────────────────────────────────┘
+-------------------------
+🌶️ 訂購商品
 商品名稱：【渝味食記】重慶小麵手工辣椒醬
 單價：NT$ ${PRICE}
 數量：${qty} 罐
 小計：NT$ ${subtotal}
-
-┌─────────────────────────────────┐
-│  💰 金額明細                      │
-└─────────────────────────────────┘
+-------------------------
+💰 金額明細
 商品小計：NT$ ${subtotal}
-運費：${shipping === 0 ? '免運費 ✓' : 'NT$ ' + shipping}
+運費：${shipping===0?'免運費 ✓':'NT$ '+shipping}
 訂單總額：NT$ ${total}
-
-┌─────────────────────────────────┐
-│  📝 備註                          │
-└─────────────────────────────────┘
+-------------------------
+📝 備註
 ${note}
-
-═══════════════════════════════════
+-------------------------
 💡 提醒事項：
-${pickupMethod === '面交' ? '⚠️ 此訂單選擇面交，請透過 Instagram 與客戶確認時間地點' : ''}
-${shipping === 0 ? '✅ 此訂單已達免運門檻' : ''}
+${pickupMethod==='面交'?'⚠️ 此訂單選擇面交，請透過 Instagram 與客戶確認時間地點':''}
+${shipping===0?'✅ 此訂單已達免運門檻':''}
 請盡快處理此訂單，謝謝！
-═══════════════════════════════════
-      `.trim();
+`.trim();
 
-      // 發送訂單通知到商家信箱
-      try {
-        const response = await fetch('https://api.web3forms.com/submit', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-            'Accept': 'application/json'
-          },
-          body: JSON.stringify({
-            access_key: WEB3FORMS_ACCESS_KEY,
-            subject: `🛒 新訂單 ${orderId} - 渝味食記`,
-            from_name: '渝味食記訂購系統',
-            email: MERCHANT_EMAIL, // 商家收件信箱
-            message: merchantEmailContent
-          })
+    // --- 顧客信件 ---
+    var customerEmailContent=`
+✅ 感謝您的訂購 - 渝味食記
+訂單編號：${orderId}
+訂單時間：${orderTime}
+-------------------------
+📋 您的資訊
+姓名：${customerName}
+電話：${phone}
+Email：${customerEmail}
+取貨方式：${pickupMethod}
+收貨地址/店名：${address}
+-------------------------
+🌶️ 訂購商品
+商品名稱：【渝味食記】重慶小麵手工辣椒醬
+單價：NT$ ${PRICE}
+數量：${qty} 罐
+小計：NT$ ${subtotal}
+-------------------------
+💰 金額明細
+商品小計：NT$ ${subtotal}
+運費：${shipping===0?'免運費 ✓':'NT$ '+shipping}
+訂單總額：NT$ ${total}
+-------------------------
+📝 備註
+${note}
+-------------------------
+⚠️ 若選擇面交，請透過 Instagram 與我們確認時間地點
+📧 我們已收到您的訂單，將盡快處理。
+`.trim();
+
+    try {
+        // 發送商家通知
+        const merchantResp=await fetch('https://api.web3forms.com/submit',{
+            method:'POST',
+            headers:{'Content-Type':'application/json','Accept':'application/json'},
+            body:JSON.stringify({
+                access_key:WEB3FORMS_ACCESS_KEY,
+                subject:`🛒 新訂單 ${orderId} - 渝味食記`,
+                from_name:'渝味食記訂購系統',
+                email:MERCHANT_EMAIL,
+                message:merchantEmailContent
+            })
         });
+        const merchantResult=await merchantResp.json();
+        if(!merchantResult.success) throw new Error('商家訂單發送失敗');
 
-        const result = await response.json();
+        // 發送顧客確認信
+        const customerResp=await fetch('https://api.web3forms.com/submit',{
+            method:'POST',
+            headers:{'Content-Type':'application/json','Accept':'application/json'},
+            body:JSON.stringify({
+                access_key:WEB3FORMS_ACCESS_KEY,
+                subject:`✅ 訂單確認 ${orderId} - 渝味食記`,
+                from_name:'渝味食記訂購系統',
+                email:customerEmail,
+                message:customerEmailContent
+            })
+        });
+        const customerResult=await customerResp.json();
+        if(!customerResult.success) throw new Error('顧客訂單確認信發送失敗');
 
-        if (result.success) {
-          messageDiv.innerHTML = `
-            <div class="success-message">
-              ✅ 訂單已成功送出！<br><br>
-              <strong>訂單編號：${orderId}</strong><br><br>
-              我們已收到您的訂單，會盡快與您聯繫。<br>
-              ${pickupMethod === '面交' ? '<br>⚠️ 您選擇了面交，請透過 Instagram 私訊我們確認時間地點。<br>' : ''}
-              <br>請記住您的訂單編號以便查詢。<br>
-              <br>📧 確認信已發送至商家信箱<br>
-              Instagram: @yuweishiji
-            </div>
-          `;
-          
-          // 重置表單
-          document.getElementById('orderForm').reset();
-          qtyInput.value = 1;
-          updatePrice();
-          
-          console.log('✅ 訂單通知發送成功:', orderId);
-        } else {
-          throw new Error('訂單發送失敗');
-        }
+        // 顯示成功訊息
+        messageDiv.innerHTML=`<div class="success-message">
+✅ 訂單已成功送出！<br><br>
+<strong>訂單編號：${orderId}</strong><br><br>
+我們已收到您的訂單，會盡快與您聯繫。<br>
+${pickupMethod==='面交'?'<br>⚠️ 您選擇了面交，請透過 Instagram 私訊我們確認時間地點。<br>':''}
+請記住您的訂單編號以便查詢。<br>
+📧 訂單確認信已發送至您的信箱<br>
+Instagram: @yuweishiji
+</div>`;
 
-      } catch (error) {
-        console.error('❌ 訂單發送錯誤:', error);
-        
-        messageDiv.innerHTML = `
-          <div class="error-message">
-            ❌ 訂單送出失敗<br><br>
-            <strong>可能原因：</strong><br>
-            • 網路連線問題<br>
-            • Web3Forms 服務異常<br>
-            • Access Key 設定錯誤<br><br>
-            請稍後再試，或直接透過 Instagram 聯繫我們：<br>
-            <strong>@yuweishiji</strong><br><br>
-            訂單資訊：<br>
-            訂單編號：${orderId}<br>
-            商品數量：${qty} 罐<br>
-            總金額：NT$ ${total}
-          </div>
-        `;
-      } finally {
-        submitBtn.disabled = false;
-        submitBtn.textContent = '確認訂購';
-      }
-    });
+        // 重置表單
+        document.getElementById('orderForm').reset();
+        qtyInput.value=1;
+        updatePrice();
+        console.log('✅ 訂單成功發送:', orderId);
 
-    updatePrice();
-    console.log('渝味食記訂購系統初始化完成（Web3Forms 版本）');
-  </script>
+    } catch(err){
+        console.error('❌ 訂單發送錯誤:', err);
+        messageDiv.innerHTML=`<div class="error-message">
+❌ 訂單送出失敗<br><br>
+<strong>可能原因：</strong><br>
+• 網路連線問題<br>
+• Web3Forms 服務異常<br>
+• Access Key 設定錯誤<br><br>
+請稍後再試，或直接透過 Instagram 聯繫我們：<br>
+<strong>@yuweishiji</strong><br><br>
+訂單資訊：<br>
+訂單編號：${orderId}<br>
+商品數量：${qty} 罐<br>
+總金額：NT$ ${total}
+</div>`;
+    } finally{
+        submitBtn.disabled=false;
+        submitBtn.textContent='確認訂購';
+    }
+
+});
+
+updatePrice();
+console.log('渝味食記訂購系統初始化完成（Web3Forms 版本，含顧客確認信）');
+</script>
 </body>
 </html>
