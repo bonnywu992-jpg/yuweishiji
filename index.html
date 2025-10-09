@@ -116,164 +116,118 @@ body { font-family: 'Microsoft JhengHei', Arial, sans-serif; background: linear-
 </div>
 
 <script>
-// --- 設定 ---
-const WEB3FORMS_ACCESS_KEY = '63c8b2d8-bddb-46cb-b683-e3c0becf31b';
-const MERCHANT_EMAIL = 'bonnywu992@gmail.com';
-var PRICE = 250;
-var SHIPPING = 130;
-var FREE_SHIPPING_QTY = 10;
+const WEB3FORMS_ACCESS_KEY='63c8b2d8-bddb-46cb-b683-e3c0becf31b';
+const MERCHANT_EMAIL='bonnywu992@gmail.com';
+var PRICE=250, SHIPPING=130, FREE_SHIPPING_QTY=10;
 
-// --- 元素 ---
-var qtyInput = document.getElementById('qty');
-var btnPlus = document.getElementById('btnPlus');
-var btnMinus = document.getElementById('btnMinus');
-var subtotalDisplay = document.getElementById('subtotalDisplay');
-var shippingDisplay = document.getElementById('shippingDisplay');
-var totalDisplay = document.getElementById('totalDisplay');
-var freeShipNotice = document.getElementById('freeShipNotice');
+var qtyInput=document.getElementById('qty');
+var btnPlus=document.getElementById('btnPlus');
+var btnMinus=document.getElementById('btnMinus');
+var subtotalDisplay=document.getElementById('subtotalDisplay');
+var shippingDisplay=document.getElementById('shippingDisplay');
+var totalDisplay=document.getElementById('totalDisplay');
+var freeShipNotice=document.getElementById('freeShipNotice');
 
-// --- 計算金額 ---
-function updatePrice() {
-    var qty = parseInt(qtyInput.value);
-    if (isNaN(qty) || qty < 1) qty = 1;
-    qtyInput.value = qty;
-
-    var subtotal = PRICE * qty;
-    var shipping = (qty >= FREE_SHIPPING_QTY) ? 0 : SHIPPING;
-    var total = subtotal + shipping;
-
-    subtotalDisplay.textContent = 'NT$ ' + subtotal;
-    shippingDisplay.textContent = (shipping === 0) ? '免運費 ✓' : 'NT$ ' + shipping;
-    totalDisplay.textContent = 'NT$ ' + total;
-
-    if (qty < FREE_SHIPPING_QTY) {
-        freeShipNotice.textContent = '再買 ' + (FREE_SHIPPING_QTY - qty) + ' 罐即可免運 🎁';
-        freeShipNotice.style.background = '#fff3bf';
-    } else {
-        freeShipNotice.textContent = '🎉 已達免運門檻！恭喜省下 NT$ ' + SHIPPING + ' 運費！';
-        freeShipNotice.style.background = '#d3f9d8';
-    }
-}
-
-// --- 數量控制 ---
-btnPlus.addEventListener('click', function(e){ e.preventDefault(); qtyInput.value = parseInt(qtyInput.value) + 1; updatePrice(); });
-btnMinus.addEventListener('click', function(e){ e.preventDefault(); if (parseInt(qtyInput.value) > 1) { qtyInput.value = parseInt(qtyInput.value)-1; updatePrice(); }});
-
-// --- 生成訂單編號 ---
 function generateOrderId(){
-    var now = new Date();
-    var year = now.getFullYear();
-    var month = String(now.getMonth()+1).padStart(2,'0');
-    var day = String(now.getDate()).padStart(2,'0');
-    var random = Math.floor(Math.random()*10000).toString().padStart(4,'0');
+    var now=new Date();
+    var year=now.getFullYear();
+    var month=String(now.getMonth()+1).padStart(2,'0');
+    var day=String(now.getDate()).padStart(2,'0');
+    var random=Math.floor(Math.random()*10000).toString().padStart(4,'0');
     return 'YW'+year+month+day+random;
 }
 
-// --- 提交表單 ---
-document.getElementById('orderForm').addEventListener('submit', async function(e){
-    e.preventDefault();
-    var submitBtn = document.getElementById('submitBtn');
-    var messageDiv = document.getElementById('message');
-
-    // --- 驗證 ---
-    var phone = document.getElementById('phone').value.trim();
-    var account = document.getElementById('accountLast5').value.trim();
-    var address = document.getElementById('address').value.trim();
-    if (!/^09\d{8}$/.test(phone)){
-        messageDiv.innerHTML='<div class="error-message">❌ 請輸入正確手機號碼（例：0912345678）</div>'; return;
-    }
-    if (!/^\d{5}$/.test(account)){
-        messageDiv.innerHTML='<div class="error-message">❌ 帳號後5碼必須是5位數字</div>'; return;
-    }
-    if (address.length<5){
-        messageDiv.innerHTML='<div class="error-message">❌ 請填寫完整收貨地址或超商店名</div>'; return;
-    }
-
-    submitBtn.disabled=true;
-    submitBtn.textContent='處理中...';
-    messageDiv.innerHTML='';
-
+function updatePrice(){
     var qty=parseInt(qtyInput.value);
+    if(isNaN(qty)||qty<1){ qty=1; qtyInput.value=1; }
     var subtotal=PRICE*qty;
     var shipping=(qty>=FREE_SHIPPING_QTY)?0:SHIPPING;
     var total=subtotal+shipping;
-    var orderId=generateOrderId();
-    var orderTime=new Date().toLocaleString('zh-TW',{year:'numeric',month:'2-digit',day:'2-digit',hour:'2-digit',minute:'2-digit',hour12:false});
-    var customerName=document.getElementById('name').value;
-    var customerEmail=document.getElementById('email').value;
-    var pickupMethod=document.getElementById('pickup').value;
-    var note=document.getElementById('note').value||'無';
+    subtotalDisplay.textContent='NT$ '+subtotal;
+    shippingDisplay.textContent=(shipping===0)?'免運費 ✓':'NT$ '+shipping;
+    totalDisplay.textContent='NT$ '+total;
 
-    // --- 商家信件 ---
-    var merchantEmailContent=`
-╔═══════════════════════════════════╗
+    if(qty<FREE_SHIPPING_QTY){
+        var left=FREE_SHIPPING_QTY-qty;
+        freeShipNotice.textContent='再買 '+left+' 罐即可免運 🎁';
+        freeShipNotice.style.background='#fff3bf';
+    } else {
+        freeShipNotice.textContent='🎉 已達免運門檻！恭喜省下 NT$ '+SHIPPING+' 運費！';
+        freeShipNotice.style.background='#d3f9d8';
+    }
+}
+
+btnPlus.addEventListener('click',function(e){e.preventDefault();qtyInput.value=parseInt(qtyInput.value)+1;updatePrice();});
+btnMinus.addEventListener('click',function(e){e.preventDefault();if(parseInt(qtyInput.value)>1){qtyInput.value=parseInt(qtyInput.value)-1;updatePrice();}});
+
+document.getElementById('orderForm').addEventListener('submit',async function(e){
+    e.preventDefault();
+    var submitBtn=document.getElementById('submitBtn');
+    var messageDiv=document.getElementById('message');
+
+    // 表單值
+    var phone=document.getElementById('phone').value.trim();
+    var account=document.getElementById('accountLast5').value.trim();
+    var address=document.getElementById('address').value.trim();
+    if(!/^09\d{8}$/.test(phone)){ messageDiv.innerHTML='<div class="error-message">❌ 請輸入正確手機號碼（例：0912345678）</div>'; return; }
+    if(!/^\d{5}$/.test(account)){ messageDiv.innerHTML='<div class="error-message">❌ 帳號後5碼必須是5位數字</div>'; return; }
+    if(address.length<5){ messageDiv.innerHTML='<div class="error-message">❌ 請填寫完整收貨地址或超商店名</div>'; return; }
+
+    submitBtn.disabled=true; submitBtn.textContent='處理中...'; messageDiv.innerHTML='';
+
+    try{
+        var qty=parseInt(qtyInput.value);
+        var subtotal=PRICE*qty;
+        var shipping=(qty>=FREE_SHIPPING_QTY)?0:SHIPPING;
+        var total=subtotal+shipping;
+        var orderId=generateOrderId();
+        var orderTime=new Date().toLocaleString('zh-TW',{year:'numeric',month:'2-digit',day:'2-digit',hour:'2-digit',minute:'2-digit',hour12:false});
+        var customerName=document.getElementById('name').value;
+        var customerEmail=document.getElementById('email').value;
+        var pickupMethod=document.getElementById('pickup').value;
+        var note=document.getElementById('note').value||'無';
+
+        // 商家信件
+        var merchantEmailContent=`╔═══════════════════════════════════╗
 🛒 新訂單通知 - 渝味食記
 ╚═══════════════════════════════════╝
 訂單編號：${orderId}
 訂單時間：${orderTime}
--------------------------
-📋 客戶資訊
+┌─────────────────────────────────┐
+│ 📋 客戶資訊
+└─────────────────────────────────┘
 姓名：${customerName}
 電話：${phone}
 Email：${customerEmail}
 取貨方式：${pickupMethod}
 收貨地址/店名：${address}
 匯款帳號後5碼：${account}
--------------------------
-🌶️ 訂購商品
+┌─────────────────────────────────┐
+│ 🌶️ 訂購商品
+└─────────────────────────────────┘
 商品名稱：【渝味食記】重慶小麵手工辣椒醬
 單價：NT$ ${PRICE}
 數量：${qty} 罐
 小計：NT$ ${subtotal}
--------------------------
-💰 金額明細
+┌─────────────────────────────────┐
+│ 💰 金額明細
+└─────────────────────────────────┘
 商品小計：NT$ ${subtotal}
 運費：${shipping===0?'免運費 ✓':'NT$ '+shipping}
 訂單總額：NT$ ${total}
--------------------------
-📝 備註
+┌─────────────────────────────────┐
+│ 📝 備註
+└─────────────────────────────────┘
 ${note}
--------------------------
+═══════════════════════════════════
 💡 提醒事項：
 ${pickupMethod==='面交'?'⚠️ 此訂單選擇面交，請透過 Instagram 與客戶確認時間地點':''}
 ${shipping===0?'✅ 此訂單已達免運門檻':''}
 請盡快處理此訂單，謝謝！
-`.trim();
+═══════════════════════════════════`.trim();
 
-    // --- 顧客信件 ---
-    var customerEmailContent=`
-✅ 感謝您的訂購 - 渝味食記
-訂單編號：${orderId}
-訂單時間：${orderTime}
--------------------------
-📋 您的資訊
-姓名：${customerName}
-電話：${phone}
-Email：${customerEmail}
-取貨方式：${pickupMethod}
-收貨地址/店名：${address}
--------------------------
-🌶️ 訂購商品
-商品名稱：【渝味食記】重慶小麵手工辣椒醬
-單價：NT$ ${PRICE}
-數量：${qty} 罐
-小計：NT$ ${subtotal}
--------------------------
-💰 金額明細
-商品小計：NT$ ${subtotal}
-運費：${shipping===0?'免運費 ✓':'NT$ '+shipping}
-訂單總額：NT$ ${total}
--------------------------
-📝 備註
-${note}
--------------------------
-⚠️ 若選擇面交，請透過 Instagram 與我們確認時間地點
-📧 我們已收到您的訂單，將盡快處理。
-`.trim();
-
-    try {
-        // 發送商家通知
-        const merchantResp=await fetch('https://api.web3forms.com/submit',{
+        // 發送給商家
+        await fetch('https://api.web3forms.com/submit',{
             method:'POST',
             headers:{'Content-Type':'application/json','Accept':'application/json'},
             body:JSON.stringify({
@@ -284,25 +238,37 @@ ${note}
                 message:merchantEmailContent
             })
         });
-        const merchantResult=await merchantResp.json();
-        if(!merchantResult.success) throw new Error('商家訂單發送失敗');
 
-        // 發送顧客確認信
-        const customerResp=await fetch('https://api.web3forms.com/submit',{
+        // 顧客確認信
+        var customerEmailContent=`親愛的 ${customerName} 您好：
+
+感謝您於 渝味食記 下單！
+訂單編號：${orderId}
+商品：【渝味食記】重慶小麵手工辣椒醬 x ${qty} 罐
+小計：NT$ ${subtotal}
+運費：${shipping===0?'免運費 ✓':'NT$ '+shipping}
+總計：NT$ ${total}
+
+取貨方式：${pickupMethod}
+收貨地址/超商店名：${address}
+備註：${note}
+
+📌 請記住您的訂單編號以便查詢
+⚠️ 若選擇面交，請透過 Instagram 私訊我們確認時間地點
+
+Instagram: @yuweishiji
+`;
+        await fetch('https://api.web3forms.com/submit',{
             method:'POST',
             headers:{'Content-Type':'application/json','Accept':'application/json'},
             body:JSON.stringify({
                 access_key:WEB3FORMS_ACCESS_KEY,
-                subject:`✅ 訂單確認 ${orderId} - 渝味食記`,
                 from_name:'渝味食記訂購系統',
                 email:customerEmail,
                 message:customerEmailContent
             })
         });
-        const customerResult=await customerResp.json();
-        if(!customerResult.success) throw new Error('顧客訂單確認信發送失敗');
 
-        // 顯示成功訊息
         messageDiv.innerHTML=`<div class="success-message">
 ✅ 訂單已成功送出！<br><br>
 <strong>訂單編號：${orderId}</strong><br><br>
@@ -313,14 +279,12 @@ ${pickupMethod==='面交'?'<br>⚠️ 您選擇了面交，請透過 Instagram �
 Instagram: @yuweishiji
 </div>`;
 
-        // 重置表單
         document.getElementById('orderForm').reset();
-        qtyInput.value=1;
-        updatePrice();
+        qtyInput.value=1; updatePrice();
         console.log('✅ 訂單成功發送:', orderId);
 
     } catch(err){
-        console.error('❌ 訂單發送錯誤:', err);
+        console.error('❌ 訂單發送錯誤:',err);
         messageDiv.innerHTML=`<div class="error-message">
 ❌ 訂單送出失敗<br><br>
 <strong>可能原因：</strong><br>
@@ -334,11 +298,10 @@ Instagram: @yuweishiji
 商品數量：${qty} 罐<br>
 總金額：NT$ ${total}
 </div>`;
-    } finally{
+    } finally {
         submitBtn.disabled=false;
         submitBtn.textContent='確認訂購';
     }
-
 });
 
 updatePrice();
