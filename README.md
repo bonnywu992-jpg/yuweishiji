@@ -1,1 +1,401 @@
 # yuweishiji
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>渝味食記 - 重慶小麵手工辣椒醬</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: 'Microsoft JhengHei', Arial, sans-serif;
+      background: linear-gradient(135deg, #d32f2f 0%, #f44336 100%);
+      min-height: 100vh;
+      padding: 20px;
+    }
+    .container {
+      max-width: 800px;
+      margin: 0 auto;
+      background: white;
+      border-radius: 20px;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+      overflow: hidden;
+    }
+    .header {
+      background: linear-gradient(135deg, #b71c1c 0%, #d32f2f 100%);
+      color: white;
+      padding: 40px 30px;
+      text-align: center;
+    }
+    .header h1 { font-size: 2.5em; margin-bottom: 10px; text-shadow: 2px 2px 4px rgba(0,0,0,0.2); }
+    .header p { font-size: 1.1em; opacity: 0.95; }
+    .ig-link {
+      display: inline-block;
+      margin-top: 10px;
+      padding: 8px 20px;
+      background: rgba(255,255,255,0.2);
+      border-radius: 20px;
+      color: white;
+      text-decoration: none;
+      transition: background 0.3s;
+    }
+    .ig-link:hover { background: rgba(255,255,255,0.3); }
+    .product-section { padding: 40px 30px; }
+    .product-card {
+      background: linear-gradient(135deg, #fff5f5 0%, #ffebee 100%);
+      border-radius: 15px;
+      padding: 30px;
+      border: 3px solid #f44336;
+    }
+    .product-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      margin-bottom: 20px;
+    }
+    .product-name { font-size: 1.8em; color: #b71c1c; font-weight: bold; }
+    .product-price { font-size: 1.6em; color: #d32f2f; font-weight: bold; }
+    .special-badge {
+      display: inline-block;
+      background: #ff6b6b;
+      color: white;
+      padding: 5px 15px;
+      border-radius: 20px;
+      font-size: 0.9em;
+      margin-left: 10px;
+    }
+    .highlight {
+      background: #fff3bf;
+      padding: 15px;
+      border-radius: 10px;
+      margin: 15px 0;
+      border-left: 4px solid #f44336;
+    }
+    .highlight strong { color: #b71c1c; }
+    .form-group { margin: 20px 0; }
+    .form-group label {
+      display: block;
+      margin-bottom: 8px;
+      color: #333;
+      font-weight: bold;
+    }
+    .form-group input,
+    .form-group select,
+    .form-group textarea {
+      width: 100%;
+      padding: 12px;
+      border: 2px solid #ddd;
+      border-radius: 8px;
+      font-size: 1em;
+      transition: border-color 0.3s;
+    }
+    .form-group input:focus,
+    .form-group select:focus,
+    .form-group textarea:focus {
+      outline: none;
+      border-color: #f44336;
+    }
+    .quantity-control {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+    }
+    .quantity-control button {
+      width: 40px;
+      height: 40px;
+      border: none;
+      background: #f44336;
+      color: white;
+      font-size: 1.5em;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+    .quantity-control button:hover { background: #d32f2f; }
+    .quantity-control button:active { transform: scale(0.95); }
+    .quantity-control input {
+      width: 80px;
+      text-align: center;
+      font-size: 1.2em;
+      font-weight: bold;
+    }
+    .total-section {
+      background: #f8f9fa;
+      padding: 20px;
+      border-radius: 10px;
+      margin: 20px 0;
+      transition: all 0.3s ease;
+    }
+    .total-row {
+      display: flex;
+      justify-content: space-between;
+      margin: 10px 0;
+      font-size: 1.1em;
+    }
+    .total-row.final {
+      font-size: 1.5em;
+      font-weight: bold;
+      color: #b71c1c;
+      border-top: 2px solid #ddd;
+      padding-top: 10px;
+      margin-top: 15px;
+    }
+    .notice {
+      background: #fff3bf;
+      padding: 15px;
+      border-radius: 10px;
+      margin: 20px 0;
+      text-align: center;
+      font-weight: bold;
+      color: #b71c1c;
+      border: 2px dashed #ffa94d;
+      transition: all 0.3s ease;
+    }
+    .submit-btn {
+      width: 100%;
+      padding: 18px;
+      background: linear-gradient(135deg, #b71c1c 0%, #d32f2f 100%);
+      color: white;
+      border: none;
+      border-radius: 12px;
+      font-size: 1.3em;
+      font-weight: bold;
+      cursor: pointer;
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+    .submit-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 20px rgba(183, 28, 28, 0.4);
+    }
+    .submit-btn:disabled { background: #ccc; cursor: not-allowed; transform: none; }
+    .success-message {
+      background: #d3f9d8;
+      padding: 20px;
+      border-radius: 10px;
+      margin: 20px 0;
+      text-align: center;
+      color: #2b8a3e;
+      font-weight: bold;
+      border: 2px solid #51cf66;
+    }
+    .error-message {
+      background: #ffe3e3;
+      padding: 20px;
+      border-radius: 10px;
+      margin: 20px 0;
+      text-align: center;
+      color: #b71c1c;
+      font-weight: bold;
+      border: 2px solid #f44336;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="header">
+      <h1>🌶️ 渝味食記 🌶️</h1>
+      <p>重慶小麵 - 手工辣椒醬</p>
+      <a href="https://www.instagram.com/yuweishiji" target="_blank" class="ig-link">📷 追蹤我們的 Instagram</a>
+    </div>
+
+    <div class="product-section">
+      <div class="product-card">
+        <div class="product-header">
+          <div>
+            <span class="product-name">重慶小麵手工辣椒醬</span>
+            <span class="special-badge">🔥 麻辣勁爆</span>
+          </div>
+          <div class="product-price">NT$ 250 / 罐</div>
+        </div>
+
+        <div class="highlight">
+          <strong>手工製作、無添加防腐劑，開封後需冷藏保存 ⚠️</strong>
+        </div>
+
+        <form id="orderForm">
+          <div class="form-group">
+            <label>購買數量</label>
+            <div class="quantity-control">
+              <button type="button" id="btnMinus">−</button>
+              <input type="number" id="qty" value="1" min="1" readonly>
+              <button type="button" id="btnPlus">+</button>
+            </div>
+          </div>
+
+          <div class="notice" id="freeShipNotice">🎉 購買10罐(含)以上免運費！</div>
+
+          <div class="form-group"><label>姓名 *</label><input type="text" id="name" required></div>
+          <div class="form-group"><label>電話 *</label><input type="tel" id="phone" required></div>
+          <div class="form-group"><label>Email *</label><input type="email" id="email" required></div>
+          <div class="form-group">
+            <label>取貨方式 *</label>
+            <select id="pickup" required>
+              <option value="">請選擇取貨方式</option>
+              <option value="7-11">7-11 超商取貨</option>
+              <option value="全家">全家超商取貨</option>
+              <option value="宅配">宅配</option>
+              <option value="面交">面交 (請先私訊IG確認)</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>收貨地址 / 超商店名 *</label>
+            <textarea id="address" rows="3" required placeholder="請填寫完整地址或超商店名"></textarea>
+          </div>
+          <div class="form-group">
+            <label>匯款帳號後5碼 *</label>
+            <input type="text" id="accountLast5" maxlength="5" pattern="[0-9]{5}" required placeholder="請填寫5位數字">
+          </div>
+          <div class="form-group">
+            <label>備註</label>
+            <textarea id="note" rows="2" placeholder="其他需求或備註"></textarea>
+          </div>
+
+          <div class="total-section">
+            <div class="total-row"><span>小計：</span><span id="subtotalDisplay">NT$ 250</span></div>
+            <div class="total-row"><span>運費：</span><span id="shippingDisplay">NT$ 130</span></div>
+            <div class="total-row final"><span>總計：</span><span id="totalDisplay">NT$ 380</span></div>
+          </div>
+
+          <button type="submit" class="submit-btn" id="submitBtn">確認訂購</button>
+          <div id="message"></div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/emailjs-com/3.2.0/email.min.js"></script>
+  <script>
+    // 價格常數
+    var PRICE = 250;
+    var SHIPPING = 130;
+    var FREE_SHIPPING_QTY = 10;
+
+    // 取得 DOM 元素
+    var qtyInput = document.getElementById('qty');
+    var btnPlus = document.getElementById('btnPlus');
+    var btnMinus = document.getElementById('btnMinus');
+    var subtotalDisplay = document.getElementById('subtotalDisplay');
+    var shippingDisplay = document.getElementById('shippingDisplay');
+    var totalDisplay = document.getElementById('totalDisplay');
+    var freeShipNotice = document.getElementById('freeShipNotice');
+
+    // 計算並更新顯示
+    function updatePrice() {
+      var qty = parseInt(qtyInput.value);
+      if (isNaN(qty) || qty < 1) {
+        qty = 1;
+        qtyInput.value = 1;
+      }
+
+      var subtotal = PRICE * qty;
+      var shipping = (qty >= FREE_SHIPPING_QTY) ? 0 : SHIPPING;
+      var total = subtotal + shipping;
+
+      subtotalDisplay.textContent = 'NT$ ' + subtotal;
+      shippingDisplay.textContent = (shipping === 0) ? '免運費 ✓' : 'NT$ ' + shipping;
+      totalDisplay.textContent = 'NT$ ' + total;
+
+      if (qty < FREE_SHIPPING_QTY) {
+        var left = FREE_SHIPPING_QTY - qty;
+        freeShipNotice.textContent = '再買 ' + left + ' 罐即可免運 🎁';
+        freeShipNotice.style.background = '#fff3bf';
+      } else {
+        freeShipNotice.textContent = '🎉 已達免運門檻！恭喜省下 NT$ ' + SHIPPING + ' 運費！';
+        freeShipNotice.style.background = '#d3f9d8';
+      }
+    }
+
+    // 增加數量
+    btnPlus.onclick = function() {
+      var current = parseInt(qtyInput.value);
+      qtyInput.value = current + 1;
+      updatePrice();
+    };
+
+    // 減少數量
+    btnMinus.onclick = function() {
+      var current = parseInt(qtyInput.value);
+      if (current > 1) {
+        qtyInput.value = current - 1;
+        updatePrice();
+      }
+    };
+
+    // 表單提交
+    document.getElementById('orderForm').onsubmit = function(e) {
+      e.preventDefault();
+
+      var submitBtn = document.getElementById('submitBtn');
+      var messageDiv = document.getElementById('message');
+
+      submitBtn.disabled = true;
+      submitBtn.textContent = '處理中...';
+      messageDiv.innerHTML = '';
+
+      var qty = parseInt(qtyInput.value);
+      var subtotal = PRICE * qty;
+      var shipping = (qty >= FREE_SHIPPING_QTY) ? 0 : SHIPPING;
+      var total = subtotal + shipping;
+
+      // 初始化 EmailJS
+      emailjs.init('GwHiFRfQTUQLLEuqi');
+
+      // 商家郵件參數
+      var merchantParams = {
+        product_name: '【渝味食記】重慶小麵手工辣椒醬',
+        quantity: qty,
+        unit_price: PRICE,
+        subtotal: subtotal,
+        shipping: (shipping === 0) ? '免運費' : shipping,
+        total: total,
+        customer_name: document.getElementById('name').value,
+        customer_phone: document.getElementById('phone').value,
+        customer_email: document.getElementById('email').value,
+        pickup_method: document.getElementById('pickup').value,
+        address: document.getElementById('address').value,
+        account_last5: document.getElementById('accountLast5').value,
+        note: document.getElementById('note').value || '無',
+        to_email: 'bonnywu992@gmail.com'
+      };
+
+      // 客戶郵件參數
+      var customerParams = {
+        product_name: '【渝味食記】重慶小麵手工辣椒醬',
+        quantity: qty,
+        unit_price: PRICE,
+        subtotal: subtotal,
+        shipping: (shipping === 0) ? '免運費' : 'NT$ ' + shipping,
+        total: total,
+        customer_name: document.getElementById('name').value,
+        pickup_method: document.getElementById('pickup').value,
+        address: document.getElementById('address').value,
+        to_email: document.getElementById('email').value
+      };
+
+      // 同時發送兩封郵件
+      Promise.all([
+        emailjs.send('service_wu888', 'template_3pyoyt6', merchantParams),
+        emailjs.send('service_wu888', 'template_customer', customerParams)
+      ])
+      .then(function() {
+        messageDiv.innerHTML = '<div class="success-message">✅ 訂單已送出成功！<br>商家和您都已收到訂單確認信，請留意信箱。<br>如選擇面交請私訊 Instagram 確認。</div>';
+        document.getElementById('orderForm').reset();
+        qtyInput.value = 1;
+        updatePrice();
+        submitBtn.disabled = false;
+        submitBtn.textContent = '確認訂購';
+      })
+      .catch(function(error) {
+        console.error('發送失敗:', error);
+        messageDiv.innerHTML = '<div class="error-message">❌ 訂單送出失敗，請稍後再試或透過 Instagram 聯繫我們。<br>Instagram: @yuweishiji</div>';
+        submitBtn.disabled = false;
+        submitBtn.textContent = '確認訂購';
+      });
+    };
+
+    // 初始化
+    updatePrice();
+  </script>
+</body>
+</html>
