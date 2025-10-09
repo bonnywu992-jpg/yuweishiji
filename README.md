@@ -263,10 +263,25 @@
     </div>
   </div>
 
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/emailjs-com/3.2.0/email.min.js"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
   <script>
-    // 價格常數
-    var PRICE = 250;
+    // 等待頁面和 EmailJS 都載入完成
+    (function() {
+      var checkEmailJS = setInterval(function() {
+        if (typeof emailjs !== 'undefined') {
+          clearInterval(checkEmailJS);
+          initApp();
+        }
+      }, 100);
+
+      function initApp() {
+        console.log('EmailJS 載入成功');
+        
+        // 初始化 EmailJS
+        emailjs.init('GwHiFRfQTUQLLEuqi');
+        console.log('EmailJS 初始化完成');
+
+      var PRICE = 250;
     var SHIPPING = 130;
     var FREE_SHIPPING_QTY = 10;
 
@@ -337,8 +352,13 @@
       var shipping = (qty >= FREE_SHIPPING_QTY) ? 0 : SHIPPING;
       var total = subtotal + shipping;
 
-      // 初始化 EmailJS
-      emailjs.init('GwHiFRfQTUQLLEuqi');
+      // 檢查 EmailJS 是否已載入
+      if (typeof emailjs === 'undefined') {
+        messageDiv.innerHTML = '<div class="error-message">❌ 系統載入中，請稍後再試</div>';
+        submitBtn.disabled = false;
+        submitBtn.textContent = '確認訂購';
+        return;
+      }
 
       // 商家郵件參數
       var merchantParams = {
@@ -408,6 +428,9 @@
 
     // 初始化
     updatePrice();
+    console.log('訂購系統初始化完成');
+      }
+    })();
   </script>
 </body>
 </html>
