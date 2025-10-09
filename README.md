@@ -258,6 +258,7 @@
             <div class="total-row final"><span>總計：</span><span id="totalDisplay">NT$ 380</span></div>
           </div>
 
+          <button type="button" class="submit-btn" id="testBtn" style="background: linear-gradient(135deg, #2196F3 0%, #1976D2 100%); margin-bottom: 15px;">🔧 測試 EmailJS 連線</button>
           <button type="submit" class="submit-btn" id="submitBtn">確認訂購</button>
           <div id="message"></div>
         </form>
@@ -334,6 +335,76 @@
         updatePrice();
         console.log('減少數量:', qtyInput.value);
       }
+    });
+
+    document.getElementById('testBtn').addEventListener('click', function() {
+      var messageDiv = document.getElementById('message');
+      var testBtn = document.getElementById('testBtn');
+      
+      testBtn.disabled = true;
+      testBtn.textContent = '測試中...';
+      messageDiv.innerHTML = '<div style="background: #e3f2fd; padding: 15px; border-radius: 10px; margin: 20px 0; text-align: center; color: #1976d2; font-weight: bold; border: 2px solid #2196F3;">📡 正在測試 EmailJS 連線...</div>';
+      
+      console.log('=== EmailJS 測試開始 ===');
+      console.log('Public Key:', 'GwHiFRfQTUQLLEuqi');
+      console.log('Service ID:', 'service_wu888');
+      console.log('Template ID (商家):', 'template_76gxwe5');
+      console.log('Template ID (客戶):', 'template_hrlozlc');
+      
+      var testParams = {
+        order_id: 'TEST123',
+        product_name: '測試商品',
+        quantity: 1,
+        unit_price: 250,
+        subtotal: 250,
+        shipping: 130,
+        total: 380,
+        customer_name: '測試客戶',
+        customer_phone: '0912345678',
+        customer_email: 'test@example.com',
+        pickup_method: '7-11',
+        address: '測試地址',
+        account_last5: '12345',
+        note: '這是測試訂單',
+        to_email: 'bonnywu992@gmail.com'
+      };
+      
+      emailjs.send('service_wu888', 'template_76gxwe5', testParams)
+        .then(function(response) {
+          console.log('✅ 測試成功!', response);
+          messageDiv.innerHTML = '<div class="success-message">✅ EmailJS 連線測試成功！<br>狀態碼: ' + response.status + '<br>服務正常運作中。<br><br>如果訂購還是失敗，請檢查：<br>1. 客戶模板 template_hrlozlc 是否存在<br>2. 模板變數名稱是否正確</div>';
+          testBtn.disabled = false;
+          testBtn.textContent = '🔧 測試 EmailJS 連線';
+        })
+        .catch(function(error) {
+          console.error('❌ 測試失敗!', error);
+          console.error('錯誤詳情:', JSON.stringify(error, null, 2));
+          
+          var errorMsg = '❌ EmailJS 連線測試失敗<br><br>';
+          
+          if (error.status === 418) {
+            errorMsg += '<strong>錯誤 418：</strong><br>';
+            errorMsg += '• Public Key 可能錯誤<br>';
+            errorMsg += '• 網域可能未授權<br>';
+            errorMsg += '• EmailJS 帳號可能有問題<br><br>';
+          } else if (error.status === 400) {
+            errorMsg += '<strong>錯誤 400：</strong><br>';
+            errorMsg += '• Service ID 或 Template ID 錯誤<br>';
+            errorMsg += '• 模板變數不匹配<br><br>';
+          } else if (error.status === 403) {
+            errorMsg += '<strong>錯誤 403：</strong><br>';
+            errorMsg += '• 網域未授權<br>';
+            errorMsg += '• 請到 EmailJS Account 設定允許的網域<br><br>';
+          }
+          
+          errorMsg += '錯誤代碼: ' + (error.status || '未知') + '<br>';
+          errorMsg += '錯誤訊息: ' + (error.text || '未知') + '<br><br>';
+          errorMsg += '請將此訊息截圖，並檢查 EmailJS 設定。';
+          
+          messageDiv.innerHTML = '<div class="error-message">' + errorMsg + '</div>';
+          testBtn.disabled = false;
+          testBtn.textContent = '🔧 測試 EmailJS 連線';
+        });
     });
 
     document.getElementById('orderForm').addEventListener('submit', function(e) {
@@ -432,15 +503,23 @@
       })
       .catch(function(error) {
         console.error('發送失敗詳細資訊:', error);
+        console.error('完整錯誤物件:', JSON.stringify(error, null, 2));
         
-        var errorMsg = '❌ 訂單送出失敗<br>';
-        if (error.text) {
-          errorMsg += '錯誤原因: ' + error.text + '<br>';
+        var errorMsg = '❌ 訂單送出失敗<br><br>';
+        
+        if (error && error.text) {
+          errorMsg += '錯誤訊息: ' + error.text + '<br>';
         }
-        if (error.status) {
+        if (error && error.status) {
           errorMsg += '錯誤代碼: ' + error.status + '<br>';
         }
-        errorMsg += '請截圖此畫面並透過 Instagram 聯繫我們。<br>Instagram: @yuweishiji';
+        
+        errorMsg += '<br><strong>可能原因：</strong><br>';
+        errorMsg += '1. EmailJS 設定錯誤（Service ID 或 Template ID）<br>';
+        errorMsg += '2. EmailJS 郵件額度已用完<br>';
+        errorMsg += '3. 網路連線問題<br><br>';
+        errorMsg += '請截圖此畫面（包含瀏覽器主控台）並透過 Instagram 聯繫我們。<br>';
+        errorMsg += 'Instagram: @yuweishiji';
         
         messageDiv.innerHTML = '<div class="error-message">' + errorMsg + '</div>';
         submitBtn.disabled = false;
