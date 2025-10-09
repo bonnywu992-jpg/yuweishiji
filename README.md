@@ -54,8 +54,8 @@ body { font-family: 'Microsoft JhengHei', Arial, sans-serif; background: linear-
 <div class="product-card">
 <div class="product-header">
 <div>
-<span class="product-name">手工辣椒醬</span>
-<span class="special-badge">🔥 麻辣勁爆</span>
+<span class="product-name">四川濃香型辣椒醬</span>
+<span class="special-badge">🔥 麻辣鮮香</span>
 </div>
 <div class="product-price">NT$ 250 / 罐</div>
 </div>
