@@ -42,7 +42,7 @@ body { font-family: 'Microsoft JhengHei', Arial, sans-serif; background: linear-
 .store-section { background: #f8f9fa; padding: 15px; border-radius: 10px; margin-top: 10px; border: 2px solid #e9ecef; }
 .store-region { margin-bottom: 15px; }
 .store-region:last-child { margin-bottom: 0; }
-.store-region label { font-size: 0.95em; color: #495057; margin-bottom: 5px; }
+.store-region label { font-size: 0.95em; color: #495057; margin-bottom: 5px; display: block; }
 #addressGroup { display: none; }
 </style>
 </head>
@@ -130,25 +130,129 @@ body { font-family: 'Microsoft JhengHei', Arial, sans-serif; background: linear-
 <script>
 const WEB3FORMS_ACCESS_KEY='63c8b2d8-bddb-46cb-b683-e3c0becf31bf';
 const MERCHANT_EMAIL='bonnywu992@gmail.com';
-var PRICE=250, SHIPPING=130, FREE_SHIPPING_QTY=10;
+var PRICE=250, SHIPPING_DELIVERY=160, SHIPPING_STORE=130, FREE_SHIPPING_QTY=10;
 
-// 門市資料
+// 門市資料 - 三層結構: 城市 > 區域 > 門市
 const storeData = {
   '7-11': {
-    '台北市': ['信義門市', '中山門市', '大安門市', '松山門市', '士林門市', '內湖門市', '南港門市', '文山門市'],
-    '新北市': ['板橋門市', '新莊門市', '中和門市', '永和門市', '三重門市', '新店門市', '土城門市', '蘆洲門市'],
-    '桃園市': ['中壢門市', '平鎮門市', '八德門市', '龜山門市', '桃園門市', '龍潭門市', '大溪門市'],
-    '台中市': ['西屯門市', '北屯門市', '南屯門市', '中區門市', '東區門市', '南區門市', '北區門市', '西區門市'],
-    '台南市': ['東區門市', '中西區門市', '北區門市', '南區門市', '安平門市', '永康門市', '新營門市'],
-    '高雄市': ['左營門市', '三民門市', '鳳山門市', '苓雅門市', '前鎮門市', '楠梓門市', '小港門市', '岡山門市']
+    '台北市': {
+      '信義區': ['信義A門市', '信義B門市', '信義C門市'],
+      '中山區': ['中山A門市', '中山B門市', '中山C門市'],
+      '大安區': ['大安A門市', '大安B門市', '大安C門市'],
+      '松山區': ['松山A門市', '松山B門市'],
+      '士林區': ['士林A門市', '士林B門市'],
+      '內湖區': ['內湖A門市', '內湖B門市'],
+      '南港區': ['南港A門市', '南港B門市'],
+      '文山區': ['文山A門市', '文山B門市']
+    },
+    '新北市': {
+      '板橋區': ['板橋A門市', '板橋B門市', '板橋C門市'],
+      '新莊區': ['新莊A門市', '新莊B門市', '新莊C門市'],
+      '中和區': ['中和A門市', '中和B門市'],
+      '永和區': ['永和A門市', '永和B門市'],
+      '三重區': ['三重A門市', '三重B門市'],
+      '新店區': ['新店A門市', '新店B門市'],
+      '土城區': ['土城A門市', '土城B門市'],
+      '蘆洲區': ['蘆洲A門市', '蘆洲B門市']
+    },
+    '桃園市': {
+      '中壢區': ['中壢A門市', '中壢B門市', '中壢C門市'],
+      '平鎮區': ['平鎮A門市', '平鎮B門市'],
+      '八德區': ['八德A門市', '八德B門市'],
+      '龜山區': ['龜山A門市', '龜山B門市'],
+      '桃園區': ['桃園A門市', '桃園B門市', '桃園C門市'],
+      '龍潭區': ['龍潭A門市', '龍潭B門市'],
+      '大溪區': ['大溪A門市', '大溪B門市']
+    },
+    '台中市': {
+      '西屯區': ['西屯A門市', '西屯B門市', '西屯C門市'],
+      '北屯區': ['北屯A門市', '北屯B門市', '北屯C門市'],
+      '南屯區': ['南屯A門市', '南屯B門市'],
+      '中區': ['中區A門市', '中區B門市'],
+      '東區': ['東區A門市', '東區B門市'],
+      '南區': ['南區A門市', '南區B門市'],
+      '北區': ['北區A門市', '北區B門市'],
+      '西區': ['西區A門市', '西區B門市']
+    },
+    '台南市': {
+      '東區': ['東區A門市', '東區B門市', '東區C門市'],
+      '中西區': ['中西區A門市', '中西區B門市'],
+      '北區': ['北區A門市', '北區B門市'],
+      '南區': ['南區A門市', '南區B門市'],
+      '安平區': ['安平A門市', '安平B門市'],
+      '永康區': ['永康A門市', '永康B門市', '永康C門市'],
+      '新營區': ['新營A門市', '新營B門市']
+    },
+    '高雄市': {
+      '左營區': ['左營A門市', '左營B門市', '左營C門市'],
+      '三民區': ['三民A門市', '三民B門市', '三民C門市'],
+      '鳳山區': ['鳳山A門市', '鳳山B門市', '鳳山C門市'],
+      '苓雅區': ['苓雅A門市', '苓雅B門市'],
+      '前鎮區': ['前鎮A門市', '前鎮B門市'],
+      '楠梓區': ['楠梓A門市', '楠梓B門市'],
+      '小港區': ['小港A門市', '小港B門市'],
+      '岡山區': ['岡山A門市', '岡山B門市']
+    }
   },
   '全家': {
-    '台北市': ['信義店', '忠孝店', '南京店', '民生店', '復興店', '敦化店', '松江店', '中山店'],
-    '新北市': ['板橋店', '新莊店', '中和店', '永和店', '土城店', '三重店', '新店店', '汐止店'],
-    '桃園市': ['中壢店', '平鎮店', '八德店', '龜山店', '桃園店', '大園店', '觀音店'],
-    '台中市': ['西屯店', '北屯店', '南屯店', '中區店', '太平店', '大里店', '豐原店', '沙鹿店'],
-    '台南市': ['東區店', '中西區店', '北區店', '南區店', '安平店', '永康店', '仁德店'],
-    '高雄市': ['左營店', '三民店', '鳳山店', '楠梓店', '小港店', '前鎮店', '苓雅店', '鼓山店']
+    '台北市': {
+      '信義區': ['信義A店', '信義B店', '信義C店'],
+      '中山區': ['中山A店', '中山B店', '中山C店'],
+      '大安區': ['大安A店', '大安B店', '大安C店'],
+      '松山區': ['松山A店', '松山B店'],
+      '士林區': ['士林A店', '士林B店'],
+      '內湖區': ['內湖A店', '內湖B店'],
+      '南港區': ['南港A店', '南港B店'],
+      '文山區': ['文山A店', '文山B店']
+    },
+    '新北市': {
+      '板橋區': ['板橋A店', '板橋B店', '板橋C店'],
+      '新莊區': ['新莊A店', '新莊B店', '新莊C店'],
+      '中和區': ['中和A店', '中和B店'],
+      '永和區': ['永和A店', '永和B店'],
+      '三重區': ['三重A店', '三重B店'],
+      '新店區': ['新店A店', '新店B店'],
+      '土城區': ['土城A店', '土城B店'],
+      '蘆洲區': ['蘆洲A店', '蘆洲B店']
+    },
+    '桃園市': {
+      '中壢區': ['中壢A店', '中壢B店', '中壢C店'],
+      '平鎮區': ['平鎮A店', '平鎮B店'],
+      '八德區': ['八德A店', '八德B店'],
+      '龜山區': ['龜山A店', '龜山B店'],
+      '桃園區': ['桃園A店', '桃園B店', '桃園C店'],
+      '龍潭區': ['龍潭A店', '龍潭B店'],
+      '大溪區': ['大溪A店', '大溪B店']
+    },
+    '台中市': {
+      '西屯區': ['西屯A店', '西屯B店', '西屯C店'],
+      '北屯區': ['北屯A店', '北屯B店', '北屯C店'],
+      '南屯區': ['南屯A店', '南屯B店'],
+      '中區': ['中區A店', '中區B店'],
+      '東區': ['東區A店', '東區B店'],
+      '南區': ['南區A店', '南區B店'],
+      '北區': ['北區A店', '北區B店'],
+      '西區': ['西區A店', '西區B店']
+    },
+    '台南市': {
+      '東區': ['東區A店', '東區B店', '東區C店'],
+      '中西區': ['中西區A店', '中西區B店'],
+      '北區': ['北區A店', '北區B店'],
+      '南區': ['南區A店', '南區B店'],
+      '安平區': ['安平A店', '安平B店'],
+      '永康區': ['永康A店', '永康B店', '永康C店'],
+      '新營區': ['新營A店', '新營B店']
+    },
+    '高雄市': {
+      '左營區': ['左營A店', '左營B店', '左營C店'],
+      '三民區': ['三民A店', '三民B店', '三民C店'],
+      '鳳山區': ['鳳山A店', '鳳山B店', '鳳山C店'],
+      '苓雅區': ['苓雅A店', '苓雅B店'],
+      '前鎮區': ['前鎮A店', '前鎮B店'],
+      '楠梓區': ['楠梓A店', '楠梓B店'],
+      '小港區': ['小港A店', '小港B店'],
+      '岡山區': ['岡山A店', '岡山B店']
+    }
   }
 };
 
@@ -164,6 +268,7 @@ var storeSelectGroup=document.getElementById('storeSelectGroup');
 var addressGroup=document.getElementById('addressGroup');
 var storeSection=document.getElementById('storeSection');
 var selectedStore = '';
+var citySelect, districtSelect, storeSelect;
 
 function generateOrderId(){
     var now=new Date();
@@ -178,18 +283,46 @@ function updatePrice(){
     var qty=parseInt(qtyInput.value);
     if(isNaN(qty)||qty<1){ qty=1; qtyInput.value=1; }
     var subtotal=PRICE*qty;
-    var shipping=(qty>=FREE_SHIPPING_QTY)?0:SHIPPING;
+    var pickupMethod=pickupSelect.value;
+    var shipping=0;
+    
+    // 根據取貨方式計算運費
+    if(pickupMethod === '宅配'){
+        shipping = (qty>=FREE_SHIPPING_QTY) ? 0 : SHIPPING_DELIVERY;
+    } else if(pickupMethod === '7-11' || pickupMethod === '全家'){
+        shipping = (qty>=FREE_SHIPPING_QTY) ? 0 : SHIPPING_STORE;
+    } else if(pickupMethod === '面交'){
+        shipping = 0;
+    } else {
+        // 預設超商運費
+        shipping = (qty>=FREE_SHIPPING_QTY) ? 0 : SHIPPING_STORE;
+    }
+    
     var total=subtotal+shipping;
     subtotalDisplay.textContent='NT$ '+subtotal;
-    shippingDisplay.textContent=(shipping===0)?'免運費 ✓':'NT$ '+shipping;
+    
+    if(shipping === 0){
+        if(pickupMethod === '面交'){
+            shippingDisplay.textContent='免運費 (面交) ✓';
+        } else {
+            shippingDisplay.textContent='免運費 ✓';
+        }
+    } else {
+        shippingDisplay.textContent='NT$ '+shipping;
+    }
+    
     totalDisplay.textContent='NT$ '+total;
 
-    if(qty<FREE_SHIPPING_QTY){
+    if(pickupMethod === '面交'){
+        freeShipNotice.textContent='🎉 面交免運費!';
+        freeShipNotice.style.background='#d3f9d8';
+    } else if(qty<FREE_SHIPPING_QTY){
         var left=FREE_SHIPPING_QTY-qty;
         freeShipNotice.textContent='再買 '+left+' 罐即可免運 🎁';
         freeShipNotice.style.background='#fff3bf';
     } else {
-        freeShipNotice.textContent='🎉 已達免運門檻!恭喜省下 NT$ '+SHIPPING+' 運費!';
+        var savedAmount = (pickupMethod === '宅配') ? SHIPPING_DELIVERY : SHIPPING_STORE;
+        freeShipNotice.textContent='🎉 已達免運門檻!恭喜省下 NT$ '+savedAmount+' 運費!';
         freeShipNotice.style.background='#d3f9d8';
     }
 }
@@ -201,43 +334,129 @@ function renderStoreOptions(pickupMethod) {
     if (!storeData[pickupMethod]) return;
     
     var stores = storeData[pickupMethod];
-    Object.keys(stores).forEach(function(region) {
-        var regionDiv = document.createElement('div');
-        regionDiv.className = 'store-region';
+    
+    // 創建城市選擇
+    var cityDiv = document.createElement('div');
+    cityDiv.className = 'store-region';
+    var cityLabel = document.createElement('label');
+    cityLabel.textContent = '選擇城市';
+    cityDiv.appendChild(cityLabel);
+    
+    citySelect = document.createElement('select');
+    citySelect.className = 'form-group';
+    citySelect.style.width = '100%';
+    citySelect.style.marginTop = '5px';
+    var cityDefault = document.createElement('option');
+    cityDefault.value = '';
+    cityDefault.textContent = '請選擇城市';
+    citySelect.appendChild(cityDefault);
+    
+    Object.keys(stores).forEach(function(city) {
+        var option = document.createElement('option');
+        option.value = city;
+        option.textContent = city;
+        citySelect.appendChild(option);
+    });
+    cityDiv.appendChild(citySelect);
+    storeSection.appendChild(cityDiv);
+    
+    // 創建區域選擇
+    var districtDiv = document.createElement('div');
+    districtDiv.className = 'store-region';
+    var districtLabel = document.createElement('label');
+    districtLabel.textContent = '選擇區域';
+    districtDiv.appendChild(districtLabel);
+    
+    districtSelect = document.createElement('select');
+    districtSelect.className = 'form-group';
+    districtSelect.style.width = '100%';
+    districtSelect.style.marginTop = '5px';
+    districtSelect.disabled = true;
+    var districtDefault = document.createElement('option');
+    districtDefault.value = '';
+    districtDefault.textContent = '請先選擇城市';
+    districtSelect.appendChild(districtDefault);
+    districtDiv.appendChild(districtSelect);
+    storeSection.appendChild(districtDiv);
+    
+    // 創建門市選擇
+    var storeDiv = document.createElement('div');
+    storeDiv.className = 'store-region';
+    var storeLabel = document.createElement('label');
+    storeLabel.textContent = '選擇門市';
+    storeDiv.appendChild(storeLabel);
+    
+    storeSelect = document.createElement('select');
+    storeSelect.className = 'form-group';
+    storeSelect.style.width = '100%';
+    storeSelect.style.marginTop = '5px';
+    storeSelect.disabled = true;
+    var storeDefault = document.createElement('option');
+    storeDefault.value = '';
+    storeDefault.textContent = '請先選擇區域';
+    storeSelect.appendChild(storeDefault);
+    storeDiv.appendChild(storeSelect);
+    storeSection.appendChild(storeDiv);
+    
+    // 城市選擇事件
+    citySelect.addEventListener('change', function() {
+        var selectedCity = this.value;
+        districtSelect.innerHTML = '';
+        storeSelect.innerHTML = '';
+        storeSelect.disabled = true;
+        selectedStore = '';
         
-        var label = document.createElement('label');
-        label.textContent = region;
-        regionDiv.appendChild(label);
+        var districtDefault = document.createElement('option');
+        districtDefault.value = '';
+        districtDefault.textContent = '請選擇區域';
+        districtSelect.appendChild(districtDefault);
         
-        var select = document.createElement('select');
-        select.className = 'form-group';
-        select.style.width = '100%';
-        select.style.marginTop = '5px';
+        var storeDefault = document.createElement('option');
+        storeDefault.value = '';
+        storeDefault.textContent = '請先選擇區域';
+        storeSelect.appendChild(storeDefault);
         
-        var defaultOption = document.createElement('option');
-        defaultOption.value = '';
-        defaultOption.textContent = '選擇門市';
-        select.appendChild(defaultOption);
+        if (selectedCity && stores[selectedCity]) {
+            districtSelect.disabled = false;
+            Object.keys(stores[selectedCity]).forEach(function(district) {
+                var option = document.createElement('option');
+                option.value = district;
+                option.textContent = district;
+                districtSelect.appendChild(option);
+            });
+        } else {
+            districtSelect.disabled = true;
+        }
+    });
+    
+    // 區域選擇事件
+    districtSelect.addEventListener('change', function() {
+        var selectedCity = citySelect.value;
+        var selectedDistrict = this.value;
+        storeSelect.innerHTML = '';
+        selectedStore = '';
         
-        stores[region].forEach(function(store) {
-            var option = document.createElement('option');
-            option.value = region + '-' + store;
-            option.textContent = store;
-            select.appendChild(option);
-        });
+        var storeDefault = document.createElement('option');
+        storeDefault.value = '';
+        storeDefault.textContent = '請選擇門市';
+        storeSelect.appendChild(storeDefault);
         
-        select.addEventListener('change', function(e) {
-            if (e.target.value) {
-                selectedStore = e.target.value;
-                // 清除其他地區的選擇
-                storeSection.querySelectorAll('select').forEach(function(s) {
-                    if (s !== e.target) s.value = '';
-                });
-            }
-        });
-        
-        regionDiv.appendChild(select);
-        storeSection.appendChild(regionDiv);
+        if (selectedCity && selectedDistrict && stores[selectedCity][selectedDistrict]) {
+            storeSelect.disabled = false;
+            stores[selectedCity][selectedDistrict].forEach(function(store) {
+                var option = document.createElement('option');
+                option.value = selectedCity + '-' + selectedDistrict + '-' + store;
+                option.textContent = store;
+                storeSelect.appendChild(option);
+            });
+        } else {
+            storeSelect.disabled = true;
+        }
+    });
+    
+    // 門市選擇事件
+    storeSelect.addEventListener('change', function() {
+        selectedStore = this.value;
     });
 }
 
@@ -262,6 +481,8 @@ pickupSelect.addEventListener('change', function() {
         storeSelectGroup.style.display = 'none';
         addressGroup.style.display = 'none';
     }
+    
+    updatePrice();
 });
 
 btnPlus.addEventListener('click',function(e){e.preventDefault();qtyInput.value=parseInt(qtyInput.value)+1;updatePrice();});
@@ -303,7 +524,17 @@ document.getElementById('orderForm').addEventListener('submit',async function(e)
     try{
         var qty=parseInt(qtyInput.value);
         var subtotal=PRICE*qty;
-        var shipping=(qty>=FREE_SHIPPING_QTY)?0:SHIPPING;
+        var shipping=0;
+        
+        // 計算運費
+        if(pickupMethod === '宅配'){
+            shipping = (qty>=FREE_SHIPPING_QTY) ? 0 : SHIPPING_DELIVERY;
+        } else if(pickupMethod === '7-11' || pickupMethod === '全家'){
+            shipping = (qty>=FREE_SHIPPING_QTY) ? 0 : SHIPPING_STORE;
+        } else if(pickupMethod === '面交'){
+            shipping = 0;
+        }
+        
         var total=subtotal+shipping;
         var orderId=generateOrderId();
         var orderTime=new Date().toLocaleString('zh-TW',{year:'numeric',month:'2-digit',day:'2-digit',hour:'2-digit',minute:'2-digit',hour12:false});
@@ -327,12 +558,13 @@ Email:${customerEmail}
 數量:${qty} 罐
 小計:NT$ ${subtotal}
 商品小計:NT$ ${subtotal}
-運費:${shipping===0?'免運費 ✓':'NT$ '+shipping}
+運費:${shipping===0?(pickupMethod==='面交'?'免運費 (面交) ✓':'免運費 ✓'):'NT$ '+shipping}
 訂單總額:NT$ ${total}
 備註:${note}
 提醒事項:
 ${pickupMethod==='面交'?'⚠️ 此訂單選擇面交,請透過 Instagram 與客戶確認時間地點':''}
-${shipping===0?'✅ 此訂單已達免運門檻':''}`;
+${shipping===0&&pickupMethod!=='面交'?'✅ 此訂單已達免運門檻':''}
+${pickupMethod==='面交'?'✅ 面交免運費':''}`;
 
         // 商家信
         await fetch('https://api.web3forms.com/submit',{
@@ -347,7 +579,7 @@ ${shipping===0?'✅ 此訂單已達免運門檻':''}`;
 訂單編號:${orderId}
 商品:【渝味食記】四川濃香型辣椒醬 x ${qty} 罐
 小計:NT$ ${subtotal}
-運費:${shipping===0?'免運費 ✓':'NT$ '+shipping}
+運費:${shipping===0?(pickupMethod==='面交'?'免運費 (面交) ✓':'免運費 ✓'):'NT$ '+shipping}
 總計:NT$ ${total}
 取貨方式:${pickupMethod}
 收貨地址/門市:${finalAddress}
