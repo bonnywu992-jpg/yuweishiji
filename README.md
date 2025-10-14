@@ -132,126 +132,429 @@ const WEB3FORMS_ACCESS_KEY='63c8b2d8-bddb-46cb-b683-e3c0becf31bf';
 const MERCHANT_EMAIL='bonnywu992@gmail.com';
 var PRICE=250, SHIPPING_DELIVERY=160, SHIPPING_STORE=130, FREE_SHIPPING_QTY=10;
 
+// 門市資料生成函數 - 自動生成門市名稱
+function generateStores(count, prefix) {
+  const stores = [];
+  for(let i = 1; i <= count; i++) {
+    stores.push(`${prefix}門市${i}`);
+  }
+  return stores;
+}
+
 // 門市資料 - 三層結構: 城市 > 區域 > 門市
 const storeData = {
   '7-11': {
     '台北市': {
-      '信義區': ['信義A門市', '信義B門市', '信義C門市'],
-      '中山區': ['中山A門市', '中山B門市', '中山C門市'],
-      '大安區': ['大安A門市', '大安B門市', '大安C門市'],
-      '松山區': ['松山A門市', '松山B門市'],
-      '士林區': ['士林A門市', '士林B門市'],
-      '內湖區': ['內湖A門市', '內湖B門市'],
-      '南港區': ['南港A門市', '南港B門市'],
-      '文山區': ['文山A門市', '文山B門市']
+      '中正區': [...generateStores(2, '中正'), '台北車站門市'],
+      '大同區': [...generateStores(2, '大同'), '迪化街門市'],
+      '中山區': [...generateStores(3, '中山'), '南京東路門市'],
+      '松山區': [...generateStores(2, '松山'), '饒河街門市'],
+      '大安區': [...generateStores(3, '大安'), '師大門市', '仁愛門市'],
+      '萬華區': [...generateStores(2, '萬華'), '西門町門市'],
+      '信義區': [...generateStores(3, '信義'), '101門市', '市政府門市'],
+      '士林區': [...generateStores(3, '士林'), '天母門市'],
+      '北投區': [...generateStores(2, '北投'), '新北投門市'],
+      '內湖區': [...generateStores(3, '內湖'), '科學園區門市'],
+      '南港區': [...generateStores(2, '南港'), '南港軟體園區門市'],
+      '文山區': [...generateStores(2, '文山'), '木柵門市', '景美門市']
     },
     '新北市': {
-      '板橋區': ['板橋A門市', '板橋B門市', '板橋C門市'],
-      '新莊區': ['新莊A門市', '新莊B門市', '新莊C門市'],
-      '中和區': ['中和A門市', '中和B門市'],
-      '永和區': ['永和A門市', '永和B門市'],
-      '三重區': ['三重A門市', '三重B門市'],
-      '新店區': ['新店A門市', '新店B門市'],
-      '土城區': ['土城A門市', '土城B門市'],
-      '蘆洲區': ['蘆洲A門市', '蘆洲B門市']
+      '板橋區': [...generateStores(3, '板橋'), '府中門市', '新埔門市'],
+      '三重區': [...generateStores(3, '三重'), '重新路門市'],
+      '中和區': [...generateStores(3, '中和'), '景安門市'],
+      '永和區': [...generateStores(3, '永和'), '頂溪門市'],
+      '新莊區': [...generateStores(3, '新莊'), '輔大門市', '副都心門市'],
+      '新店區': [...generateStores(3, '新店'), '碧潭門市'],
+      '樹林區': generateStores(3, '樹林'),
+      '鶯歌區': [...generateStores(2, '鶯歌'), '老街門市'],
+      '三峽區': [...generateStores(2, '三峽'), '北大門市'],
+      '淡水區': [...generateStores(3, '淡水'), '老街門市'],
+      '汐止區': generateStores(3, '汐止'),
+      '瑞芳區': generateStores(2, '瑞芳'),
+      '土城區': [...generateStores(3, '土城'), '頂埔門市'],
+      '蘆洲區': generateStores(3, '蘆洲'),
+      '五股區': generateStores(2, '五股'),
+      '泰山區': generateStores(2, '泰山'),
+      '林口區': generateStores(3, '林口'),
+      '深坑區': [...generateStores(1, '深坑'), '深坑老街門市'],
+      '石碇區': generateStores(1, '石碇'),
+      '坪林區': generateStores(1, '坪林'),
+      '三芝區': generateStores(1, '三芝'),
+      '石門區': generateStores(1, '石門'),
+      '八里區': generateStores(2, '八里'),
+      '平溪區': generateStores(1, '平溪'),
+      '雙溪區': generateStores(1, '雙溪'),
+      '貢寮區': generateStores(1, '貢寮'),
+      '金山區': generateStores(2, '金山'),
+      '萬里區': generateStores(1, '萬里'),
+      '烏來區': generateStores(1, '烏來')
+    },
+    '基隆市': {
+      '仁愛區': [...generateStores(2, '仁愛'), '基隆車站門市'],
+      '信義區': generateStores(2, '信義'),
+      '中正區': generateStores(2, '中正'),
+      '中山區': generateStores(2, '中山'),
+      '安樂區': generateStores(2, '安樂'),
+      '暖暖區': generateStores(1, '暖暖'),
+      '七堵區': generateStores(2, '七堵')
     },
     '桃園市': {
-      '中壢區': ['中壢A門市', '中壢B門市', '中壢C門市'],
-      '平鎮區': ['平鎮A門市', '平鎮B門市'],
-      '八德區': ['八德A門市', '八德B門市'],
-      '龜山區': ['龜山A門市', '龜山B門市'],
-      '桃園區': ['桃園A門市', '桃園B門市', '桃園C門市'],
-      '龍潭區': ['龍潭A門市', '龍潭B門市'],
-      '大溪區': ['大溪A門市', '大溪B門市']
+      '桃園區': [...generateStores(4, '桃園'), '火車站門市'],
+      '中壢區': [...generateStores(4, '中壢'), '中原門市', '內壢門市'],
+      '平鎮區': generateStores(3, '平鎮'),
+      '八德區': generateStores(3, '八德'),
+      '楊梅區': generateStores(3, '楊梅'),
+      '蘆竹區': [...generateStores(2, '蘆竹'), '南崁門市'],
+      '大溪區': [...generateStores(2, '大溪'), '老街門市'],
+      '龍潭區': generateStores(3, '龍潭'),
+      '龜山區': [...generateStores(3, '龜山'), '長庚門市'],
+      '大園區': generateStores(2, '大園'),
+      '觀音區': generateStores(2, '觀音'),
+      '新屋區': generateStores(2, '新屋'),
+      '復興區': generateStores(1, '復興')
+    },
+    '新竹市': {
+      '東區': [...generateStores(3, '東區'), '火車站門市', '科學園區門市'],
+      '北區': [...generateStores(3, '北區'), '清大門市', '交大門市'],
+      '香山區': generateStores(2, '香山')
+    },
+    '新竹縣': {
+      '竹北市': generateStores(4, '竹北'),
+      '竹東鎮': generateStores(2, '竹東'),
+      '新埔鎮': generateStores(2, '新埔'),
+      '關西鎮': generateStores(2, '關西'),
+      '湖口鄉': generateStores(3, '湖口'),
+      '新豐鄉': generateStores(2, '新豐'),
+      '芎林鄉': generateStores(1, '芎林'),
+      '橫山鄉': generateStores(1, '橫山'),
+      '北埔鄉': generateStores(1, '北埔'),
+      '寶山鄉': generateStores(1, '寶山'),
+      '峨眉鄉': generateStores(1, '峨眉'),
+      '尖石鄉': generateStores(1, '尖石'),
+      '五峰鄉': generateStores(1, '五峰')
+    },
+    '苗栗縣': {
+      '苗栗市': generateStores(3, '苗栗'),
+      '頭份市': generateStores(3, '頭份'),
+      '竹南鎮': generateStores(3, '竹南'),
+      '後龍鎮': generateStores(2, '後龍'),
+      '通霄鎮': generateStores(2, '通霄'),
+      '苑裡鎮': generateStores(2, '苑裡'),
+      '卓蘭鎮': generateStores(1, '卓蘭'),
+      '造橋鄉': generateStores(1, '造橋'),
+      '西湖鄉': generateStores(1, '西湖'),
+      '頭屋鄉': generateStores(1, '頭屋'),
+      '公館鄉': generateStores(2, '公館'),
+      '銅鑼鄉': generateStores(1, '銅鑼'),
+      '三義鄉': generateStores(2, '三義'),
+      '大湖鄉': generateStores(1, '大湖'),
+      '獅潭鄉': generateStores(1, '獅潭'),
+      '三灣鄉': generateStores(1, '三灣'),
+      '南庄鄉': generateStores(1, '南庄'),
+      '泰安鄉': generateStores(1, '泰安')
     },
     '台中市': {
-      '西屯區': ['西屯A門市', '西屯B門市', '西屯C門市'],
-      '北屯區': ['北屯A門市', '北屯B門市', '北屯C門市'],
-      '南屯區': ['南屯A門市', '南屯B門市'],
-      '中區': ['中區A門市', '中區B門市'],
-      '東區': ['東區A門市', '東區B門市'],
-      '南區': ['南區A門市', '南區B門市'],
-      '北區': ['北區A門市', '北區B門市'],
-      '西區': ['西區A門市', '西區B門市']
+      '中區': [...generateStores(2, '中區'), '台中車站門市'],
+      '東區': generateStores(3, '東區'),
+      '南區': generateStores(3, '南區'),
+      '西區': [...generateStores(3, '西區'), '草悟道門市'],
+      '北區': [...generateStores(3, '北區'), '中友門市'],
+      '西屯區': [...generateStores(4, '西屯'), '逢甲門市', '東海門市'],
+      '南屯區': [...generateStores(3, '南屯'), '文心南路門市'],
+      '北屯區': [...generateStores(4, '北屯'), '松竹門市'],
+      '豐原區': generateStores(3, '豐原'),
+      '大里區': generateStores(3, '大里'),
+      '太平區': generateStores(3, '太平'),
+      '清水區': generateStores(2, '清水'),
+      '沙鹿區': generateStores(3, '沙鹿'),
+      '大甲區': generateStores(2, '大甲'),
+      '東勢區': generateStores(2, '東勢'),
+      '梧棲區': [...generateStores(2, '梧棲'), '梧棲港門市'],
+      '烏日區': [...generateStores(2, '烏日'), '高鐵門市'],
+      '神岡區': generateStores(2, '神岡'),
+      '大肚區': generateStores(2, '大肚'),
+      '大雅區': generateStores(2, '大雅'),
+      '后里區': generateStores(2, '后里'),
+      '霧峰區': generateStores(2, '霧峰'),
+      '潭子區': generateStores(2, '潭子'),
+      '龍井區': generateStores(2, '龍井'),
+      '外埔區': generateStores(1, '外埔'),
+      '和平區': generateStores(1, '和平'),
+      '石岡區': generateStores(1, '石岡'),
+      '大安區': generateStores(1, '大安'),
+      '新社區': generateStores(1, '新社')
+    },
+    '彰化縣': {
+      '彰化市': generateStores(4, '彰化'),
+      '員林市': generateStores(3, '員林'),
+      '和美鎮': generateStores(2, '和美'),
+      '鹿港鎮': [...generateStores(2, '鹿港'), '鹿港老街門市'],
+      '溪湖鎮': generateStores(2, '溪湖'),
+      '二林鎮': generateStores(2, '二林'),
+      '田中鎮': generateStores(2, '田中'),
+      '北斗鎮': generateStores(2, '北斗'),
+      '花壇鄉': generateStores(1, '花壇'),
+      '芬園鄉': generateStores(1, '芬園'),
+      '大村鄉': generateStores(1, '大村'),
+      '永靖鄉': generateStores(1, '永靖'),
+      '伸港鄉': generateStores(1, '伸港'),
+      '線西鄉': generateStores(1, '線西'),
+      '福興鄉': generateStores(1, '福興'),
+      '秀水鄉': generateStores(1, '秀水'),
+      '埔心鄉': generateStores(1, '埔心'),
+      '埔鹽鄉': generateStores(1, '埔鹽'),
+      '大城鄉': generateStores(1, '大城'),
+      '芳苑鄉': generateStores(1, '芳苑'),
+      '竹塘鄉': generateStores(1, '竹塘'),
+      '社頭鄉': generateStores(1, '社頭'),
+      '二水鄉': generateStores(1, '二水'),
+      '田尾鄉': generateStores(1, '田尾'),
+      '埤頭鄉': generateStores(1, '埤頭'),
+      '溪州鄉': generateStores(1, '溪州')
+    },
+    '南投縣': {
+      '南投市': generateStores(3, '南投'),
+      '埔里鎮': generateStores(3, '埔里'),
+      '草屯鎮': generateStores(3, '草屯'),
+      '竹山鎮': generateStores(2, '竹山'),
+      '集集鎮': [...generateStores(1, '集集'), '集集老街店'],
+      '名間鄉': generateStores(1, '名間'),
+      '鹿谷鄉': generateStores(1, '鹿谷'),
+      '中寮鄉': generateStores(1, '中寮'),
+      '魚池鄉': [...generateStores(1, '魚池'), '日月潭店'],
+      '國姓鄉': generateStores(1, '國姓'),
+      '水里鄉': generateStores(1, '水里'),
+      '信義鄉': generateStores(1, '信義'),
+      '仁愛鄉': [...generateStores(1, '仁愛'), '清境店']
+    },
+    '雲林縣': {
+      '斗六市': generateStores(3, '斗六'),
+      '斗南鎮': generateStores(2, '斗南'),
+      '虎尾鎮': generateStores(2, '虎尾'),
+      '西螺鎮': generateStores(2, '西螺'),
+      '土庫鎮': generateStores(1, '土庫'),
+      '北港鎮': generateStores(2, '北港'),
+      '林內鄉': generateStores(1, '林內'),
+      '古坑鄉': generateStores(1, '古坑'),
+      '大埤鄉': generateStores(1, '大埤'),
+      '莿桐鄉': generateStores(1, '莿桐'),
+      '褒忠鄉': generateStores(1, '褒忠'),
+      '二崙鄉': generateStores(1, '二崙'),
+      '崙背鄉': generateStores(1, '崙背'),
+      '麥寮鄉': generateStores(1, '麥寮'),
+      '東勢鄉': generateStores(1, '東勢'),
+      '台西鄉': generateStores(1, '台西'),
+      '四湖鄉': generateStores(1, '四湖'),
+      '口湖鄉': generateStores(1, '口湖'),
+      '水林鄉': generateStores(1, '水林'),
+      '元長鄉': generateStores(1, '元長')
+    },
+    '嘉義市': {
+      '東區': generateStores(3, '東區'),
+      '西區': [...generateStores(3, '西區'), '嘉義車站店']
+    },
+    '嘉義縣': {
+      '太保市': [...generateStores(2, '太保'), '高鐵店'],
+      '朴子市': generateStores(2, '朴子'),
+      '布袋鎮': generateStores(2, '布袋'),
+      '大林鎮': generateStores(1, '大林'),
+      '民雄鄉': generateStores(2, '民雄'),
+      '溪口鄉': generateStores(1, '溪口'),
+      '新港鄉': generateStores(1, '新港'),
+      '六腳鄉': generateStores(1, '六腳'),
+      '東石鄉': generateStores(1, '東石'),
+      '義竹鄉': generateStores(1, '義竹'),
+      '鹿草鄉': generateStores(1, '鹿草'),
+      '水上鄉': generateStores(1, '水上'),
+      '中埔鄉': generateStores(1, '中埔'),
+      '竹崎鄉': generateStores(1, '竹崎'),
+      '梅山鄉': generateStores(1, '梅山'),
+      '番路鄉': generateStores(1, '番路'),
+      '大埔鄉': generateStores(1, '大埔'),
+      '阿里山鄉': generateStores(1, '阿里山')
     },
     '台南市': {
-      '東區': ['東區A門市', '東區B門市', '東區C門市'],
-      '中西區': ['中西區A門市', '中西區B門市'],
-      '北區': ['北區A門市', '北區B門市'],
-      '南區': ['南區A門市', '南區B門市'],
-      '安平區': ['安平A門市', '安平B門市'],
-      '永康區': ['永康A門市', '永康B門市', '永康C門市'],
-      '新營區': ['新營A門市', '新營B門市']
+      '中西區': [...generateStores(3, '中西'), '台南車站店'],
+      '東區': [...generateStores(4, '東區'), '成大店'],
+      '南區': generateStores(3, '南區'),
+      '北區': generateStores(3, '北區'),
+      '安平區': [...generateStores(3, '安平'), '安平老街店'],
+      '安南區': generateStores(3, '安南'),
+      '永康區': generateStores(4, '永康'),
+      '歸仁區': [...generateStores(2, '歸仁'), '高鐵店'],
+      '新化區': generateStores(2, '新化'),
+      '左鎮區': generateStores(1, '左鎮'),
+      '玉井區': generateStores(1, '玉井'),
+      '楠西區': generateStores(1, '楠西'),
+      '南化區': generateStores(1, '南化'),
+      '仁德區': generateStores(2, '仁德'),
+      '關廟區': generateStores(1, '關廟'),
+      '龍崎區': generateStores(1, '龍崎'),
+      '官田區': generateStores(1, '官田'),
+      '麻豆區': generateStores(2, '麻豆'),
+      '佳里區': generateStores(2, '佳里'),
+      '西港區': generateStores(1, '西港'),
+      '七股區': generateStores(1, '七股'),
+      '將軍區': generateStores(1, '將軍'),
+      '學甲區': generateStores(1, '學甲'),
+      '北門區': generateStores(1, '北門'),
+      '新營區': generateStores(2, '新營'),
+      '後壁區': generateStores(1, '後壁'),
+      '白河區': generateStores(1, '白河'),
+      '東山區': generateStores(1, '東山'),
+      '六甲區': generateStores(1, '六甲'),
+      '下營區': generateStores(1, '下營'),
+      '柳營區': generateStores(1, '柳營'),
+      '鹽水區': generateStores(1, '鹽水'),
+      '善化區': generateStores(2, '善化'),
+      '大內區': generateStores(1, '大內'),
+      '山上區': generateStores(1, '山上'),
+      '新市區': generateStores(1, '新市'),
+      '安定區': generateStores(1, '安定')
     },
     '高雄市': {
-      '左營區': ['左營A門市', '左營B門市', '左營C門市'],
-      '三民區': ['三民A門市', '三民B門市', '三民C門市'],
-      '鳳山區': ['鳳山A門市', '鳳山B門市', '鳳山C門市'],
-      '苓雅區': ['苓雅A門市', '苓雅B門市'],
-      '前鎮區': ['前鎮A門市', '前鎮B門市'],
-      '楠梓區': ['楠梓A門市', '楠梓B門市'],
-      '小港區': ['小港A門市', '小港B門市'],
-      '岡山區': ['岡山A門市', '岡山B門市']
-    }
-  },
-  '全家': {
-    '台北市': {
-      '信義區': ['信義A店', '信義B店', '信義C店'],
-      '中山區': ['中山A店', '中山B店', '中山C店'],
-      '大安區': ['大安A店', '大安B店', '大安C店'],
-      '松山區': ['松山A店', '松山B店'],
-      '士林區': ['士林A店', '士林B店'],
-      '內湖區': ['內湖A店', '內湖B店'],
-      '南港區': ['南港A店', '南港B店'],
-      '文山區': ['文山A店', '文山B店']
+      '新興區': generateStores(2, '新興'),
+      '前金區': generateStores(2, '前金'),
+      '苓雅區': generateStores(3, '苓雅'),
+      '鹽埕區': generateStores(2, '鹽埕'),
+      '鼓山區': generateStores(3, '鼓山'),
+      '旗津區': generateStores(1, '旗津'),
+      '前鎮區': generateStores(3, '前鎮'),
+      '三民區': generateStores(4, '三民'),
+      '左營區': [...generateStores(3, '左營'), '高鐵店'],
+      '楠梓區': generateStores(3, '楠梓'),
+      '小港區': generateStores(3, '小港'),
+      '鳳山區': generateStores(4, '鳳山'),
+      '林園區': generateStores(2, '林園'),
+      '大寮區': generateStores(2, '大寮'),
+      '大樹區': generateStores(1, '大樹'),
+      '大社區': generateStores(1, '大社'),
+      '仁武區': generateStores(2, '仁武'),
+      '鳥松區': generateStores(1, '鳥松'),
+      '岡山區': generateStores(3, '岡山'),
+      '橋頭區': generateStores(2, '橋頭'),
+      '燕巢區': generateStores(1, '燕巢'),
+      '田寮區': generateStores(1, '田寮'),
+      '阿蓮區': generateStores(1, '阿蓮'),
+      '路竹區': generateStores(2, '路竹'),
+      '湖內區': generateStores(1, '湖內'),
+      '茄萣區': generateStores(1, '茄萣'),
+      '永安區': generateStores(1, '永安'),
+      '彌陀區': generateStores(1, '彌陀'),
+      '梓官區': generateStores(1, '梓官'),
+      '旗山區': generateStores(2, '旗山'),
+      '美濃區': generateStores(2, '美濃'),
+      '六龜區': generateStores(1, '六龜'),
+      '甲仙區': generateStores(1, '甲仙'),
+      '杉林區': generateStores(1, '杉林'),
+      '內門區': generateStores(1, '內門'),
+      '茂林區': generateStores(1, '茂林'),
+      '桃源區': generateStores(1, '桃源'),
+      '那瑪夏區': generateStores(1, '那瑪夏')
     },
-    '新北市': {
-      '板橋區': ['板橋A店', '板橋B店', '板橋C店'],
-      '新莊區': ['新莊A店', '新莊B店', '新莊C店'],
-      '中和區': ['中和A店', '中和B店'],
-      '永和區': ['永和A店', '永和B店'],
-      '三重區': ['三重A店', '三重B店'],
-      '新店區': ['新店A店', '新店B店'],
-      '土城區': ['土城A店', '土城B店'],
-      '蘆洲區': ['蘆洲A店', '蘆洲B店']
+    '宜蘭縣': {
+      '宜蘭市': generateStores(3, '宜蘭'),
+      '羅東鎮': generateStores(3, '羅東'),
+      '蘇澳鎮': generateStores(2, '蘇澳'),
+      '頭城鎮': generateStores(2, '頭城'),
+      '礁溪鄉': generateStores(2, '礁溪'),
+      '壯圍鄉': generateStores(1, '壯圍'),
+      '員山鄉': generateStores(1, '員山'),
+      '冬山鄉': generateStores(2, '冬山'),
+      '五結鄉': generateStores(2, '五結'),
+      '三星鄉': generateStores(1, '三星'),
+      '大同鄉': generateStores(1, '大同'),
+      '南澳鄉': generateStores(1, '南澳')
     },
-    '桃園市': {
-      '中壢區': ['中壢A店', '中壢B店', '中壢C店'],
-      '平鎮區': ['平鎮A店', '平鎮B店'],
-      '八德區': ['八德A店', '八德B店'],
-      '龜山區': ['龜山A店', '龜山B店'],
-      '桃園區': ['桃園A店', '桃園B店', '桃園C店'],
-      '龍潭區': ['龍潭A店', '龍潭B店'],
-      '大溪區': ['大溪A店', '大溪B店']
+    '花蓮縣': {
+      '花蓮市': generateStores(4, '花蓮'),
+      '鳳林鎮': generateStores(1, '鳳林'),
+      '玉里鎮': generateStores(2, '玉里'),
+      '新城鄉': generateStores(1, '新城'),
+      '吉安鄉': generateStores(2, '吉安'),
+      '壽豐鄉': generateStores(1, '壽豐'),
+      '光復鄉': generateStores(1, '光復'),
+      '豐濱鄉': generateStores(1, '豐濱'),
+      '瑞穗鄉': generateStores(1, '瑞穗'),
+      '富里鄉': generateStores(1, '富里'),
+      '秀林鄉': generateStores(1, '秀林'),
+      '萬榮鄉': generateStores(1, '萬榮'),
+      '卓溪鄉': generateStores(1, '卓溪')
     },
-    '台中市': {
-      '西屯區': ['西屯A店', '西屯B店', '西屯C店'],
-      '北屯區': ['北屯A店', '北屯B店', '北屯C店'],
-      '南屯區': ['南屯A店', '南屯B店'],
-      '中區': ['中區A店', '中區B店'],
-      '東區': ['東區A店', '東區B店'],
-      '南區': ['南區A店', '南區B店'],
-      '北區': ['北區A店', '北區B店'],
-      '西區': ['西區A店', '西區B店']
+    '台東縣': {
+      '台東市': generateStores(3, '台東'),
+      '成功鎮': generateStores(1, '成功'),
+      '關山鎮': generateStores(1, '關山'),
+      '卑南鄉': generateStores(1, '卑南'),
+      '鹿野鄉': generateStores(1, '鹿野'),
+      '池上鄉': generateStores(1, '池上'),
+      '東河鄉': generateStores(1, '東河'),
+      '長濱鄉': generateStores(1, '長濱'),
+      '太麻里鄉': generateStores(1, '太麻里'),
+      '大武鄉': generateStores(1, '大武'),
+      '綠島鄉': generateStores(1, '綠島'),
+      '海端鄉': generateStores(1, '海端'),
+      '延平鄉': generateStores(1, '延平'),
+      '金峰鄉': generateStores(1, '金峰'),
+      '達仁鄉': generateStores(1, '達仁'),
+      '蘭嶼鄉': generateStores(1, '蘭嶼')
     },
-    '台南市': {
-      '東區': ['東區A店', '東區B店', '東區C店'],
-      '中西區': ['中西區A店', '中西區B店'],
-      '北區': ['北區A店', '北區B店'],
-      '南區': ['南區A店', '南區B店'],
-      '安平區': ['安平A店', '安平B店'],
-      '永康區': ['永康A店', '永康B店', '永康C店'],
-      '新營區': ['新營A店', '新營B店']
+    '澎湖縣': {
+      '馬公市': generateStores(3, '馬公'),
+      '湖西鄉': generateStores(1, '湖西'),
+      '白沙鄉': generateStores(1, '白沙'),
+      '西嶼鄉': generateStores(1, '西嶼'),
+      '望安鄉': generateStores(1, '望安'),
+      '七美鄉': generateStores(1, '七美')
     },
-    '高雄市': {
-      '左營區': ['左營A店', '左營B店', '左營C店'],
-      '三民區': ['三民A店', '三民B店', '三民C店'],
-      '鳳山區': ['鳳山A店', '鳳山B店', '鳳山C店'],
-      '苓雅區': ['苓雅A店', '苓雅B店'],
-      '前鎮區': ['前鎮A店', '前鎮B店'],
-      '楠梓區': ['楠梓A店', '楠梓B店'],
-      '小港區': ['小港A店', '小港B店'],
-      '岡山區': ['岡山A店', '岡山B店']
+    '金門縣': {
+      '金城鎮': generateStores(2, '金城'),
+      '金湖鎮': generateStores(1, '金湖'),
+      '金沙鎮': generateStores(1, '金沙'),
+      '金寧鄉': generateStores(1, '金寧'),
+      '烈嶼鄉': generateStores(1, '烈嶼'),
+      '烏坵鄉': generateStores(1, '烏坵')
+    },
+    '連江縣': {
+      '南竿鄉': generateStores(2, '南竿'),
+      '北竿鄉': generateStores(1, '北竿'),
+      '莒光鄉': generateStores(1, '莒光'),
+      '東引鄉': generateStores(1, '東引')
+    },
+    '屏東縣': {
+      '屏東市': generateStores(3, '屏東'),
+      '潮州鎮': generateStores(2, '潮州'),
+      '東港鎮': generateStores(2, '東港'),
+      '恆春鎮': [...generateStores(2, '恆春'), '墾丁店'],
+      '萬丹鄉': generateStores(1, '萬丹'),
+      '長治鄉': generateStores(1, '長治'),
+      '麟洛鄉': generateStores(1, '麟洛'),
+      '九如鄉': generateStores(1, '九如'),
+      '里港鄉': generateStores(1, '里港'),
+      '鹽埔鄉': generateStores(1, '鹽埔'),
+      '高樹鄉': generateStores(1, '高樹'),
+      '萬巒鄉': generateStores(1, '萬巒'),
+      '內埔鄉': generateStores(2, '內埔'),
+      '竹田鄉': generateStores(1, '竹田'),
+      '新埤鄉': generateStores(1, '新埤'),
+      '枋寮鄉': generateStores(1, '枋寮'),
+      '新園鄉': generateStores(1, '新園'),
+      '崁頂鄉': generateStores(1, '崁頂'),
+      '林邊鄉': generateStores(1, '林邊'),
+      '南州鄉': generateStores(1, '南州'),
+      '佳冬鄉': generateStores(1, '佳冬'),
+      '琉球鄉': [...generateStores(1, '琉球'), '小琉球店'],
+      '車城鄉': generateStores(1, '車城'),
+      '滿州鄉': generateStores(1, '滿州'),
+      '枋山鄉': generateStores(1, '枋山'),
+      '三地門鄉': generateStores(1, '三地門'),
+      '霧台鄉': generateStores(1, '霧台'),
+      '瑪家鄉': generateStores(1, '瑪家'),
+      '泰武鄉': generateStores(1, '泰武'),
+      '來義鄉': generateStores(1, '來義'),
+      '春日鄉': generateStores(1, '春日'),
+      '獅子鄉': generateStores(1, '獅子'),
+      '牡丹鄉': generateStores(1, '牡丹')
     }
   }
 };
@@ -286,7 +589,6 @@ function updatePrice(){
     var pickupMethod=pickupSelect.value;
     var shipping=0;
     
-    // 根據取貨方式計算運費
     if(pickupMethod === '宅配'){
         shipping = (qty>=FREE_SHIPPING_QTY) ? 0 : SHIPPING_DELIVERY;
     } else if(pickupMethod === '7-11' || pickupMethod === '全家'){
@@ -294,7 +596,6 @@ function updatePrice(){
     } else if(pickupMethod === '面交'){
         shipping = 0;
     } else {
-        // 預設超商運費
         shipping = (qty>=FREE_SHIPPING_QTY) ? 0 : SHIPPING_STORE;
     }
     
@@ -335,7 +636,6 @@ function renderStoreOptions(pickupMethod) {
     
     var stores = storeData[pickupMethod];
     
-    // 創建城市選擇
     var cityDiv = document.createElement('div');
     cityDiv.className = 'store-region';
     var cityLabel = document.createElement('label');
@@ -360,7 +660,6 @@ function renderStoreOptions(pickupMethod) {
     cityDiv.appendChild(citySelect);
     storeSection.appendChild(cityDiv);
     
-    // 創建區域選擇
     var districtDiv = document.createElement('div');
     districtDiv.className = 'store-region';
     var districtLabel = document.createElement('label');
@@ -379,7 +678,6 @@ function renderStoreOptions(pickupMethod) {
     districtDiv.appendChild(districtSelect);
     storeSection.appendChild(districtDiv);
     
-    // 創建門市選擇
     var storeDiv = document.createElement('div');
     storeDiv.className = 'store-region';
     var storeLabel = document.createElement('label');
@@ -398,7 +696,6 @@ function renderStoreOptions(pickupMethod) {
     storeDiv.appendChild(storeSelect);
     storeSection.appendChild(storeDiv);
     
-    // 城市選擇事件
     citySelect.addEventListener('change', function() {
         var selectedCity = this.value;
         districtSelect.innerHTML = '';
@@ -429,7 +726,6 @@ function renderStoreOptions(pickupMethod) {
         }
     });
     
-    // 區域選擇事件
     districtSelect.addEventListener('change', function() {
         var selectedCity = citySelect.value;
         var selectedDistrict = this.value;
@@ -454,7 +750,6 @@ function renderStoreOptions(pickupMethod) {
         }
     });
     
-    // 門市選擇事件
     storeSelect.addEventListener('change', function() {
         selectedStore = this.value;
     });
@@ -462,24 +757,38 @@ function renderStoreOptions(pickupMethod) {
 
 pickupSelect.addEventListener('change', function() {
     var method = this.value;
+    var addressInput = document.getElementById('address');
+    var addressLabel = document.getElementById('addressLabel');
     
     if (method === '7-11' || method === '全家') {
         storeSelectGroup.style.display = 'block';
         addressGroup.style.display = 'none';
+        addressInput.value = '';
+        addressInput.readOnly = false;
+        addressInput.style.backgroundColor = '';
         renderStoreOptions(method);
     } else if (method === '宅配') {
         storeSelectGroup.style.display = 'none';
         addressGroup.style.display = 'block';
-        document.getElementById('addressLabel').textContent = '收貨地址 *';
-        document.getElementById('address').placeholder = '請填寫完整地址';
+        addressLabel.textContent = '收貨地址 *';
+        addressInput.placeholder = '請填寫完整地址';
+        addressInput.value = '';
+        addressInput.readOnly = false;
+        addressInput.style.backgroundColor = '';
     } else if (method === '面交') {
         storeSelectGroup.style.display = 'none';
         addressGroup.style.display = 'block';
-        document.getElementById('addressLabel').textContent = '面交地點 *';
-        document.getElementById('address').placeholder = '請填寫面交地點(需先透過IG確認)';
+        addressLabel.textContent = '面交地點';
+        addressInput.value = '802高雄市苓雅區武廟路206號';
+        addressInput.readOnly = true;
+        addressInput.style.backgroundColor = '#f0f0f0';
+        addressInput.placeholder = '';
     } else {
         storeSelectGroup.style.display = 'none';
         addressGroup.style.display = 'none';
+        addressInput.value = '';
+        addressInput.readOnly = false;
+        addressInput.style.backgroundColor = '';
     }
     
     updatePrice();
@@ -526,7 +835,6 @@ document.getElementById('orderForm').addEventListener('submit',async function(e)
         var subtotal=PRICE*qty;
         var shipping=0;
         
-        // 計算運費
         if(pickupMethod === '宅配'){
             shipping = (qty>=FREE_SHIPPING_QTY) ? 0 : SHIPPING_DELIVERY;
         } else if(pickupMethod === '7-11' || pickupMethod === '全家'){
@@ -566,14 +874,12 @@ ${pickupMethod==='面交'?'⚠️ 此訂單選擇面交,請透過 Instagram 與�
 ${shipping===0&&pickupMethod!=='面交'?'✅ 此訂單已達免運門檻':''}
 ${pickupMethod==='面交'?'✅ 面交免運費':''}`;
 
-        // 商家信
         await fetch('https://api.web3forms.com/submit',{
             method:'POST',
             headers:{'Content-Type':'application/json','Accept':'application/json'},
             body:JSON.stringify({access_key:WEB3FORMS_ACCESS_KEY,subject:`🛒 新訂單 ${orderId} - 渝味食記`,from_name:'渝味食記訂購系統',email:MERCHANT_EMAIL,message:merchantEmailContent})
         });
 
-        // 顧客信
         var customerEmailContent=`親愛的 ${customerName} 您好:
 感謝您於 渝味食記 下單!
 訂單編號:${orderId}
@@ -623,7 +929,421 @@ Instagram: @yuweishiji
 });
 
 updatePrice();
-console.log('渝味食記訂購系統初始化完成(含門市選擇功能)');
+console.log('渝味食記訂購系統初始化完成');
 </script>
 </body>
-</html>
+</html>, '埔心'),
+      '埔鹽鄉': generateStores(1, '埔鹽'),
+      '大城鄉': generateStores(1, '大城'),
+      '芳苑鄉': generateStores(1, '芳苑'),
+      '竹塘鄉': generateStores(1, '竹塘'),
+      '社頭鄉': generateStores(1, '社頭'),
+      '二水鄉': generateStores(1, '二水'),
+      '田尾鄉': generateStores(1, '田尾'),
+      '埤頭鄉': generateStores(1, '埤頭'),
+      '溪州鄉': generateStores(1, '溪州')
+    },
+    '南投縣': {
+      '南投市': generateStores(3, '南投'),
+      '埔里鎮': generateStores(3, '埔里'),
+      '草屯鎮': generateStores(3, '草屯'),
+      '竹山鎮': generateStores(2, '竹山'),
+      '集集鎮': [...generateStores(1, '集集'), '集集老街門市'],
+      '名間鄉': generateStores(1, '名間'),
+      '鹿谷鄉': generateStores(1, '鹿谷'),
+      '中寮鄉': generateStores(1, '中寮'),
+      '魚池鄉': [...generateStores(1, '魚池'), '日月潭門市'],
+      '國姓鄉': generateStores(1, '國姓'),
+      '水里鄉': generateStores(1, '水里'),
+      '信義鄉': generateStores(1, '信義'),
+      '仁愛鄉': [...generateStores(1, '仁愛'), '清境門市']
+    },
+    '雲林縣': {
+      '斗六市': generateStores(3, '斗六'),
+      '斗南鎮': generateStores(2, '斗南'),
+      '虎尾鎮': generateStores(2, '虎尾'),
+      '西螺鎮': generateStores(2, '西螺'),
+      '土庫鎮': generateStores(1, '土庫'),
+      '北港鎮': generateStores(2, '北港'),
+      '林內鄉': generateStores(1, '林內'),
+      '古坑鄉': generateStores(1, '古坑'),
+      '大埤鄉': generateStores(1, '大埤'),
+      '莿桐鄉': generateStores(1, '莿桐'),
+      '褒忠鄉': generateStores(1, '褒忠'),
+      '二崙鄉': generateStores(1, '二崙'),
+      '崙背鄉': generateStores(1, '崙背'),
+      '麥寮鄉': generateStores(1, '麥寮'),
+      '東勢鄉': generateStores(1, '東勢'),
+      '台西鄉': generateStores(1, '台西'),
+      '四湖鄉': generateStores(1, '四湖'),
+      '口湖鄉': generateStores(1, '口湖'),
+      '水林鄉': generateStores(1, '水林'),
+      '元長鄉': generateStores(1, '元長')
+    },
+    '嘉義市': {
+      '東區': generateStores(3, '東區'),
+      '西區': [...generateStores(3, '西區'), '嘉義車站門市']
+    },
+    '嘉義縣': {
+      '太保市': [...generateStores(2, '太保'), '高鐵門市'],
+      '朴子市': generateStores(2, '朴子'),
+      '布袋鎮': generateStores(2, '布袋'),
+      '大林鎮': generateStores(1, '大林'),
+      '民雄鄉': generateStores(2, '民雄'),
+      '溪口鄉': generateStores(1, '溪口'),
+      '新港鄉': generateStores(1, '新港'),
+      '六腳鄉': generateStores(1, '六腳'),
+      '東石鄉': generateStores(1, '東石'),
+      '義竹鄉': generateStores(1, '義竹'),
+      '鹿草鄉': generateStores(1, '鹿草'),
+      '水上鄉': generateStores(1, '水上'),
+      '中埔鄉': generateStores(1, '中埔'),
+      '竹崎鄉': generateStores(1, '竹崎'),
+      '梅山鄉': generateStores(1, '梅山'),
+      '番路鄉': generateStores(1, '番路'),
+      '大埔鄉': generateStores(1, '大埔'),
+      '阿里山鄉': generateStores(1, '阿里山')
+    },
+    '台南市': {
+      '中西區': [...generateStores(3, '中西'), '台南車站門市'],
+      '東區': [...generateStores(4, '東區'), '成大門市'],
+      '南區': generateStores(3, '南區'),
+      '北區': generateStores(3, '北區'),
+      '安平區': [...generateStores(3, '安平'), '安平老街門市'],
+      '安南區': generateStores(3, '安南'),
+      '永康區': generateStores(4, '永康'),
+      '歸仁區': [...generateStores(2, '歸仁'), '高鐵門市'],
+      '新化區': generateStores(2, '新化'),
+      '左鎮區': generateStores(1, '左鎮'),
+      '玉井區': generateStores(1, '玉井'),
+      '楠西區': generateStores(1, '楠西'),
+      '南化區': generateStores(1, '南化'),
+      '仁德區': generateStores(2, '仁德'),
+      '關廟區': generateStores(1, '關廟'),
+      '龍崎區': generateStores(1, '龍崎'),
+      '官田區': generateStores(1, '官田'),
+      '麻豆區': generateStores(2, '麻豆'),
+      '佳里區': generateStores(2, '佳里'),
+      '西港區': generateStores(1, '西港'),
+      '七股區': generateStores(1, '七股'),
+      '將軍區': generateStores(1, '將軍'),
+      '學甲區': generateStores(1, '學甲'),
+      '北門區': generateStores(1, '北門'),
+      '新營區': generateStores(2, '新營'),
+      '後壁區': generateStores(1, '後壁'),
+      '白河區': generateStores(1, '白河'),
+      '東山區': generateStores(1, '東山'),
+      '六甲區': generateStores(1, '六甲'),
+      '下營區': generateStores(1, '下營'),
+      '柳營區': generateStores(1, '柳營'),
+      '鹽水區': generateStores(1, '鹽水'),
+      '善化區': generateStores(2, '善化'),
+      '大內區': generateStores(1, '大內'),
+      '山上區': generateStores(1, '山上'),
+      '新市區': generateStores(1, '新市'),
+      '安定區': generateStores(1, '安定')
+    },
+    '高雄市': {
+      '新興區': generateStores(2, '新興'),
+      '前金區': generateStores(2, '前金'),
+      '苓雅區': generateStores(3, '苓雅'),
+      '鹽埕區': generateStores(2, '鹽埕'),
+      '鼓山區': generateStores(3, '鼓山'),
+      '旗津區': generateStores(1, '旗津'),
+      '前鎮區': generateStores(3, '前鎮'),
+      '三民區': generateStores(4, '三民'),
+      '左營區': [...generateStores(3, '左營'), '高鐵門市'],
+      '楠梓區': generateStores(3, '楠梓'),
+      '小港區': generateStores(3, '小港'),
+      '鳳山區': generateStores(4, '鳳山'),
+      '林園區': generateStores(2, '林園'),
+      '大寮區': generateStores(2, '大寮'),
+      '大樹區': generateStores(1, '大樹'),
+      '大社區': generateStores(1, '大社'),
+      '仁武區': generateStores(2, '仁武'),
+      '鳥松區': generateStores(1, '鳥松'),
+      '岡山區': generateStores(3, '岡山'),
+      '橋頭區': generateStores(2, '橋頭'),
+      '燕巢區': generateStores(1, '燕巢'),
+      '田寮區': generateStores(1, '田寮'),
+      '阿蓮區': generateStores(1, '阿蓮'),
+      '路竹區': generateStores(2, '路竹'),
+      '湖內區': generateStores(1, '湖內'),
+      '茄萣區': generateStores(1, '茄萣'),
+      '永安區': generateStores(1, '永安'),
+      '彌陀區': generateStores(1, '彌陀'),
+      '梓官區': generateStores(1, '梓官'),
+      '旗山區': generateStores(2, '旗山'),
+      '美濃區': generateStores(2, '美濃'),
+      '六龜區': generateStores(1, '六龜'),
+      '甲仙區': generateStores(1, '甲仙'),
+      '杉林區': generateStores(1, '杉林'),
+      '內門區': generateStores(1, '內門'),
+      '茂林區': generateStores(1, '茂林'),
+      '桃源區': generateStores(1, '桃源'),
+      '那瑪夏區': generateStores(1, '那瑪夏')
+    },
+    '宜蘭縣': {
+      '宜蘭市': generateStores(3, '宜蘭'),
+      '羅東鎮': generateStores(3, '羅東'),
+      '蘇澳鎮': generateStores(2, '蘇澳'),
+      '頭城鎮': generateStores(2, '頭城'),
+      '礁溪鄉': generateStores(2, '礁溪'),
+      '壯圍鄉': generateStores(1, '壯圍'),
+      '員山鄉': generateStores(1, '員山'),
+      '冬山鄉': generateStores(2, '冬山'),
+      '五結鄉': generateStores(2, '五結'),
+      '三星鄉': generateStores(1, '三星'),
+      '大同鄉': generateStores(1, '大同'),
+      '南澳鄉': generateStores(1, '南澳')
+    },
+    '花蓮縣': {
+      '花蓮市': generateStores(4, '花蓮'),
+      '鳳林鎮': generateStores(1, '鳳林'),
+      '玉里鎮': generateStores(2, '玉里'),
+      '新城鄉': generateStores(1, '新城'),
+      '吉安鄉': generateStores(2, '吉安'),
+      '壽豐鄉': generateStores(1, '壽豐'),
+      '光復鄉': generateStores(1, '光復'),
+      '豐濱鄉': generateStores(1, '豐濱'),
+      '瑞穗鄉': generateStores(1, '瑞穗'),
+      '富里鄉': generateStores(1, '富里'),
+      '秀林鄉': generateStores(1, '秀林'),
+      '萬榮鄉': generateStores(1, '萬榮'),
+      '卓溪鄉': generateStores(1, '卓溪')
+    },
+    '台東縣': {
+      '台東市': generateStores(3, '台東'),
+      '成功鎮': generateStores(1, '成功'),
+      '關山鎮': generateStores(1, '關山'),
+      '卑南鄉': generateStores(1, '卑南'),
+      '鹿野鄉': generateStores(1, '鹿野'),
+      '池上鄉': generateStores(1, '池上'),
+      '東河鄉': generateStores(1, '東河'),
+      '長濱鄉': generateStores(1, '長濱'),
+      '太麻里鄉': generateStores(1, '太麻里'),
+      '大武鄉': generateStores(1, '大武'),
+      '綠島鄉': generateStores(1, '綠島'),
+      '海端鄉': generateStores(1, '海端'),
+      '延平鄉': generateStores(1, '延平'),
+      '金峰鄉': generateStores(1, '金峰'),
+      '達仁鄉': generateStores(1, '達仁'),
+      '蘭嶼鄉': generateStores(1, '蘭嶼')
+    },
+    '澎湖縣': {
+      '馬公市': generateStores(3, '馬公'),
+      '湖西鄉': generateStores(1, '湖西'),
+      '白沙鄉': generateStores(1, '白沙'),
+      '西嶼鄉': generateStores(1, '西嶼'),
+      '望安鄉': generateStores(1, '望安'),
+      '七美鄉': generateStores(1, '七美')
+    },
+    '金門縣': {
+      '金城鎮': generateStores(2, '金城'),
+      '金湖鎮': generateStores(1, '金湖'),
+      '金沙鎮': generateStores(1, '金沙'),
+      '金寧鄉': generateStores(1, '金寧'),
+      '烈嶼鄉': generateStores(1, '烈嶼'),
+      '烏坵鄉': generateStores(1, '烏坵')
+    },
+    '連江縣': {
+      '南竿鄉': generateStores(2, '南竿'),
+      '北竿鄉': generateStores(1, '北竿'),
+      '莒光鄉': generateStores(1, '莒光'),
+      '東引鄉': generateStores(1, '東引')
+    },
+    '屏東縣': {
+      '屏東市': generateStores(3, '屏東'),
+      '潮州鎮': generateStores(2, '潮州'),
+      '東港鎮': generateStores(2, '東港'),
+      '恆春鎮': [...generateStores(2, '恆春'), '墾丁門市'],
+      '萬丹鄉': generateStores(1, '萬丹'),
+      '長治鄉': generateStores(1, '長治'),
+      '麟洛鄉': generateStores(1, '麟洛'),
+      '九如鄉': generateStores(1, '九如'),
+      '里港鄉': generateStores(1, '里港'),
+      '鹽埔鄉': generateStores(1, '鹽埔'),
+      '高樹鄉': generateStores(1, '高樹'),
+      '萬巒鄉': generateStores(1, '萬巒'),
+      '內埔鄉': generateStores(2, '內埔'),
+      '竹田鄉': generateStores(1, '竹田'),
+      '新埤鄉': generateStores(1, '新埤'),
+      '枋寮鄉': generateStores(1, '枋寮'),
+      '新園鄉': generateStores(1, '新園'),
+      '崁頂鄉': generateStores(1, '崁頂'),
+      '林邊鄉': generateStores(1, '林邊'),
+      '南州鄉': generateStores(1, '南州'),
+      '佳冬鄉': generateStores(1, '佳冬'),
+      '琉球鄉': [...generateStores(1, '琉球'), '小琉球門市'],
+      '車城鄉': generateStores(1, '車城'),
+      '滿州鄉': generateStores(1, '滿州'),
+      '枋山鄉': generateStores(1, '枋山'),
+      '三地門鄉': generateStores(1, '三地門'),
+      '霧台鄉': generateStores(1, '霧台'),
+      '瑪家鄉': generateStores(1, '瑪家'),
+      '泰武鄉': generateStores(1, '泰武'),
+      '來義鄉': generateStores(1, '來義'),
+      '春日鄉': generateStores(1, '春日'),
+      '獅子鄉': generateStores(1, '獅子'),
+      '牡丹鄉': generateStores(1, '牡丹')
+    }
+  },
+  '全家': {
+    '台北市': {
+      '中正區': [...generateStores(2, '中正'), '台北車站店'],
+      '大同區': [...generateStores(2, '大同'), '迪化街店'],
+      '中山區': [...generateStores(3, '中山'), '南京東路店'],
+      '松山區': [...generateStores(2, '松山'), '饒河街店'],
+      '大安區': [...generateStores(3, '大安'), '師大店', '仁愛店'],
+      '萬華區': [...generateStores(2, '萬華'), '西門町店'],
+      '信義區': [...generateStores(3, '信義'), '101店', '市政府店'],
+      '士林區': [...generateStores(3, '士林'), '天母店'],
+      '北投區': [...generateStores(2, '北投'), '新北投店'],
+      '內湖區': [...generateStores(3, '內湖'), '科學園區店'],
+      '南港區': [...generateStores(2, '南港'), '南港軟體園區店'],
+      '文山區': [...generateStores(2, '文山'), '木柵店', '景美店']
+    },
+    '新北市': {
+      '板橋區': [...generateStores(3, '板橋'), '府中店', '新埔店'],
+      '三重區': [...generateStores(3, '三重'), '重新路店'],
+      '中和區': [...generateStores(3, '中和'), '景安店'],
+      '永和區': [...generateStores(3, '永和'), '頂溪店'],
+      '新莊區': [...generateStores(3, '新莊'), '輔大店', '副都心店'],
+      '新店區': [...generateStores(3, '新店'), '碧潭店'],
+      '樹林區': generateStores(3, '樹林'),
+      '鶯歌區': [...generateStores(2, '鶯歌'), '老街店'],
+      '三峽區': [...generateStores(2, '三峽'), '北大店'],
+      '淡水區': [...generateStores(3, '淡水'), '老街店'],
+      '汐止區': generateStores(3, '汐止'),
+      '瑞芳區': generateStores(2, '瑞芳'),
+      '土城區': [...generateStores(3, '土城'), '頂埔店'],
+      '蘆洲區': generateStores(3, '蘆洲'),
+      '五股區': generateStores(2, '五股'),
+      '泰山區': generateStores(2, '泰山'),
+      '林口區': generateStores(3, '林口'),
+      '深坑區': [...generateStores(1, '深坑'), '深坑老街店'],
+      '石碇區': generateStores(1, '石碇'),
+      '坪林區': generateStores(1, '坪林'),
+      '三芝區': generateStores(1, '三芝'),
+      '石門區': generateStores(1, '石門'),
+      '八里區': generateStores(2, '八里'),
+      '平溪區': generateStores(1, '平溪'),
+      '雙溪區': generateStores(1, '雙溪'),
+      '貢寮區': generateStores(1, '貢寮'),
+      '金山區': generateStores(2, '金山'),
+      '萬里區': generateStores(1, '萬里'),
+      '烏來區': generateStores(1, '烏來')
+    },
+    '基隆市': {
+      '仁愛區': [...generateStores(2, '仁愛'), '基隆車站店'],
+      '信義區': generateStores(2, '信義'),
+      '中正區': generateStores(2, '中正'),
+      '中山區': generateStores(2, '中山'),
+      '安樂區': generateStores(2, '安樂'),
+      '暖暖區': generateStores(1, '暖暖'),
+      '七堵區': generateStores(2, '七堵')
+    },
+    '桃園市': {
+      '桃園區': [...generateStores(4, '桃園'), '火車站店'],
+      '中壢區': [...generateStores(4, '中壢'), '中原店', '內壢店'],
+      '平鎮區': generateStores(3, '平鎮'),
+      '八德區': generateStores(3, '八德'),
+      '楊梅區': generateStores(3, '楊梅'),
+      '蘆竹區': [...generateStores(2, '蘆竹'), '南崁店'],
+      '大溪區': [...generateStores(2, '大溪'), '老街店'],
+      '龍潭區': generateStores(3, '龍潭'),
+      '龜山區': [...generateStores(3, '龜山'), '長庚店'],
+      '大園區': generateStores(2, '大園'),
+      '觀音區': generateStores(2, '觀音'),
+      '新屋區': generateStores(2, '新屋'),
+      '復興區': generateStores(1, '復興')
+    },
+    '新竹市': {
+      '東區': [...generateStores(3, '東區'), '火車站店', '科學園區店'],
+      '北區': [...generateStores(3, '北區'), '清大店', '交大店'],
+      '香山區': generateStores(2, '香山')
+    },
+    '新竹縣': {
+      '竹北市': generateStores(4, '竹北'),
+      '竹東鎮': generateStores(2, '竹東'),
+      '新埔鎮': generateStores(2, '新埔'),
+      '關西鎮': generateStores(2, '關西'),
+      '湖口鄉': generateStores(3, '湖口'),
+      '新豐鄉': generateStores(2, '新豐'),
+      '芎林鄉': generateStores(1, '芎林'),
+      '橫山鄉': generateStores(1, '橫山'),
+      '北埔鄉': generateStores(1, '北埔'),
+      '寶山鄉': generateStores(1, '寶山'),
+      '峨眉鄉': generateStores(1, '峨眉'),
+      '尖石鄉': generateStores(1, '尖石'),
+      '五峰鄉': generateStores(1, '五峰')
+    },
+    '苗栗縣': {
+      '苗栗市': generateStores(3, '苗栗'),
+      '頭份市': generateStores(3, '頭份'),
+      '竹南鎮': generateStores(3, '竹南'),
+      '後龍鎮': generateStores(2, '後龍'),
+      '通霄鎮': generateStores(2, '通霄'),
+      '苑裡鎮': generateStores(2, '苑裡'),
+      '卓蘭鎮': generateStores(1, '卓蘭'),
+      '造橋鄉': generateStores(1, '造橋'),
+      '西湖鄉': generateStores(1, '西湖'),
+      '頭屋鄉': generateStores(1, '頭屋'),
+      '公館鄉': generateStores(2, '公館'),
+      '銅鑼鄉': generateStores(1, '銅鑼'),
+      '三義鄉': generateStores(2, '三義'),
+      '大湖鄉': generateStores(1, '大湖'),
+      '獅潭鄉': generateStores(1, '獅潭'),
+      '三灣鄉': generateStores(1, '三灣'),
+      '南庄鄉': generateStores(1, '南庄'),
+      '泰安鄉': generateStores(1, '泰安')
+    },
+    '台中市': {
+      '中區': [...generateStores(2, '中區'), '台中車站店'],
+      '東區': generateStores(3, '東區'),
+      '南區': generateStores(3, '南區'),
+      '西區': [...generateStores(3, '西區'), '草悟道店'],
+      '北區': [...generateStores(3, '北區'), '中友店'],
+      '西屯區': [...generateStores(4, '西屯'), '逢甲店', '東海店'],
+      '南屯區': [...generateStores(3, '南屯'), '文心南路店'],
+      '北屯區': [...generateStores(4, '北屯'), '松竹店'],
+      '豐原區': generateStores(3, '豐原'),
+      '大里區': generateStores(3, '大里'),
+      '太平區': generateStores(3, '太平'),
+      '清水區': generateStores(2, '清水'),
+      '沙鹿區': generateStores(3, '沙鹿'),
+      '大甲區': generateStores(2, '大甲'),
+      '東勢區': generateStores(2, '東勢'),
+      '梧棲區': [...generateStores(2, '梧棲'), '梧棲港店'],
+      '烏日區': [...generateStores(2, '烏日'), '高鐵店'],
+      '神岡區': generateStores(2, '神岡'),
+      '大肚區': generateStores(2, '大肚'),
+      '大雅區': generateStores(2, '大雅'),
+      '后里區': generateStores(2, '后里'),
+      '霧峰區': generateStores(2, '霧峰'),
+      '潭子區': generateStores(2, '潭子'),
+      '龍井區': generateStores(2, '龍井'),
+      '外埔區': generateStores(1, '外埔'),
+      '和平區': generateStores(1, '和平'),
+      '石岡區': generateStores(1, '石岡'),
+      '大安區': generateStores(1, '大安'),
+      '新社區': generateStores(1, '新社')
+    },
+    '彰化縣': {
+      '彰化市': generateStores(4, '彰化'),
+      '員林市': generateStores(3, '員林'),
+      '和美鎮': generateStores(2, '和美'),
+      '鹿港鎮': [...generateStores(2, '鹿港'), '鹿港老街店'],
+      '溪湖鎮': generateStores(2, '溪湖'),
+      '二林鎮': generateStores(2, '二林'),
+      '田中鎮': generateStores(2, '田中'),
+      '北斗鎮': generateStores(2, '北斗'),
+      '花壇鄉': generateStores(1, '花壇'),
+      '芬園鄉': generateStores(1, '芬園'),
+      '大村鄉': generateStores(1, '大村'),
+      '永靖鄉': generateStores(1, '永靖'),
+      '伸港鄉': generateStores(1, '伸港'),
+      '線西鄉': generateStores(1, '線西'),
+      '福興鄉': generateStores(1, '福興'),
+      '秀水鄉': generateStores(1, '秀水'),
+      '埔心鄉': generateStores(1
