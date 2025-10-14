@@ -134,9 +134,14 @@ var PRICE=250, SHIPPING_DELIVERY=160, SHIPPING_STORE=130, FREE_SHIPPING_QTY=10;
 
 // 門市資料生成函數 - 自動生成門市名稱
 function generateStores(count, prefix) {
+  const suffixes = ['中正門市', '忠孝門市', '仁愛門市', '信義門市', '和平門市', '博愛門市', '光復門市', '民權門市', '民生門市', '復興門市'];
   const stores = [];
-  for(let i = 1; i <= count; i++) {
+  if (count === 1) {
     stores.push(`${prefix}門市`);
+  } else {
+    for(let i = 0; i < count && i < suffixes.length; i++) {
+      stores.push(`${prefix}${suffixes[i]}`);
+    }
   }
   return stores;
 }
