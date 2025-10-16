@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="zh-TW">
 <head>
@@ -21,6 +22,17 @@ body { font-family: 'Microsoft JhengHei', Arial, sans-serif; background: linear-
 .special-badge { display: inline-block; background: #ff6b6b; color: white; padding: 5px 15px; border-radius: 20px; font-size: 0.9em; margin-left: 10px; }
 .highlight { background: #fff3bf; padding: 15px; border-radius: 10px; margin: 15px 0; border-left: 4px solid #f44336; }
 .highlight strong { color: #b71c1c; }
+.product-intro { background: linear-gradient(135deg, #fff8f0 0%, #ffe8e8 100%); border-radius: 15px; padding: 25px; margin: 20px 0; border: 2px solid #ff6b6b; line-height: 1.8; }
+.product-intro h3 { color: #b71c1c; margin-bottom: 15px; font-size: 1.3em; }
+.product-intro p { color: #333; margin-bottom: 12px; font-size: 1.05em; }
+.product-intro strong { color: #d32f2f; }
+.features-box { background: white; border-radius: 10px; padding: 15px; margin: 15px 0; }
+.feature-item { color: #d32f2f; margin-bottom: 8px; font-weight: bold; }
+.feature-item:last-child { margin-bottom: 0; }
+.slogan { color: #b71c1c; font-weight: bold; font-size: 1.15em; margin: 15px 0; }
+.specs-box { background: #fff3bf; border-radius: 8px; padding: 12px; margin-top: 15px; border-left: 4px solid #ff6b6b; }
+.specs-box div { color: #333; margin-bottom: 5px; }
+.specs-box div:last-child { margin-bottom: 0; }
 .form-group { margin: 20px 0; }
 .form-group label { display: block; margin-bottom: 8px; color: #333; font-weight: bold; }
 .form-group input, .form-group select, .form-group textarea { width: 100%; padding: 12px; border: 2px solid #ddd; border-radius: 8px; font-size: 1em; transition: border-color 0.3s; }
@@ -66,6 +78,26 @@ body { font-family: 'Microsoft JhengHei', Arial, sans-serif; background: linear-
 
       <div class="highlight">
         <strong>手工製作、無添加防腐劑,開封後需冷藏保存 ⚠️</strong>
+      </div>
+
+      <div class="product-intro">
+        <h3>🌶️ 渝味食記-濃香型四川辣椒醬</h3>
+        <p><strong>四川的靈魂,不只在麵裡,也在這一瓢辣油裡!</strong></p>
+        <p style="color: #555;">
+          我們的手工辣椒,是每天親炒現做,從挑椒、炸香料到熬油,每一步都用心。<br>
+          辣得過癮卻不嗆喉,麻得香氣層層堆疊——拌麵、炒菜、沾水餃都超搭!
+        </p>
+        <div class="features-box">
+          <div class="feature-item">💥 無添加防腐劑</div>
+          <div class="feature-item">💥 純手工熬煮</div>
+          <div class="feature-item">💥 香、麻、辣三味俱全</div>
+          <div class="feature-item">💥 添加30多種香料</div>
+        </div>
+        <p class="slogan">一匙下去,整碗都活了🔥</p>
+        <div class="specs-box">
+          <div><strong>容量:</strong> 150g/瓶</div>
+          <div><strong>保存期限:</strong> 冷藏保存半年 / 常溫保存3個月</div>
+        </div>
       </div>
 
       <form id="orderForm">
@@ -126,7 +158,6 @@ body { font-family: 'Microsoft JhengHei', Arial, sans-serif; background: linear-
     </div>
   </div>
 </div>
-
 <script>
 const WEB3FORMS_ACCESS_KEY='63c8b2d8-bddb-46cb-b683-e3c0becf31bf';
 const MERCHANT_EMAIL='bonnywu992@gmail.com';
@@ -861,3 +892,4 @@ updatePrice();
 </script>
 </body>
 </html>
+
