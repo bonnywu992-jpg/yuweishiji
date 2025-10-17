@@ -6,106 +6,55 @@
 <title>渝味食記 - 四川濃香型辣椒醬</title>
 <style>
 * { margin: 0; padding: 0; box-sizing: border-box; }
-body {
-  font-family: 'Microsoft JhengHei', Arial, sans-serif;
-  background: linear-gradient(135deg, #d32f2f 0%, #f44336 100%);
-  min-height: 100vh;
-  padding: 20px;
-}
-.container {
-  max-width: 800px; margin: 0 auto; background: white;
-  border-radius: 20px; box-shadow: 0 20px 60px rgba(0,0,0,0.3);
-  overflow: hidden;
-}
-.header {
-  background: linear-gradient(135deg, #b71c1c 0%, #d32f2f 100%);
-  color: white; padding: 40px 30px; text-align: center;
-}
+body { font-family: 'Microsoft JhengHei', Arial, sans-serif; background: linear-gradient(135deg, #d32f2f 0%, #f44336 100%); min-height: 100vh; padding: 20px; }
+.container { max-width: 800px; margin: 0 auto; background: white; border-radius: 20px; box-shadow: 0 20px 60px rgba(0,0,0,0.3); overflow: hidden; }
+.header { background: linear-gradient(135deg, #b71c1c 0%, #d32f2f 100%); color: white; padding: 40px 30px; text-align: center; }
 .header h1 { font-size: 2.5em; margin-bottom: 10px; text-shadow: 2px 2px 4px rgba(0,0,0,0.2); }
 .header p { font-size: 1.1em; opacity: 0.95; }
-.ig-link {
-  display: inline-block; margin-top: 10px; padding: 8px 20px;
-  background: rgba(255,255,255,0.2); border-radius: 20px;
-  color: white; text-decoration: none; transition: background 0.3s;
-}
+.ig-link { display: inline-block; margin-top: 10px; padding: 8px 20px; background: rgba(255,255,255,0.2); border-radius: 20px; color: white; text-decoration: none; transition: background 0.3s; }
 .ig-link:hover { background: rgba(255,255,255,0.3); }
-
 .product-section { padding: 40px 30px; }
-.product-card {
-  background: linear-gradient(135deg, #fff5f5 0%, #ffebee 100%);
-  border-radius: 15px; padding: 30px; border: 3px solid #f44336;
-}
-.product-header {
-  display: flex; justify-content: space-between; align-items: center;
-  flex-wrap: wrap; margin-bottom: 20px;
-}
+.product-card { background: linear-gradient(135deg, #fff5f5 0%, #ffebee 100%); border-radius: 15px; padding: 30px; border: 3px solid #f44336; }
+.product-header { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; margin-bottom: 20px; }
 .product-name { font-size: 1.8em; color: #b71c1c; font-weight: bold; }
 .product-price { font-size: 1.6em; color: #d32f2f; font-weight: bold; }
-.special-badge {
-  display: inline-block; background: #ff6b6b; color: white;
-  padding: 5px 15px; border-radius: 20px; font-size: 0.9em; margin-left: 10px;
-}
-.highlight {
-  background: #fff3bf; padding: 15px; border-radius: 10px; margin: 15px 0;
-  border-left: 4px solid #f44336;
-}
+.special-badge { display: inline-block; background: #ff6b6b; color: white; padding: 5px 15px; border-radius: 20px; font-size: 0.9em; margin-left: 10px; }
+.highlight { background: #fff3bf; padding: 15px; border-radius: 10px; margin: 15px 0; border-left: 4px solid #f44336; }
 .highlight strong { color: #b71c1c; }
-.product-intro {
-  background: linear-gradient(135deg, #fff8f0 0%, #ffe8e8 100%);
-  border-radius: 15px; padding: 25px; margin: 20px 0; border: 2px solid #ff6b6b;
-  line-height: 1.8;
-}
+.product-intro { background: linear-gradient(135deg, #fff8f0 0%, #ffe8e8 100%); border-radius: 15px; padding: 25px; margin: 20px 0; border: 2px solid #ff6b6b; line-height: 1.8; }
 .product-intro h3 { color: #b71c1c; margin-bottom: 15px; font-size: 1.3em; }
+.product-intro p { color: #333; margin-bottom: 12px; font-size: 1.05em; }
+.product-intro strong { color: #d32f2f; }
 .features-box { background: white; border-radius: 10px; padding: 15px; margin: 15px 0; }
 .feature-item { color: #d32f2f; margin-bottom: 8px; font-weight: bold; }
+.feature-item:last-child { margin-bottom: 0; }
 .slogan { color: #b71c1c; font-weight: bold; font-size: 1.15em; margin: 15px 0; }
-.specs-box {
-  background: #fff3bf; border-radius: 8px; padding: 12px; margin-top: 15px;
-  border-left: 4px solid #ff6b6b;
-}
-
+.specs-box { background: #fff3bf; border-radius: 8px; padding: 12px; margin-top: 15px; border-left: 4px solid #ff6b6b; }
+.specs-box div { color: #333; margin-bottom: 5px; }
+.specs-box div:last-child { margin-bottom: 0; }
 .form-group { margin: 20px 0; }
 .form-group label { display: block; margin-bottom: 8px; color: #333; font-weight: bold; }
-.form-group input, .form-group select, .form-group textarea {
-  width: 100%; padding: 12px; border: 2px solid #ddd; border-radius: 8px;
-  font-size: 1em; transition: border-color 0.3s;
-}
-.form-group input:focus, .form-group select:focus, .form-group textarea:focus {
-  outline: none; border-color: #f44336;
-}
-
-.quantity-control {
-  display: flex; align-items: center; gap: 15px;
-}
-.quantity-control button {
-  width: 40px; height: 40px; border: none; background: #f44336;
-  color: white; font-size: 1.5em; border-radius: 8px;
-  cursor: pointer; transition: background 0.3s;
-}
+.form-group input, .form-group select, .form-group textarea { width: 100%; padding: 12px; border: 2px solid #ddd; border-radius: 8px; font-size: 1em; transition: border-color 0.3s; }
+.form-group input:focus, .form-group select:focus, .form-group textarea:focus { outline: none; border-color: #f44336; }
+.quantity-control { display: flex; align-items: center; gap: 15px; }
+.quantity-control button { width: 40px; height: 40px; border: none; background: #f44336; color: white; font-size: 1.5em; border-radius: 8px; cursor: pointer; transition: background 0.3s; user-select: none; }
 .quantity-control button:hover { background: #d32f2f; }
-
-.total-section {
-  background: #f8f9fa; padding: 20px; border-radius: 10px; margin: 20px 0;
-}
+.quantity-control button:active { transform: scale(0.95); }
+.quantity-control input { width: 80px; text-align: center; font-size: 1.2em; font-weight: bold; pointer-events: none; }
+.total-section { background: #f8f9fa; padding: 20px; border-radius: 10px; margin: 20px 0; }
 .total-row { display: flex; justify-content: space-between; margin: 10px 0; font-size: 1.1em; }
 .total-row.final { font-size: 1.5em; font-weight: bold; color: #b71c1c; border-top: 2px solid #ddd; padding-top: 10px; margin-top: 15px; }
-
-.notice {
-  background: #fff3bf; padding: 15px; border-radius: 10px; margin: 20px 0;
-  text-align: center; font-weight: bold; color: #b71c1c;
-  border: 2px dashed #ffa94d;
-}
-
-.submit-btn {
-  width: 100%; padding: 18px;
-  background: linear-gradient(135deg, #b71c1c 0%, #d32f2f 100%);
-  color: white; border: none; border-radius: 12px; font-size: 1.3em;
-  font-weight: bold; cursor: pointer; transition: transform 0.2s, box-shadow 0.2s;
-}
-.submit-btn:hover { transform: translateY(-2px); box-shadow: 0 8px 20px rgba(183,28,28,0.4); }
-.success-message { background: #d3f9d8; padding: 20px; border-radius: 10px; text-align: center; color: #2b8a3e; font-weight: bold; border: 2px solid #51cf66; }
-.error-message { background: #ffe3e3; padding: 20px; border-radius: 10px; text-align: center; color: #b71c1c; font-weight: bold; border: 2px solid #f44336; }
-.store-section { background: #f8f9fa; padding: 15px; border-radius: 10px; border: 2px solid #e9ecef; }
+.notice { background: #fff3bf; padding: 15px; border-radius: 10px; margin: 20px 0; text-align: center; font-weight: bold; color: #b71c1c; border: 2px dashed #ffa94d; }
+.submit-btn { width: 100%; padding: 18px; background: linear-gradient(135deg, #b71c1c 0%, #d32f2f 100%); color: white; border: none; border-radius: 12px; font-size: 1.3em; font-weight: bold; cursor: pointer; transition: transform 0.2s, box-shadow 0.2s; margin-bottom: 10px; }
+.submit-btn:hover { transform: translateY(-2px); box-shadow: 0 8px 20px rgba(183, 28, 28, 0.4); }
+.submit-btn:disabled { background: #ccc; cursor: not-allowed; transform: none; }
+.success-message { background: #d3f9d8; padding: 20px; border-radius: 10px; margin: 20px 0; text-align: center; color: #2b8a3e; font-weight: bold; border: 2px solid #51cf66; }
+.error-message { background: #ffe3e3; padding: 20px; border-radius: 10px; margin: 20px 0; text-align: center; color: #b71c1c; font-weight: bold; border: 2px solid #f44336; }
+.store-section { background: #f8f9fa; padding: 15px; border-radius: 10px; margin-top: 10px; border: 2px solid #e9ecef; }
+.store-region { margin-bottom: 15px; }
+.store-region:last-child { margin-bottom: 0; }
+.store-region label { font-size: 0.95em; color: #495057; margin-bottom: 5px; display: block; }
+#addressGroup { display: none; }
 </style>
 </head>
 <body>
@@ -126,7 +75,29 @@ body {
         <div class="product-price">NT$ 250 / 罐</div>
       </div>
 
-      <div class="highlight"><strong>手工製作、無添加防腐劑，開封後請冷藏保存 ⚠️</strong></div>
+      <div class="highlight">
+        <strong>手工製作、無添加防腐劑,開封後需冷藏保存 ⚠️</strong>
+      </div>
+
+      <div class="product-intro">
+        <h3>🌶️ 渝味食記-濃香型四川辣椒醬</h3>
+        <p><strong>四川的靈魂,不只在麵裡,也在這一瓢辣油裡!</strong></p>
+        <p style="color: #555;">
+          我們的手工辣椒,是每天親炒現做,從挑椒、炸香料到熬油,每一步都用心。<br>
+          辣得過癮卻不嗆喉,麻得香氣層層堆疊——拌麵、炒菜、沾水餃都超搭!
+        </p>
+        <div class="features-box">
+          <div class="feature-item">💥 無添加防腐劑</div>
+          <div class="feature-item">💥 純手工熬煮</div>
+          <div class="feature-item">💥 香、麻、辣三味俱全</div>
+          <div class="feature-item">💥 添加30多種香料</div>
+        </div>
+        <p class="slogan">一匙下去,整碗都活了🔥</p>
+        <div class="specs-box">
+          <div><strong>容量:</strong> 150g/瓶</div>
+          <div><strong>保存期限:</strong> 冷藏保存半年 / 常溫保存3個月</div>
+        </div>
+      </div>
 
       <form id="orderForm">
         <div class="form-group">
@@ -143,7 +114,7 @@ body {
         <div class="form-group"><label>姓名 *</label><input type="text" id="name" required></div>
         <div class="form-group"><label>電話 *</label><input type="tel" id="phone" required placeholder="例:0912345678"></div>
         <div class="form-group"><label>Email *</label><input type="email" id="email" required></div>
-
+        
         <div class="form-group">
           <label>取貨方式 *</label>
           <select id="pickup" required>
@@ -157,15 +128,22 @@ body {
 
         <div class="form-group" id="storeSelectGroup" style="display:none;">
           <label>選擇門市 *</label>
-          <div class="store-section" id="storeSection">請選擇取貨方式以載入門市...</div>
+          <div class="store-section" id="storeSection"></div>
         </div>
 
-        <div class="form-group" id="addressGroup" style="display:none;">
+        <div class="form-group" id="addressGroup">
           <label id="addressLabel">收貨地址 *</label>
           <textarea id="address" rows="3" placeholder="請填寫完整地址"></textarea>
         </div>
 
-        <div class="form-group"><label>匯款帳號後5碼 *</label><input type="text" id="accountLast5" maxlength="5" pattern="[0-9]{5}" required placeholder="請填寫5位數字"></div>
+        <div class="form-group">
+          <label>匯款帳號後5碼 *</label>
+          <input type="text" id="accountLast5" maxlength="5" pattern="[0-9]{5}" required placeholder="請填寫5位數字">
+        </div>
+        <div class="form-group">
+          <label>備註</label>
+          <textarea id="note" rows="2" placeholder="其他需求或備註"></textarea>
+        </div>
 
         <div class="total-section">
           <div class="total-row"><span>小計:</span><span id="subtotalDisplay">NT$ 250</span></div>
@@ -179,100 +157,755 @@ body {
     </div>
   </div>
 </div>
-
 <script>
-const PRICE = 250, SHIPPING_DELIVERY = 160, SHIPPING_STORE = 130, FREE_SHIPPING_QTY = 10;
 const WEB3FORMS_ACCESS_KEY='63c8b2d8-bddb-46cb-b683-e3c0becf31bf';
 const MERCHANT_EMAIL='bonnywu992@gmail.com';
+var PRICE=250, SHIPPING_DELIVERY=160, SHIPPING_STORE=130, FREE_SHIPPING_QTY=10;
 
-const qtyInput=document.getElementById('qty');
-const btnPlus=document.getElementById('btnPlus');
-const btnMinus=document.getElementById('btnMinus');
-const subtotalDisplay=document.getElementById('subtotalDisplay');
-const shippingDisplay=document.getElementById('shippingDisplay');
-const totalDisplay=document.getElementById('totalDisplay');
-const pickupSelect=document.getElementById('pickup');
-const storeSelectGroup=document.getElementById('storeSelectGroup');
-const addressGroup=document.getElementById('addressGroup');
-const storeSection=document.getElementById('storeSection');
-let selectedStore='', citySelect, districtSelect, storeSelect, storeData=null;
+const storeData = {
+  '7-11': {
+    '台北市': {
+      '中正區':['台北車站門市','西門町門市','南陽門市','重慶門市','公園門市','中正紀念堂門市','永綽門市'],
+      '大同區':['大同門市','民權門市','寧夏門市','延平門市','承德門市','大橋門市'],
+      '中山區':['中山門市','南京門市','林森門市','雙連門市','長春門市','松江門市','中山北門市'],
+      '松山區':['松山門市','南京三民門市','八德門市','民生門市','饒河門市','南京三民門市'],
+      '大安區':['大安門市','忠孝復興門市','東區門市','敦南門市','信義門市','師大門市','仁愛門市','大安森林公園門市'],
+      '萬華區':['萬華門市','西門門市','龍山寺門市','華西街門市','環河門市'],
+      '信義區':['信義門市','101門市','市政府門市','永春門市','象山門市','世貿門市'],
+      '士林區':['士林門市','天母門市','劍潭門市','社子門市','芝山門市','士林夜市門市'],
+      '北投區':['北投門市','石牌門市','關渡門市','新北投門市','奇岩門市'],
+      '內湖區':['內湖門市','西湖門市','港墘門市','東湖門市','大湖門市','碧湖門市','內湖科技園區門市'],
+      '南港區':['南港門市','南港車站門市','南港軟體園區門市','南港展覽館門市','玉成門市'],
+      '文山區':['文山門市','景美門市','木柵門市','政大門市','萬芳門市','景美夜市門市']
+    },
+    '新北市': {
+      '板橋區':['板橋門市','板橋車站門市','新埔門市','江子翠門市','府中門市','亞東門市','板橋大遠百門市'],
+      '三重區':['三重門市','三和夜市門市','菜寮門市','台北橋門市','徐匯門市','三重商工門市'],
+      '中和區':['中和門市','景安門市','永安市場門市','中和環球門市','南勢角門市','中和圓通門市'],
+      '永和區':['永和門市','頂溪門市','永安門市','永和竹林門市','樂華夜市門市'],
+      '新莊區':['新莊門市','新莊副都心門市','頭前門市','輔大門市','新莊思源門市','丹鳳門市'],
+      '新店區':['新店門市','大坪林門市','七張門市','新店中央門市','碧潭門市'],
+      '樹林區':['樹林門市','樹林火車站門市','山佳門市'],
+      '鶯歌區':['鶯歌門市','鶯歌火車站門市'],
+      '三峽區':['三峽門市','三峽北大門市','三峽老街門市'],
+      '淡水區':['淡水門市','淡水捷運門市','淡水老街門市','紅樹林門市'],
+      '汐止區':['汐止門市','汐科門市','汐止新台五門市'],
+      '瑞芳區':['瑞芳門市','九份門市'],
+      '土城區':['土城門市','土城捷運門市','海山門市'],
+      '蘆洲區':['蘆洲門市','三民高中門市'],
+      '五股區':['五股門市','五股成泰門市'],
+      '泰山區':['泰山門市','泰山貴和門市'],
+      '林口區':['林口門市','林口三井門市','林口長庚門市']
+    },
+    '桃園市': {
+      '桃園區':['桃園門市','桃園火車站門市','桃園藝文門市','桃園統領門市'],
+      '中壢區':['中壢門市','中壢火車站門市','中壢SOGO門市','中原門市','內壢門市'],
+      '平鎮區':['平鎮門市','平鎮中豐門市'],
+      '八德區':['八德門市','八德廣豐門市'],
+      '楊梅區':['楊梅門市','楊梅火車站門市'],
+      '蘆竹區':['蘆竹門市','南崁門市'],
+      '大溪區':['大溪門市','大溪老街門市'],
+      '龍潭區':['龍潭門市'],
+      '龜山區':['龜山門市','長庚門市'],
+      '大園區':['大園門市','高鐵桃園門市'],
+      '觀音區':['觀音門市'],
+      '新屋區':['新屋門市']
+    },
+    '新竹市': {
+      '東區':['新竹門市','新竹火車站門市','清大門市'],
+      '北區':['北區門市','西大門市'],
+      '香山區':['香山門市']
+    },
+    '新竹縣': {
+      '竹北市':['竹北門市','竹北光明門市','高鐵新竹門市'],
+      '竹東鎮':['竹東門市'],
+      '新埔鎮':['新埔門市'],
+      '關西鎮':['關西門市'],
+      '湖口鄉':['湖口門市'],
+      '新豐鄉':['新豐門市']
+    },
+    '苗栗縣': {
+      '苗栗市':['苗栗門市','苗栗中正門市'],
+      '頭份市':['頭份門市'],
+      '竹南鎮':['竹南門市'],
+      '通霄鎮':['通霄門市'],
+      '苑裡鎮':['苑裡門市'],
+      '後龍鎮':['後龍門市']
+    },
+    '台中市': {
+      '中區':['台中門市','台中火車站門市'],
+      '東區':['東區門市','台中公園門市'],
+      '南區':['南區門市','中興門市'],
+      '西區':['西區門市','草悟道門市','忠明門市'],
+      '北區':['北區門市','一中門市','中華路門市'],
+      '西屯區':['西屯門市','逢甲門市','東海門市','中科門市','秋紅谷門市'],
+      '南屯區':['南屯門市','文心南門市','黎明門市'],
+      '北屯區':['北屯門市','北屯崇德門市','文心路門市'],
+      '豐原區':['豐原門市','豐原火車站門市'],
+      '大里區':['大里門市','大里國光門市'],
+      '太平區':['太平門市','太平中山門市'],
+      '東勢區':['東勢門市'],
+      '大甲區':['大甲門市','大甲火車站門市'],
+      '清水區':['清水門市'],
+      '沙鹿區':['沙鹿門市','沙鹿光華門市'],
+      '梧棲區':['梧棲門市','梧棲三井門市'],
+      '后里區':['后里門市'],
+      '神岡區':['神岡門市'],
+      '潭子區':['潭子門市'],
+      '大雅區':['大雅門市'],
+      '烏日區':['烏日門市','高鐵台中門市'],
+      '霧峰區':['霧峰門市']
+    },
+    '彰化縣': {
+      '彰化市':['彰化門市','彰化火車站門市'],
+      '員林市':['員林門市'],
+      '鹿港鎮':['鹿港門市','鹿港老街門市'],
+      '和美鎮':['和美門市'],
+      '北斗鎮':['北斗門市'],
+      '溪湖鎮':['溪湖門市'],
+      '田中鎮':['田中門市'],
+      '二林鎮':['二林門市']
+    },
+    '南投縣': {
+      '南投市':['南投門市','南投中興門市'],
+      '埔里鎮':['埔里門市'],
+      '草屯鎮':['草屯門市'],
+      '竹山鎮':['竹山門市'],
+      '集集鎮':['集集門市'],
+      '魚池鄉':['魚池門市','日月潭門市']
+    },
+    '雲林縣': {
+      '斗六市':['斗六門市','斗六火車站門市'],
+      '斗南鎮':['斗南門市'],
+      '虎尾鎮':['虎尾門市'],
+      '西螺鎮':['西螺門市'],
+      '土庫鎮':['土庫門市'],
+      '北港鎮':['北港門市']
+    },
+    '嘉義市': {
+      '東區':['嘉義門市','嘉義火車站門市'],
+      '西區':['西區門市','嘉義文化路門市']
+    },
+    '嘉義縣': {
+      '太保市':['太保門市','高鐵嘉義門市'],
+      '朴子市':['朴子門市'],
+      '布袋鎮':['布袋門市'],
+      '大林鎮':['大林門市'],
+      '民雄鄉':['民雄門市']
+    },
+    '台南市': {
+      '中西區':['台南門市','台南火車站門市','赤崁樓門市'],
+      '東區':['東區門市','成大門市'],
+      '南區':['南區門市'],
+      '北區':['北區門市','小北門市'],
+      '安平區':['安平門市','安平古堡門市'],
+      '安南區':['安南門市','安南海佃門市'],
+      '永康區':['永康門市','永康中華門市'],
+      '歸仁區':['歸仁門市','高鐵台南門市'],
+      '新化區':['新化門市'],
+      '善化區':['善化門市'],
+      '新營區':['新營店']
+    },
+    '高雄市': {
+      '新興區':['新興店','中央公園店','新興六合店'],
+      '前金區':['前金店','前金市中一店'],
+      '苓雅區':['苓雅店','三多店','光華店','五福店'],
+      '鹽埕區':['鹽埕店','鹽埕駁二店'],
+      '鼓山區':['鼓山店','美術館店','內惟店'],
+      '旗津區':['旗津店'],
+      '前鎮區':['前鎮店','夢時代店','獅甲店'],
+      '三民區':['三民店','建國店','覺民店'],
+      '左營區':['左營店','高鐵左營店','巨蛋店'],
+      '楠梓區':['楠梓店','楠梓後勁店'],
+      '小港區':['小港店','小港機場店'],
+      '鳳山區':['鳳山店','鳳山五甲店','大東店'],
+      '林園區':['林園店'],
+      '大寮區':['大寮店'],
+      '大樹區':['大樹店'],
+      '仁武區':['仁武店'],
+      '鳥松區':['鳥松店'],
+      '岡山區':['岡山店','岡山火車站店'],
+      '橋頭區':['橋頭店'],
+      '路竹區':['路竹店'],
+      '旗山區':['旗山店'],
+      '美濃區':['美濃店']
+    },
+    '屏東縣': {
+      '屏東市':['屏東店','屏東火車站店','屏東民族店'],
+      '潮州鎮':['潮州店','潮州中山店'],
+      '東港鎮':['東港店','東港中山店'],
+      '恆春鎮':['恆春店','恆春老街店','墾丁店'],
+      '萬丹鄉':['萬丹店'],
+      '長治鄉':['長治店'],
+      '內埔鄉':['內埔店'],
+      '竹田鄉':['竹田店'],
+      '枋寮鄉':['枋寮店'],
+      '琉球鄉':['小琉球店']
+    },
+    '宜蘭縣': {
+      '宜蘭市':['宜蘭店','宜蘭火車站店'],
+      '羅東鎮':['羅東店','羅東夜市店'],
+      '蘇澳鎮':['蘇澳店'],
+      '頭城鎮':['頭城店','烏石港店'],
+      '礁溪鄉':['礁溪店','礁溪溫泉店'],
+      '冬山鄉':['冬山店'],
+      '五結鄉':['五結店'],
+      '三星鄉':['三星店']
+    },
+    '花蓮縣': {
+      '花蓮市':['花蓮店','花蓮火車站店'],
+      '鳳林鎮':['鳳林店'],
+      '玉里鎮':['玉里店'],
+      '新城鄉':['新城店','太魯閣店'],
+      '吉安鄉':['吉安店'],
+      '壽豐鄉':['壽豐店'],
+      '瑞穗鄉':['瑞穗店'],
+      '富里鄉':['富里店']
+    },
+    '台東縣': {
+      '台東市':['台東店','台東火車站店'],
+      '成功鎮':['成功店'],
+      '關山鎮':['關山店'],
+      '卑南鄉':['卑南店'],
+      '鹿野鄉':['鹿野店'],
+      '池上鄉':['池上店'],
+      '太麻里鄉':['太麻里店'],
+      '綠島鄉':['綠島店']
+    },
+    '澎湖縣': {
+      '馬公市':['馬公店','馬公中正店'],
+      '湖西鄉':['湖西店'],
+      '白沙鄉':['白沙店'],
+      '西嶼鄉':['西嶼店']
+    },
+    '金門縣': {
+      '金城鎮':['金城店'],
+      '金湖鎮':['金湖店'],
+      '金沙鎮':['金沙店'],
+      '金寧鄉':['金寧店']
+    },
+    '連江縣': {
+      '南竿鄉':['南竿店'],
+      '北竿鄉':['北竿店']
+    }
+  }
+};':['新營門市']
+    },
+    '高雄市': {
+      '新興區':['新興門市','中央公園門市','新興六合門市'],
+      '前金區':['前金門市','前金市中一門市'],
+      '苓雅區':['苓雅門市','三多門市','光華門市','五福門市'],
+      '鹽埕區':['鹽埕門市','鹽埕駁二門市'],
+      '鼓山區':['鼓山門市','美術館門市','內惟門市'],
+      '旗津區':['旗津門市'],
+      '前鎮區':['前鎮門市','夢時代門市','獅甲門市'],
+      '三民區':['三民門市','建國門市','覺民門市','鼎山門市'],
+      '左營區':['左營門市','高鐵左營門市','巨蛋門市'],
+      '楠梓區':['楠梓門市','楠梓後勁門市'],
+      '小港區':['小港門市','小港機場門市'],
+      '鳳山區':['鳳山門市','鳳山五甲門市','大東門市'],
+      '林園區':['林園門市'],
+      '大寮區':['大寮門市'],
+      '大樹區':['大樹門市'],
+      '仁武區':['仁武門市'],
+      '鳥松區':['鳥松門市'],
+      '岡山區':['岡山門市','岡山火車站門市'],
+      '橋頭區':['橋頭門市'],
+      '路竹區':['路竹門市'],
+      '旗山區':['旗山門市'],
+      '美濃區':['美濃門市']
+    },
+    '屏東縣': {
+      '屏東市':['屏東門市','屏東火車站門市','屏東民族門市'],
+      '潮州鎮':['潮州門市','潮州中山門市'],
+      '東港鎮':['東港門市','東港中山門市'],
+      '恆春鎮':['恆春門市','恆春老街門市','墾丁門市'],
+      '萬丹鄉':['萬丹門市'],
+      '長治鄉':['長治門市'],
+      '內埔鄉':['內埔門市'],
+      '竹田鄉':['竹田門市'],
+      '枋寮鄉':['枋寮門市'],
+      '琉球鄉':['小琉球門市']
+    },
+    '宜蘭縣': {
+      '宜蘭市':['宜蘭門市','宜蘭火車站門市'],
+      '羅東鎮':['羅東門市','羅東夜市門市'],
+      '蘇澳鎮':['蘇澳門市'],
+      '頭城鎮':['頭城門市','烏石港門市'],
+      '礁溪鄉':['礁溪門市','礁溪溫泉門市'],
+      '冬山鄉':['冬山門市'],
+      '五結鄉':['五結門市'],
+      '三星鄉':['三星門市']
+    },
+    '花蓮縣': {
+      '花蓮市':['花蓮門市','花蓮火車站門市'],
+      '鳳林鎮':['鳳林門市'],
+      '玉里鎮':['玉里門市'],
+      '新城鄉':['新城門市','太魯閣門市'],
+      '吉安鄉':['吉安門市'],
+      '壽豐鄉':['壽豐門市'],
+      '瑞穗鄉':['瑞穗門市'],
+      '富里鄉':['富里門市']
+    },
+    '台東縣': {
+      '台東市':['台東門市','台東火車站門市'],
+      '成功鎮':['成功門市'],
+      '關山鎮':['關山門市'],
+      '卑南鄉':['卑南門市'],
+      '鹿野鄉':['鹿野門市'],
+      '池上鄉':['池上門市'],
+      '太麻里鄉':['太麻里門市'],
+      '綠島鄉':['綠島門市']
+    },
+    '澎湖縣': {
+      '馬公市':['馬公門市','馬公中正門市'],
+      '湖西鄉':['湖西門市'],
+      '白沙鄉':['白沙門市'],
+      '西嶼鄉':['西嶼門市']
+    },
+    '金門縣': {
+      '金城鎮':['金城門市'],
+      '金湖鎮':['金湖門市'],
+      '金沙鎮':['金沙門市'],
+      '金寧鄉':['金寧門市']
+    },
+    '連江縣': {
+      '南竿鄉':['南竿門市'],
+      '北竿鄉':['北竿門市']
+    }
+  },
+  '全家': {
+    '台北市': {
+      '中正區':['台北車站店','西門町店','南陽店','重慶店','公園店','中正紀念堂店'],
+      '大同區':['大同店','民權店','寧夏店','延平店','承德店'],
+      '中山區':['中山店','南京店','林森店','雙連店','長春店','松江店'],
+      '松山區':['松山店','南京三民店','八德店','民生店','饒河店'],
+      '大安區':['大安店','忠孝復興店','東區店','敦南店','信義店','師大店','仁愛店','大安森林公園店'],
+      '萬華區':['萬華店','西門店','龍山寺店','華西街店'],
+      '信義區':['信義店','101店','市政府店','永春店','象山店'],
+      '士林區':['士林店','天母店','劍潭店','社子店','芝山店'],
+      '北投區':['北投店','石牌店','關渡店','新北投店'],
+      '內湖區':['內湖店','西湖店','港墘店','東湖店','大湖店'],
+      '南港區':['南港店','南港車站店','南港軟體園區店'],
+      '文山區':['文山店','景美店','木柵店','政大店']
+    },
+    '新北市': {
+      '板橋區':['板橋店','板橋車站店','新埔店','江子翠店','府中店','亞東店'],
+      '三重區':['三重店','三和夜市店','菜寮店','台北橋店'],
+      '中和區':['中和店','景安店','永安市場店','中和環球店','南勢角店'],
+      '永和區':['永和店','頂溪店','永安店','樂華夜市店'],
+      '新莊區':['新莊店','新莊副都心店','頭前店','輔大店','丹鳳店'],
+      '新店區':['新店店','大坪林店','七張店','碧潭店'],
+      '樹林區':['樹林店','樹林火車站店'],
+      '鶯歌區':['鶯歌店'],
+      '三峽區':['三峽店','三峽北大店'],
+      '淡水區':['淡水店','淡水捷運店','淡水老街店'],
+      '汐止區':['汐止店','汐科店'],
+      '瑞芳區':['瑞芳店','九份店'],
+      '土城區':['土城店','土城捷運店'],
+      '蘆洲區':['蘆洲店','三民高中店'],
+      '五股區':['五股店'],
+      '泰山區':['泰山店'],
+      '林口區':['林口店','林口三井店']
+    },
+    '桃園市': {
+      '桃園區':['桃園店','桃園火車站店','桃園藝文店'],
+      '中壢區':['中壢店','中壢火車站店','中壢SOGO店','中原店','內壢店'],
+      '平鎮區':['平鎮店','平鎮中豐店'],
+      '八德區':['八德店'],
+      '楊梅區':['楊梅店'],
+      '蘆竹區':['蘆竹店','南崁店'],
+      '大溪區':['大溪店'],
+      '龍潭區':['龍潭店'],
+      '龜山區':['龜山店','長庚店'],
+      '大園區':['大園店','高鐵桃園店']
+    },
+    '新竹市': {
+      '東區':['新竹店','新竹火車站店','清大店'],
+      '北區':['北區店','西大店'],
+      '香山區':['香山店']
+    },
+    '新竹縣': {
+      '竹北市':['竹北店','竹北光明店','高鐵新竹店'],
+      '竹東鎮':['竹東店'],
+      '新埔鎮':['新埔店'],
+      '關西鎮':['關西店'],
+      '湖口鄉':['湖口店'],
+      '新豐鄉':['新豐店']
+    },
+    '苗栗縣': {
+      '苗栗市':['苗栗店'],
+      '頭份市':['頭份店'],
+      '竹南鎮':['竹南店'],
+      '通霄鎮':['通霄店'],
+      '苑裡鎮':['苑裡店']
+    },
+    '台中市': {
+      '中區':['台中店','台中火車站店'],
+      '東區':['東區店','台中公園店'],
+      '南區':['南區店'],
+      '西區':['西區店','草悟道店','忠明店'],
+      '北區':['北區店','一中店'],
+      '西屯區':['西屯店','逢甲店','東海店','中科店','秋紅谷店'],
+      '南屯區':['南屯店','文心南店'],
+      '北屯區':['北屯店','北屯崇德店'],
+      '豐原區':['豐原店','豐原火車站店'],
+      '大里區':['大里店'],
+      '太平區':['太平店'],
+      '東勢區':['東勢店'],
+      '大甲區':['大甲店'],
+      '清水區':['清水店'],
+      '沙鹿區':['沙鹿店'],
+      '梧棲區':['梧棲店','梧棲三井店'],
+      '烏日區':['烏日店','高鐵台中店'],
+      '霧峰區':['霧峰店']
+    },
+    '彰化縣': {
+      '彰化市':['彰化店','彰化火車站店'],
+      '員林市':['員林店'],
+      '鹿港鎮':['鹿港店','鹿港老街店'],
+      '和美鎮':['和美店'],
+      '北斗鎮':['北斗店'],
+      '溪湖鎮':['溪湖店'],
+      '田中鎮':['田中店']
+    },
+    '南投縣': {
+      '南投市':['南投店'],
+      '埔里鎮':['埔里店'],
+      '草屯鎮':['草屯店'],
+      '竹山鎮':['竹山店'],
+      '集集鎮':['集集店'],
+      '魚池鄉':['魚池店','日月潭店']
+    },
+    '雲林縣': {
+      '斗六市':['斗六店','斗六火車站店'],
+      '斗南鎮':['斗南店'],
+      '虎尾鎮':['虎尾店'],
+      '西螺鎮':['西螺店'],
+      '土庫鎮':['土庫店'],
+      '北港鎮':['北港店']
+    },
+    '嘉義市': {
+      '東區':['嘉義店','嘉義火車站店'],
+      '西區':['西區店','嘉義文化路店']
+    },
+    '嘉義縣': {
+      '太保市':['太保店','高鐵嘉義店'],
+      '朴子市':['朴子店'],
+      '布袋鎮':['布袋店'],
+      '大林鎮':['大林店'],
+      '民雄鄉':['民雄店']
+    },
+    '台南市': {
+      '中西區':['台南店','台南火車站店','赤崁樓店'],
+      '東區':['東區店','成大店'],
+      '南區':['南區店'],
+      '北區':['北區店','小北店'],
+      '安平區':['安平店','安平古堡店'],
+      '安南區':['安南店'],
+      '永康區':['永康店','永康中華店'],
+      '歸仁區':['歸仁店','高鐵台南店'],
+      '新化區':['新化店'],
+      '善化區':['善化店'],
+      '新營區
+
+var qtyInput=document.getElementById('qty');
+var btnPlus=document.getElementById('btnPlus');
+var btnMinus=document.getElementById('btnMinus');
+var subtotalDisplay=document.getElementById('subtotalDisplay');
+var shippingDisplay=document.getElementById('shippingDisplay');
+var totalDisplay=document.getElementById('totalDisplay');
+var freeShipNotice=document.getElementById('freeShipNotice');
+var pickupSelect=document.getElementById('pickup');
+var storeSelectGroup=document.getElementById('storeSelectGroup');
+var addressGroup=document.getElementById('addressGroup');
+var storeSection=document.getElementById('storeSection');
+var selectedStore = '';
+var citySelect, districtSelect, storeSelect;
+
+function generateOrderId(){
+    var now=new Date();
+    var year=now.getFullYear();
+    var month=String(now.getMonth()+1).padStart(2,'0');
+    var day=String(now.getDate()).padStart(2,'0');
+    var random=Math.floor(Math.random()*10000).toString().padStart(4,'0');
+    return 'YW'+year+month+day+random;
+}
 
 function updatePrice(){
-  const qty=parseInt(qtyInput.value)||1;
-  const pickupMethod=pickupSelect.value;
-  let shipping=0;
-  if(pickupMethod==='宅配') shipping=(qty>=FREE_SHIPPING_QTY)?0:SHIPPING_DELIVERY;
-  else if(pickupMethod==='7-11'||pickupMethod==='全家') shipping=(qty>=FREE_SHIPPING_QTY)?0:SHIPPING_STORE;
-  const subtotal=PRICE*qty, total=subtotal+shipping;
-  subtotalDisplay.textContent='NT$ '+subtotal;
-  shippingDisplay.textContent=shipping===0?'免運費 ✓':'NT$ '+shipping;
-  totalDisplay.textContent='NT$ '+total;
-}
-btnPlus.onclick=()=>{qtyInput.value=parseInt(qtyInput.value)+1;updatePrice();};
-btnMinus.onclick=()=>{if(qtyInput.value>1)qtyInput.value=parseInt(qtyInput.value)-1;updatePrice();};
+    var qty=parseInt(qtyInput.value);
+    if(isNaN(qty)||qty<1){ qty=1; qtyInput.value=1; }
+    var subtotal=PRICE*qty;
+    var pickupMethod=pickupSelect.value;
+    var shipping=0;
+    
+    if(pickupMethod === '宅配'){
+        shipping = (qty>=FREE_SHIPPING_QTY) ? 0 : SHIPPING_DELIVERY;
+    } else if(pickupMethod === '7-11' || pickupMethod === '全家'){
+        shipping = (qty>=FREE_SHIPPING_QTY) ? 0 : SHIPPING_STORE;
+    } else if(pickupMethod === '面交'){
+        shipping = 0;
+    } else {
+        shipping = (qty>=FREE_SHIPPING_QTY) ? 0 : SHIPPING_STORE;
+    }
+    
+    var total=subtotal+shipping;
+    subtotalDisplay.textContent='NT$ '+subtotal;
+    
+    if(shipping === 0){
+        if(pickupMethod === '面交'){
+            shippingDisplay.textContent='免運費 (面交) ✓';
+        } else {
+            shippingDisplay.textContent='免運費 ✓';
+        }
+    } else {
+        shippingDisplay.textContent='NT$ '+shipping;
+    }
+    
+    totalDisplay.textContent='NT$ '+total;
 
-async function loadStoreData(type){
-  storeSection.innerHTML='⏳ 正在載入門市資料...';
-  try{
-    const res=await fetch(`data/stores_${type}.json`);
-    if(!res.ok) throw new Error();
-    storeData=await res.json();
-    renderStoreOptions(storeData);
-  }catch{
-    storeSection.innerHTML='<div class="error-message">⚠️ 門市資料載入失敗，請重新整理</div>';
-  }
-}
-
-function renderStoreOptions(data){
-  storeSection.innerHTML='';
-  const citySel=document.createElement('select');
-  citySel.innerHTML='<option value="">請選擇縣市</option>';
-  Object.keys(data).forEach(c=>citySel.innerHTML+=`<option>${c}</option>`);
-  const districtSel=document.createElement('select');districtSel.disabled=true;
-  const storeSel=document.createElement('select');storeSel.disabled=true;
-  storeSection.append(citySel,districtSel,storeSel);
-
-  citySel.onchange=()=>{
-    const c=citySel.value;districtSel.innerHTML='<option>請選擇區域</option>';
-    if(!c){districtSel.disabled=true;return;}
-    districtSel.disabled=false;
-    Object.keys(data[c]).forEach(d=>districtSel.innerHTML+=`<option>${d}</option>`);
-  };
-  districtSel.onchange=()=>{
-    const c=citySel.value,d=districtSel.value;storeSel.innerHTML='<option>請選擇門市</option>';
-    if(!d){storeSel.disabled=true;return;}
-    storeSel.disabled=false;
-    data[c][d].forEach(s=>storeSel.innerHTML+=`<option value="${c}-${d}-${s}">${s}</option>`);
-  };
-  storeSel.onchange=()=>selectedStore=storeSel.value;
+    if(pickupMethod === '面交'){
+        freeShipNotice.textContent='🎉 面交免運費!';
+        freeShipNotice.style.background='#d3f9d8';
+    } else if(qty<FREE_SHIPPING_QTY){
+        var left=FREE_SHIPPING_QTY-qty;
+        freeShipNotice.textContent='再買 '+left+' 罐即可免運 🎁';
+        freeShipNotice.style.background='#fff3bf';
+    } else {
+        var savedAmount = (pickupMethod === '宅配') ? SHIPPING_DELIVERY : SHIPPING_STORE;
+        freeShipNotice.textContent='🎉 已達免運門檻!恭喜省下 NT$ '+savedAmount+' 運費!';
+        freeShipNotice.style.background='#d3f9d8';
+    }
 }
 
-pickupSelect.onchange=()=>{
-  const val=pickupSelect.value, address=document.getElementById('address'), label=document.getElementById('addressLabel');
-  if(val==='7-11'||val==='全家'){storeSelectGroup.style.display='block';addressGroup.style.display='none';loadStoreData(val==='7-11'?'7-11':'family');}
-  else if(val==='宅配'){storeSelectGroup.style.display='none';addressGroup.style.display='block';label.textContent='收貨地址 *';address.readOnly=false;address.value='';}
-  else if(val==='面交'){storeSelectGroup.style.display='none';addressGroup.style.display='block';label.textContent='面交地點';address.value='802高雄市苓雅區武廟路206號';address.readOnly=true;}
-  else {storeSelectGroup.style.display='none';addressGroup.style.display='none';}
-  updatePrice();
-};
+function renderStoreOptions(pickupMethod) {
+    storeSection.innerHTML = '';
+    selectedStore = '';
+    
+    if (!storeData[pickupMethod]) return;
+    
+    var stores = storeData[pickupMethod];
+    
+    var cityDiv = document.createElement('div');
+    cityDiv.className = 'store-region';
+    var cityLabel = document.createElement('label');
+    cityLabel.textContent = '選擇城市';
+    cityDiv.appendChild(cityLabel);
+    
+    citySelect = document.createElement('select');
+    citySelect.style.width = '100%';
+    citySelect.style.padding = '12px';
+    citySelect.style.border = '2px solid #ddd';
+    citySelect.style.borderRadius = '8px';
+    citySelect.style.fontSize = '1em';
+    var cityDefault = document.createElement('option');
+    cityDefault.value = '';
+    cityDefault.textContent = '請選擇城市';
+    citySelect.appendChild(cityDefault);
+    
+    Object.keys(stores).forEach(function(city) {
+        var option = document.createElement('option');
+        option.value = city;
+        option.textContent = city;
+        citySelect.appendChild(option);
+    });
+    cityDiv.appendChild(citySelect);
+    storeSection.appendChild(cityDiv);
+    
+    var districtDiv = document.createElement('div');
+    districtDiv.className = 'store-region';
+    var districtLabel = document.createElement('label');
+    districtLabel.textContent = '選擇區域';
+    districtDiv.appendChild(districtLabel);
+    
+    districtSelect = document.createElement('select');
+    districtSelect.style.width = '100%';
+    districtSelect.style.padding = '12px';
+    districtSelect.style.border = '2px solid #ddd';
+    districtSelect.style.borderRadius = '8px';
+    districtSelect.style.fontSize = '1em';
+    districtSelect.disabled = true;
+    var districtDefault = document.createElement('option');
+    districtDefault.value = '';
+    districtDefault.textContent = '請先選擇城市';
+    districtSelect.appendChild(districtDefault);
+    districtDiv.appendChild(districtSelect);
+    storeSection.appendChild(districtDiv);
+    
+    var storeDiv = document.createElement('div');
+    storeDiv.className = 'store-region';
+    var storeLabel = document.createElement('label');
+    storeLabel.textContent = '選擇門市';
+    storeDiv.appendChild(storeLabel);
+    
+    storeSelect = document.createElement('select');
+    storeSelect.style.width = '100%';
+    storeSelect.style.padding = '12px';
+    storeSelect.style.border = '2px solid #ddd';
+    storeSelect.style.borderRadius = '8px';
+    storeSelect.style.fontSize = '1em';
+    storeSelect.disabled = true;
+    var storeDefault = document.createElement('option');
+    storeDefault.value = '';
+    storeDefault.textContent = '請先選擇區域';
+    storeSelect.appendChild(storeDefault);
+    storeDiv.appendChild(storeSelect);
+    storeSection.appendChild(storeDiv);
+    
+    citySelect.addEventListener('change', function() {
+        var selectedCity = this.value;
+        districtSelect.innerHTML = '';
+        storeSelect.innerHTML = '';
+        storeSelect.disabled = true;
+        selectedStore = '';
+        
+        var districtDefault = document.createElement('option');
+        districtDefault.value = '';
+        districtDefault.textContent = '請選擇區域';
+        districtSelect.appendChild(districtDefault);
+        
+        var storeDefault = document.createElement('option');
+        storeDefault.value = '';
+        storeDefault.textContent = '請先選擇區域';
+        storeSelect.appendChild(storeDefault);
+        
+        if (selectedCity && stores[selectedCity]) {
+            districtSelect.disabled = false;
+            Object.keys(stores[selectedCity]).forEach(function(district) {
+                var option = document.createElement('option');
+                option.value = district;
+                option.textContent = district;
+                districtSelect.appendChild(option);
+            });
+        } else {
+            districtSelect.disabled = true;
+        }
+    });
+    
+    districtSelect.addEventListener('change', function() {
+        var selectedCity = citySelect.value;
+        var selectedDistrict = this.value;
+        storeSelect.innerHTML = '';
+        selectedStore = '';
+        
+        var storeDefault = document.createElement('option');
+        storeDefault.value = '';
+        storeDefault.textContent = '請選擇門市';
+        storeSelect.appendChild(storeDefault);
+        
+        if (selectedCity && selectedDistrict && stores[selectedCity][selectedDistrict]) {
+            storeSelect.disabled = false;
+            stores[selectedCity][selectedDistrict].forEach(function(store) {
+                var option = document.createElement('option');
+                option.value = selectedCity + '-' + selectedDistrict + '-' + store;
+                option.textContent = store;
+                storeSelect.appendChild(option);
+            });
+        } else {
+            storeSelect.disabled = true;
+        }
+    });
+    
+    storeSelect.addEventListener('change', function() {
+        selectedStore = this.value;
+    });
+}
 
-document.getElementById('orderForm').onsubmit=async e=>{
-  e.preventDefault();
-  const phone=document.getElementById('phone').value.trim();
-  const account=document.getElementById('accountLast5').value.trim();
-  if(!/^09\d{8}$/.test(phone))return alert('請輸入正確手機號碼');
-  if(!/^\d{5}$/.test(account))return alert('帳號後5碼必須為5位數字');
+pickupSelect.addEventListener('change', function() {
+    var method = this.value;
+    var addressInput = document.getElementById('address');
+    var addressLabel = document.getElementById('addressLabel');
+    
+    if (method === '7-11' || method === '全家') {
+        storeSelectGroup.style.display = 'block';
+        addressGroup.style.display = 'none';
+        addressInput.value = '';
+        addressInput.readOnly = false;
+        addressInput.style.backgroundColor = '';
+        renderStoreOptions(method);
+    } else if (method === '宅配') {
+        storeSelectGroup.style.display = 'none';
+        addressGroup.style.display = 'block';
+        addressLabel.textContent = '收貨地址 *';
+        addressInput.placeholder = '請填寫完整地址';
+        addressInput.value = '';
+        addressInput.readOnly = false;
+        addressInput.style.backgroundColor = '';
+    } else if (method === '面交') {
+        storeSelectGroup.style.display = 'none';
+        addressGroup.style.display = 'block';
+        addressLabel.textContent = '面交地點';
+        addressInput.value = '802高雄市苓雅區武廟路206號';
+        addressInput.readOnly = true;
+        addressInput.style.backgroundColor = '#f0f0f0';
+        addressInput.placeholder = '';
+    } else {
+        storeSelectGroup.style.display = 'none';
+        addressGroup.style.display = 'none';
+        addressInput.value = '';
+        addressInput.readOnly = false;
+        addressInput.style.backgroundColor = '';
+    }
+    
+    updatePrice();
+});
 
-  let addr='';
-  const method=pickupSelect.value;
-  if(method==='7-11'||method==='全家'){if(!selectedStore)return alert('請選擇門市');addr=selectedStore;}
-  else addr=document.getElementById('address').value.trim();
+btnPlus.addEventListener('click',function(e){e.preventDefault();qtyInput.value=parseInt(qtyInput.value)+1;updatePrice();});
+btnMinus.addEventListener('click',function(e){e.preventDefault();if(parseInt(qtyInput.value)>1){qtyInput.value=parseInt(qtyInput.value)-1;updatePrice();}});
 
-  alert(`✅ 訂單建立成功！\n取貨方式：${method}\n收貨資訊：${addr}`);
-};
-</script>
-</body>
-</html>
+document.getElementById('orderForm').addEventListener('submit',async function(e){
+    e.preventDefault();
+    var submitBtn=document.getElementById('submitBtn');
+    var messageDiv=document.getElementById('message');
+
+    var phone=document.getElementById('phone').value.trim();
+    var account=document.getElementById('accountLast5').value.trim();
+    var pickupMethod=document.getElementById('pickup').value;
+    var addressInput=document.getElementById('address').value.trim();
+    
+    if(!/^09\d{8}$/.test(phone)){ messageDiv.innerHTML='<div class="error-message">❌ 請輸入正確手機號碼(例:0912345678)</div>'; return; }
+    if(!/^\d{5}$/.test(account)){ messageDiv.innerHTML='<div class="error-message">❌ 帳號後5碼必須是5位數字</div>'; return; }
+    
+    var finalAddress = '';
+    if (pickupMethod === '7-11' || pickupMethod === '全家') {
+        if (!selectedStore) {
+            messageDiv.innerHTML='<div class="error-message">❌ 請選擇門市</div>';
+            return;
+        }
+        finalAddress = selectedStore;
+    } else if (pickupMethod === '宅配' || pickupMethod === '面交') {
+        if (addressInput.length < 5) {
+            messageDiv.innerHTML='<div class="error-message">❌ 請填寫完整地址或地點</div>';
+            return;
+        }
+        finalAddress = addressInput;
+    } else {
+        messageDiv.innerHTML='<div class="error-message">❌ 請選擇取貨方式</div>';
+        return;
+    }
+
+    submitBtn.disabled=true; submitBtn.textContent='處理中...'; messageDiv.innerHTML='';
+
+    try{
+        var qty=parseInt(qtyInput.value);
+        var subtotal=PRICE*qty;
+        var shipping=0;
+        
+        if(pickupMethod === '宅配'){
+            shipping = (qty>=FREE_SHIPPING_QTY) ? 0 : SHIPPING_DELIVERY;
+        } else if(pickupMethod === '7-11' || pickupMethod === '全家'){
+            shipping = (qty>=FREE_SHIPPING_QTY) ? 0 : SHIPPING_STORE;
+        } else if(pickupMethod === '面交'){
+            shipping = 0;
+        }
+        
+        var total=subtotal+shipping;
+        var orderId=generateOrderId();
+        var orderTime=new Date().toLocaleString('zh-TW',{year:'numeric',month:'2-digit',day:'2-digit',hour:'2-digit',minute:'2-digit',hour12:false});
+        var customerName=document.getElementById('name').value;
+        var customerEmail=document.getElementById('email').value;
+        var note=document.getElementById('note').value||'無';
+
         var merchantEmailContent=`╔═══════════════════════════════════╗
 🛒 新訂單通知 - 渝味食記
 ╚═══════════════════════════════════╝
@@ -355,9 +988,3 @@ updatePrice();
 </script>
 </body>
 </html>
-
-
-
-
-
-
