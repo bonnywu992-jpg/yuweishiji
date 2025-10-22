@@ -289,12 +289,35 @@ function renderStore(method) {
   storeS.innerHTML = '<option value="">請先選擇區域</option>';
   el.storeSec.appendChild(store.div);
   
+  // 新增其他門市輸入區域
+  const otherDiv = document.createElement('div');
+  otherDiv.id = 'otherStoreDiv';
+  otherDiv.style.display = 'none';
+  otherDiv.style.marginTop = '15px';
+  otherDiv.style.padding = '15px';
+  otherDiv.style.background = '#fff3bf';
+  otherDiv.style.borderRadius = '8px';
+  otherDiv.style.border = '2px dashed #ffa94d';
+  otherDiv.innerHTML = `
+    <div style="margin-bottom:10px;color:#b71c1c;font-weight:bold;">📝 請填寫其他門市資訊</div>
+    <div style="margin-bottom:10px;">
+      <label style="display:block;margin-bottom:5px;font-size:0.9em;color:#495057;">縣市 + 區域 *</label>
+      <input type="text" id="otherStoreCity" placeholder="例: 高雄市苓雅區" style="width:100%;padding:10px;border:2px solid #ddd;border-radius:6px;font-size:0.95em;">
+    </div>
+    <div>
+      <label style="display:block;margin-bottom:5px;font-size:0.9em;color:#495057;">門市名稱 *</label>
+      <input type="text" id="otherStoreName" placeholder="例: 武廟門市" style="width:100%;padding:10px;border:2px solid #ddd;border-radius:6px;font-size:0.95em;">
+    </div>
+  `;
+  el.storeSec.appendChild(otherDiv);
+  
   cityS.addEventListener('change', function() {
     const sc = this.value;
     distS.innerHTML = '<option value="">請選擇區域</option>';
     storeS.innerHTML = '<option value="">請先選擇區域</option>';
     storeS.disabled = true;
     selStore = '';
+    document.getElementById('otherStoreDiv').style.display = 'none';
     
     if (sc && stores[sc]) {
       distS.disabled = false;
@@ -314,6 +337,7 @@ function renderStore(method) {
     const sd = this.value;
     storeS.innerHTML = '<option value="">請選擇門市</option>';
     selStore = '';
+    document.getElementById('otherStoreDiv').style.display = 'none';
     
     if (sc && sd && stores[sc][sd]) {
       storeS.disabled = false;
@@ -323,13 +347,24 @@ function renderStore(method) {
         o.textContent = s;
         storeS.appendChild(o);
       });
+      // 新增「其他門市」選項
+      const other = document.createElement('option');
+      other.value = 'OTHER';
+      other.textContent = '🔍 附近沒有這些門市,選擇其他門市';
+      storeS.appendChild(other);
     } else {
       storeS.disabled = true;
     }
   });
   
   storeS.addEventListener('change', function() {
-    selStore = this.value;
+    if (this.value === 'OTHER') {
+      document.getElementById('otherStoreDiv').style.display = 'block';
+      selStore = 'OTHER';
+    } else {
+      document.getElementById('otherStoreDiv').style.display = 'none';
+      selStore = this.value;
+    }
   });
 }
 
@@ -403,7 +438,17 @@ el.form.addEventListener('submit', async function(e) {
       el.msg.innerHTML = '<div class="error-message">❌ 請選擇門市</div>';
       return;
     }
-    finalAddr = selStore;
+    if (selStore === 'OTHER') {
+      const otherCity = document.getElementById('otherStoreCity').value.trim();
+      const otherName = document.getElementById('otherStoreName').value.trim();
+      if (!otherCity || !otherName) {
+        el.msg.innerHTML = '<div class="error-message">❌ 請填寫完整的門市資訊(縣市區域 + 門市名稱)</div>';
+        return;
+      }
+      finalAddr = `${m}-其他門市-${otherCity}-${otherName}`;
+    } else {
+      finalAddr = selStore;
+    }
   } else if (m === '宅配' || m === '面交') {
     if (addr.length < 5) {
       el.msg.innerHTML = '<div class="error-message">❌ 請填寫完整地址</div>';
