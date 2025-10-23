@@ -56,6 +56,18 @@ body { font-family: 'Microsoft JhengHei', Arial, sans-serif; background: linear-
 .store-region label { font-size: 0.95em; color: #495057; margin-bottom: 5px; display: block; }
 .store-region select { width: 100%; padding: 12px; border: 2px solid #ddd; border-radius: 8px; font-size: 1em; }
 #addressGroup { display: none; }
+
+.gallery-container { position: relative; width: 100%; max-width: 600px; margin: 30px auto; border-radius: 15px; overflow: hidden; box-shadow: 0 10px 30px rgba(0,0,0,0.2); }
+.gallery-slider { position: relative; width: 100%; padding-bottom: 75%; overflow: hidden; background: #f5f5f5; }
+.gallery-slide { position: absolute; top: 0; left: 0; width: 100%; height: 100%; opacity: 0; transition: opacity 0.5s ease-in-out; }
+.gallery-slide.active { opacity: 1; }
+.gallery-slide img { width: 100%; height: 100%; object-fit: cover; }
+.gallery-nav { position: absolute; top: 50%; width: 100%; display: flex; justify-content: space-between; transform: translateY(-50%); padding: 0 15px; z-index: 10; }
+.gallery-btn { background: rgba(255,255,255,0.9); border: none; width: 45px; height: 45px; border-radius: 50%; cursor: pointer; font-size: 1.5em; color: #d32f2f; transition: all 0.3s; box-shadow: 0 2px 10px rgba(0,0,0,0.2); }
+.gallery-btn:hover { background: white; transform: scale(1.1); }
+.gallery-dots { position: absolute; bottom: 15px; left: 50%; transform: translateX(-50%); display: flex; gap: 8px; z-index: 10; }
+.gallery-dot { width: 10px; height: 10px; border-radius: 50%; background: rgba(255,255,255,0.5); border: 2px solid white; cursor: pointer; transition: all 0.3s; }
+.gallery-dot.active { background: white; width: 30px; border-radius: 5px; }
 </style>
 </head>
 <body>
@@ -68,6 +80,35 @@ body { font-family: 'Microsoft JhengHei', Arial, sans-serif; background: linear-
 
   <div class="product-section">
     <div class="product-card">
+      
+      <div class="gallery-container">
+        <div class="gallery-slider">
+          <div class="gallery-slide active">
+            <img src="https://drive.google.com/uc?export=view&id=1QLjmycfIqnRAAHwYvOBGSh0IeKu6h8R_" alt="渝味食記辣椒醬">
+          </div>
+          <div class="gallery-slide">
+            <img src="https://drive.google.com/uc?export=view&id=1kurrPwz4cOYpBznCqsd2lwgvGzfuyUoz" alt="渝味食記辣椒醬">
+          </div>
+          <div class="gallery-slide">
+            <img src="https://drive.google.com/uc?export=view&id=1QLnI_03ceTk-eTvhBhPEZkLvH988C2c4" alt="渝味食記辣椒醬">
+          </div>
+          <div class="gallery-slide">
+            <img src="https://drive.google.com/uc?export=view&id=1tmBBCFLly_Y2CtQP2gy_71ULNlmaLW86" alt="渝味食記辣椒醬">
+          </div>
+          <div class="gallery-slide">
+            <img src="https://drive.google.com/uc?export=view&id=1q-CxkU1-1Fr8H-eNU9l8d8OEqf_iT9Al" alt="渝味食記辣椒醬">
+          </div>
+          <div class="gallery-slide">
+            <img src="https://drive.google.com/uc?export=view&id=1dkjX689JaE1RwmVTEfXDec0QrC3mK4xM" alt="渝味食記辣椒醬">
+          </div>
+          <div class="gallery-nav">
+            <button class="gallery-btn" id="prevBtn">‹</button>
+            <button class="gallery-btn" id="nextBtn">›</button>
+          </div>
+          <div class="gallery-dots" id="galleryDots"></div>
+        </div>
+      </div>
+      
       <div class="product-header">
         <div>
           <span class="product-name">四川濃香型辣椒醬</span>
@@ -391,6 +432,62 @@ elements.form.addEventListener('submit', function(e) {
 });
 
 updatePrice();
+
+// 圖片輪播功能
+let currentSlide = 0;
+const slides = document.querySelectorAll('.gallery-slide');
+const totalSlides = slides.length;
+const dotsContainer = document.getElementById('galleryDots');
+
+// 建立圓點
+for (let i = 0; i < totalSlides; i++) {
+  const dot = document.createElement('div');
+  dot.className = 'gallery-dot';
+  if (i === 0) dot.classList.add('active');
+  dot.addEventListener('click', function() {
+    goToSlide(i);
+  });
+  dotsContainer.appendChild(dot);
+}
+
+const dots = document.querySelectorAll('.gallery-dot');
+
+function showSlide(n) {
+  if (n >= totalSlides) currentSlide = 0;
+  if (n < 0) currentSlide = totalSlides - 1;
+  
+  slides.forEach(function(slide) {
+    slide.classList.remove('active');
+  });
+  dots.forEach(function(dot) {
+    dot.classList.remove('active');
+  });
+  
+  slides[currentSlide].classList.add('active');
+  dots[currentSlide].classList.add('active');
+}
+
+function nextSlide() {
+  currentSlide++;
+  showSlide(currentSlide);
+}
+
+function prevSlide() {
+  currentSlide--;
+  showSlide(currentSlide);
+}
+
+function goToSlide(n) {
+  currentSlide = n;
+  showSlide(currentSlide);
+}
+
+document.getElementById('nextBtn').addEventListener('click', nextSlide);
+document.getElementById('prevBtn').addEventListener('click', prevSlide);
+
+// 自動輪播
+setInterval(nextSlide, 4000);
+
 })();
 </script>
 </body>
