@@ -172,126 +172,354 @@ const CFG = {
   FREE: 10
 };
 
-const S = {
-'7-11':{
-'台北市':{'中正區':['台北車站門市','西門町門市'],'大同區':['大同門市'],'中山區':['中山門市','南京門市'],'松山區':['松山門市'],'大安區':['大安門市','東區門市'],'萬華區':['萬華門市'],'信義區':['信義門市','101門市'],'士林區':['士林門市'],'北投區':['北投門市'],'內湖區':['內湖門市'],'南港區':['南港門市'],'文山區':['文山門市']},
-'新北市':{'板橋區':['板橋門市'],'三重區':['三重門市'],'中和區':['中和門市'],'永和區':['永和門市'],'新莊區':['新莊門市'],'新店區':['新店門市'],'樹林區':['樹林門市'],'鶯歌區':['鶯歌門市'],'三峽區':['三峽門市'],'淡水區':['淡水門市'],'汐止區':['汐止門市'],'瑞芳區':['瑞芳門市'],'土城區':['土城門市'],'蘆洲區':['蘆洲門市'],'五股區':['五股門市'],'泰山區':['泰山門市'],'林口區':['林口門市']},
-'基隆市':{'仁愛區':['仁愛門市'],'信義區':['信義門市'],'中正區':['中正門市'],'中山區':['中山門市'],'安樂區':['安樂門市'],'暖暖區':['暖暖門市'],'七堵區':['七堵門市']},
-'桃園市':{'桃園區':['桃園門市'],'中壢區':['中壢門市','中原門市'],'平鎮區':['平鎮門市'],'八德區':['八德門市'],'楊梅區':['楊梅門市'],'蘆竹區':['蘆竹門市'],'大溪區':['大溪門市'],'龍潭區':['龍潭門市'],'龜山區':['龜山門市'],'大園區':['大園門市'],'觀音區':['觀音門市'],'新屋區':['新屋門市'],'復興區':['復興門市']},
-'新竹市':{'東區':['新竹門市'],'北區':['北區門市'],'香山區':['香山門市']},
-'新竹縣':{'竹北市':['竹北店'],'竹東鎮':['竹東店'],'新埔鎮':['新埔店'],'關西鎮':['關西店'],'湖口鄉':['湖口店'],'新豐鄉':['新豐店']},
-'苗栗縣':{'苗栗市':['苗栗店'],'頭份市':['頭份店'],'竹南鎮':['竹南店'],'通霄鎮':['通霄店'],'苑裡鎮':['苑裡店'],'後龍鎮':['後龍店']},
-'台中市':{'中區':['台中店'],'東區':['東區店'],'南區':['南區店'],'西區':['西區店'],'北區':['北區店'],'西屯區':['西屯店','逢甲店'],'南屯區':['南屯店'],'北屯區':['北屯店'],'豐原區':['豐原店'],'大里區':['大里店'],'太平區':['太平店'],'東勢區':['東勢店'],'大甲區':['大甲店'],'清水區':['清水店'],'沙鹿區':['沙鹿店'],'梧棲區':['梧棲店'],'后里區':['后里店'],'神岡區':['神岡店'],'潭子區':['潭子店'],'大雅區':['大雅店'],'新社區':['新社店'],'石岡區':['石岡店'],'外埔區':['外埔店'],'大安區':['大安店'],'烏日區':['烏日店'],'大肚區':['大肚店'],'龍井區':['龍井店'],'霧峰區':['霧峰店'],'和平區':['和平店']},
-'彰化縣':{'彰化市':['彰化店'],'員林市':['員林店'],'鹿港鎮':['鹿港店'],'和美鎮':['和美店'],'北斗鎮':['北斗店'],'溪湖鎮':['溪湖店'],'田中鎮':['田中店'],'二林鎮':['二林店']},
-'南投縣':{'南投市':['南投店'],'埔里鎮':['埔里店'],'草屯鎮':['草屯店'],'竹山鎮':['竹山店'],'集集鎮':['集集店'],'魚池鄉':['日月潭店']},
-'雲林縣':{'斗六市':['斗六店'],'斗南鎮':['斗南店'],'虎尾鎮':['虎尾店'],'西螺鎮':['西螺店'],'土庫鎮':['土庫店'],'北港鎮':['北港店']},
-'嘉義市':{'東區':['嘉義店'],'西區':['西區店']},
-'嘉義縣':{'太保市':['太保店'],'朴子市':['朴子店'],'布袋鎮':['布袋店'],'大林鎮':['大林店'],'民雄鄉':['民雄店']},
-'台南市':{'中西區':['台南店'],'東區':['東區店'],'南區':['南區店'],'北區':['北區店'],'安平區':['安平店'],'安南區':['安南店'],'永康區':['永康店'],'歸仁區':['歸仁店'],'新化區':['新化店'],'善化區':['善化店'],'新營區':['新營店']},
-'高雄市':{'新興區':['新興店','六合店'],'前金區':['前金店'],'苓雅區':['苓雅店','三多店','武廟店'],'鹽埕區':['鹽埕店'],'鼓山區':['鼓山店','美術館店'],'旗津區':['旗津店'],'前鎮區':['前鎮店','夢時代店'],'三民區':['三民店','建國店'],'左營區':['左營店','高鐵左營店'],'楠梓區':['楠梓店'],'小港區':['小港店'],'鳳山區':['鳳山店','大東店'],'林園區':['林園店'],'大寮區':['大寮店'],'大樹區':['大樹店'],'大社區':['大社店'],'仁武區':['仁武店'],'鳥松區':['鳥松店'],'岡山區':['岡山店'],'橋頭區':['橋頭店'],'燕巢區':['燕巢店'],'田寮區':['田寮店'],'阿蓮區':['阿蓮店'],'路竹區':['路竹店'],'湖內區':['湖內店'],'茄萣區':['茄萣店'],'永安區':['永安店'],'彌陀區':['彌陀店'],'梓官區':['梓官店'],'旗山區':['旗山店'],'美濃區':['美濃店'],'六龜區':['六龜店'],'甲仙區':['甲仙店'],'杉林區':['杉林店'],'內門區':['內門店'],'茂林區':['茂林店'],'桃源區':['桃源店'],'那瑪夏區':['那瑪夏店']},
-'屏東縣':{'屏東市':['屏東店'],'潮州鎮':['潮州店'],'東港鎮':['東港店'],'恆春鎮':['恆春店','墾丁店'],'萬丹鄉':['萬丹店'],'長治鄉':['長治店'],'麟洛鄉':['麟洛店'],'九如鄉':['九如店'],'里港鄉':['里港店'],'鹽埔鄉':['鹽埔店'],'高樹鄉':['高樹店'],'萬巒鄉':['萬巒店'],'內埔鄉':['內埔店'],'竹田鄉':['竹田店'],'新埤鄉':['新埤店'],'枋寮鄉':['枋寮店'],'新園鄉':['新園店'],'崁頂鄉':['崁頂店'],'林邊鄉':['林邊店'],'南州鄉':['南州店'],'佳冬鄉':['佳冬店'],'琉球鄉':['小琉球店'],'車城鄉':['車城店'],'滿州鄉':['滿州店'],'枋山鄉':['枋山店'],'三地門鄉':['三地門店'],'霧台鄉':['霧台店'],'瑪家鄉':['瑪家店'],'泰武鄉':['泰武店'],'來義鄉':['來義店'],'春日鄉':['春日店'],'獅子鄉':['獅子店'],'牡丹鄉':['牡丹店']},
-'宜蘭縣':{'宜蘭市':['宜蘭店'],'羅東鎮':['羅東店'],'蘇澳鎮':['蘇澳店'],'頭城鎮':['頭城店'],'礁溪鄉':['礁溪店'],'壯圍鄉':['壯圍店'],'員山鄉':['員山店'],'冬山鄉':['冬山店'],'五結鄉':['五結店'],'三星鄉':['三星店']},
-'花蓮縣':{'花蓮市':['花蓮店'],'鳳林鎮':['鳳林店'],'玉里鎮':['玉里店'],'新城鄉':['太魯閣店'],'吉安鄉':['吉安店'],'壽豐鄉':['壽豐店'],'瑞穗鄉':['瑞穗店'],'富里鄉':['富里店']},
-'台東縣':{'台東市':['台東店'],'成功鎮':['成功店'],'關山鎮':['關山店'],'卑南鄉':['卑南店'],'鹿野鄉':['鹿野店'],'池上鄉':['池上店'],'太麻里鄉':['太麻里店'],'綠島鄉':['綠島店'],'蘭嶼鄉':['蘭嶼店']},
-'澎湖縣':{'馬公市':['馬公店'],'湖西鄉':['湖西店'],'白沙鄉':['白沙店'],'西嶼鄉':['西嶼店'],'望安鄉':['望安店'],'七美鄉':['七美店']},
-'金門縣':{'金城鎮':['金城店'],'金湖鎮':['金湖店'],'金沙鎮':['金沙店'],'金寧鄉':['金寧店'],'烈嶼鄉':['烈嶼店']},
-'連江縣':{'南竿鄉':['南竿店'],'北竿鄉':['北竿店'],'莒光鄉':['莒光店'],'東引鄉':['東引店']}
+const STORES = {
+'7-11': {
+  '台北市': {
+    '中正區': ['台北車站門市', '西門町門市'],
+    '大同區': ['大同門市'],
+    '中山區': ['中山門市', '南京門市'],
+    '松山區': ['松山門市'],
+    '大安區': ['大安門市', '東區門市'],
+    '萬華區': ['萬華門市'],
+    '信義區': ['信義門市', '101門市'],
+    '士林區': ['士林門市'],
+    '北投區': ['北投門市'],
+    '內湖區': ['內湖門市'],
+    '南港區': ['南港門市'],
+    '文山區': ['文山門市']
+  },
+  '新北市': {
+    '板橋區': ['板橋門市'],
+    '三重區': ['三重門市'],
+    '中和區': ['中和門市'],
+    '永和區': ['永和門市'],
+    '新莊區': ['新莊門市'],
+    '新店區': ['新店門市'],
+    '樹林區': ['樹林門市'],
+    '淡水區': ['淡水門市'],
+    '汐止區': ['汐止門市'],
+    '土城區': ['土城門市'],
+    '蘆洲區': ['蘆洲門市']
+  },
+  '桃園市': {
+    '桃園區': ['桃園門市'],
+    '中壢區': ['中壢門市', '中原門市'],
+    '平鎮區': ['平鎮門市'],
+    '八德區': ['八德門市'],
+    '楊梅區': ['楊梅門市']
+  },
+  '台中市': {
+    '中區': ['台中門市'],
+    '東區': ['東區門市'],
+    '南區': ['南區門市'],
+    '西區': ['西區門市'],
+    '北區': ['北區門市'],
+    '西屯區': ['西屯門市', '逢甲門市'],
+    '南屯區': ['南屯門市'],
+    '北屯區': ['北屯門市'],
+    '豐原區': ['豐原門市'],
+    '大里區': ['大里門市']
+  },
+  '台南市': {
+    '中西區': ['台南門市'],
+    '東區': ['東區門市'],
+    '南區': ['南區門市'],
+    '北區': ['北區門市'],
+    '安平區': ['安平門市'],
+    '永康區': ['永康門市']
+  },
+  '高雄市': {
+    '新興區': ['新興店', '六合店'],
+    '前金區': ['前金店'],
+    '苓雅區': ['苓雅店', '三多店', '武廟店'],
+    '鹽埕區': ['鹽埕店'],
+    '鼓山區': ['鼓山店', '美術館店'],
+    '前鎮區': ['前鎮店', '夢時代店'],
+    '三民區': ['三民店', '建國店'],
+    '左營區': ['左營店', '高鐵左營店'],
+    '楠梓區': ['楠梓店'],
+    '鳳山區': ['鳳山店', '大東店'],
+    '小港區': ['小港店'],
+    '岡山區': ['岡山店']
+  },
+  '基隆市': {
+    '仁愛區': ['仁愛門市'],
+    '中正區': ['中正門市']
+  },
+  '新竹市': {
+    '東區': ['新竹門市'],
+    '北區': ['北區門市']
+  },
+  '嘉義市': {
+    '東區': ['嘉義門市'],
+    '西區': ['西區門市']
+  },
+  '宜蘭縣': {
+    '宜蘭市': ['宜蘭店'],
+    '羅東鎮': ['羅東店']
+  },
+  '新竹縣': {
+    '竹北市': ['竹北店'],
+    '竹東鎮': ['竹東店']
+  },
+  '苗栗縣': {
+    '苗栗市': ['苗栗店'],
+    '頭份市': ['頭份店']
+  },
+  '彰化縣': {
+    '彰化市': ['彰化店'],
+    '員林市': ['員林店']
+  },
+  '南投縣': {
+    '南投市': ['南投店'],
+    '埔里鎮': ['埔里店']
+  },
+  '雲林縣': {
+    '斗六市': ['斗六店'],
+    '虎尾鎮': ['虎尾店']
+  },
+  '嘉義縣': {
+    '太保市': ['太保店'],
+    '朴子市': ['朴子店']
+  },
+  '屏東縣': {
+    '屏東市': ['屏東店'],
+    '潮州鎮': ['潮州店']
+  },
+  '花蓮縣': {
+    '花蓮市': ['花蓮店']
+  },
+  '台東縣': {
+    '台東市': ['台東店']
+  }
+},
+'全家': {
+  '台北市': {
+    '中正區': ['台北車站店', '西門町店'],
+    '大同區': ['大同店'],
+    '中山區': ['中山店'],
+    '松山區': ['松山店'],
+    '大安區': ['大安店', '東區店'],
+    '萬華區': ['萬華店'],
+    '信義區': ['信義店', '101店'],
+    '士林區': ['士林店'],
+    '北投區': ['北投店'],
+    '內湖區': ['內湖店'],
+    '南港區': ['南港店'],
+    '文山區': ['文山店']
+  },
+  '新北市': {
+    '板橋區': ['板橋店'],
+    '三重區': ['三重店'],
+    '中和區': ['中和店'],
+    '永和區': ['永和店'],
+    '新莊區': ['新莊店'],
+    '新店區': ['新店店'],
+    '樹林區': ['樹林店'],
+    '淡水區': ['淡水店'],
+    '汐止區': ['汐止店'],
+    '土城區': ['土城店'],
+    '蘆洲區': ['蘆洲店']
+  },
+  '桃園市': {
+    '桃園區': ['桃園店'],
+    '中壢區': ['中壢店', '中原店'],
+    '平鎮區': ['平鎮店'],
+    '八德區': ['八德店'],
+    '楊梅區': ['楊梅店']
+  },
+  '台中市': {
+    '中區': ['台中店'],
+    '東區': ['東區店'],
+    '南區': ['南區店'],
+    '西區': ['西區店'],
+    '北區': ['北區店'],
+    '西屯區': ['逢甲店'],
+    '南屯區': ['南屯店'],
+    '北屯區': ['北屯店'],
+    '豐原區': ['豐原店'],
+    '大里區': ['大里店']
+  },
+  '台南市': {
+    '中西區': ['台南店'],
+    '東區': ['東區店'],
+    '南區': ['南區店'],
+    '北區': ['北區店'],
+    '安平區': ['安平店'],
+    '永康區': ['永康店']
+  },
+  '高雄市': {
+    '新興區': ['新興店', '六合店'],
+    '前金區': ['前金店'],
+    '苓雅區': ['苓雅店', '三多店', '武廟店'],
+    '鹽埕區': ['鹽埕店'],
+    '鼓山區': ['鼓山店', '美術館店'],
+    '前鎮區': ['前鎮店', '夢時代店'],
+    '三民區': ['三民店', '建國店'],
+    '左營區': ['左營店', '高鐵左營店'],
+    '楠梓區': ['楠梓店'],
+    '鳳山區': ['鳳山店', '大東店'],
+    '小港區': ['小港店'],
+    '岡山區': ['岡山店']
+  },
+  '基隆市': {
+    '仁愛區': ['仁愛店'],
+    '中正區': ['中正店']
+  },
+  '新竹市': {
+    '東區': ['新竹店'],
+    '北區': ['北區店']
+  },
+  '嘉義市': {
+    '東區': ['嘉義店'],
+    '西區': ['西區店']
+  },
+  '宜蘭縣': {
+    '宜蘭市': ['宜蘭店'],
+    '羅東鎮': ['羅東店']
+  },
+  '新竹縣': {
+    '竹北市': ['竹北店'],
+    '竹東鎮': ['竹東店']
+  },
+  '苗栗縣': {
+    '苗栗市': ['苗栗店'],
+    '頭份市': ['頭份店']
+  },
+  '彰化縣': {
+    '彰化市': ['彰化店'],
+    '員林市': ['員林店']
+  },
+  '南投縣': {
+    '南投市': ['南投店'],
+    '埔里鎮': ['埔里店']
+  },
+  '雲林縣': {
+    '斗六市': ['斗六店'],
+    '虎尾鎮': ['虎尾店']
+  },
+  '嘉義縣': {
+    '太保市': ['太保店'],
+    '朴子市': ['朴子店']
+  },
+  '屏東縣': {
+    '屏東市': ['屏東店'],
+    '潮州鎮': ['潮州店']
+  },
+  '花蓮縣': {
+    '花蓮市': ['花蓮店']
+  },
+  '台東縣': {
+    '台東市': ['台東店']
+  }
 }
 };
 
-let selStore = '', cityS, distS, storeS;
+let selectedStore = '';
+let citySelect, distSelect, storeSelect;
 
-function genId() {
-  const d = new Date();
-  const y = d.getFullYear();
-  const m = String(d.getMonth() + 1).padStart(2, '0');
-  const dd = String(d.getDate()).padStart(2, '0');
-  const r = Math.floor(Math.random() * 10000).toString().padStart(4, '0');
-  return `YW${y}${m}${dd}${r}`;
+function generateOrderId() {
+  const now = new Date();
+  const year = now.getFullYear();
+  const month = String(now.getMonth() + 1).padStart(2, '0');
+  const day = String(now.getDate()).padStart(2, '0');
+  const random = Math.floor(Math.random() * 10000).toString().padStart(4, '0');
+  return 'YW' + year + month + day + random;
 }
 
-const el = {
+const elements = {
   qty: document.getElementById('qty'),
-  plus: document.getElementById('btnPlus'),
-  minus: document.getElementById('btnMinus'),
-  sub: document.getElementById('subtotalDisplay'),
-  ship: document.getElementById('shippingDisplay'),
-  tot: document.getElementById('totalDisplay'),
+  btnPlus: document.getElementById('btnPlus'),
+  btnMinus: document.getElementById('btnMinus'),
+  subtotal: document.getElementById('subtotalDisplay'),
+  shipping: document.getElementById('shippingDisplay'),
+  total: document.getElementById('totalDisplay'),
   notice: document.getElementById('freeShipNotice'),
   pickup: document.getElementById('pickup'),
-  storeG: document.getElementById('storeSelectGroup'),
-  addrG: document.getElementById('addressGroup'),
-  storeSec: document.getElementById('storeSection'),
+  storeGroup: document.getElementById('storeSelectGroup'),
+  addressGroup: document.getElementById('addressGroup'),
+  storeSection: document.getElementById('storeSection'),
   form: document.getElementById('orderForm'),
-  btn: document.getElementById('submitBtn'),
-  msg: document.getElementById('message')
+  submitBtn: document.getElementById('submitBtn'),
+  message: document.getElementById('message')
 };
 
 function updatePrice() {
-  const q = parseInt(el.qty.value) || 1;
-  const sub = CFG.PRICE * q;
-  const m = el.pickup.value;
-  let ship = 0;
+  const quantity = parseInt(elements.qty.value) || 1;
+  const subtotal = CFG.PRICE * quantity;
+  const method = elements.pickup.value;
+  let shipping = 0;
   
-  if (m === '宅配') ship = q >= CFG.FREE ? 0 : CFG.SHIP_D;
-  else if (m === '7-11' || m === '全家') ship = q >= CFG.FREE ? 0 : CFG.SHIP_S;
+  if (method === '宅配') {
+    shipping = quantity >= CFG.FREE ? 0 : CFG.SHIP_D;
+  } else if (method === '7-11' || method === '全家') {
+    shipping = quantity >= CFG.FREE ? 0 : CFG.SHIP_S;
+  }
   
-  const tot = sub + ship;
-  el.sub.textContent = `NT$ ${sub}`;
-  el.ship.textContent = ship === 0 ? (m === '面交' ? '免運費 (面交) ✓' : '免運費 ✓') : `NT$ ${ship}`;
-  el.tot.textContent = `NT$ ${tot}`;
+  const total = subtotal + shipping;
   
-  if (m === '面交') {
-    el.notice.textContent = '🎉 面交免運費!';
-    el.notice.style.background = '#d3f9d8';
-  } else if (q < CFG.FREE) {
-    el.notice.textContent = `再買 ${CFG.FREE - q} 罐即可免運 🎁`;
-    el.notice.style.background = '#fff3bf';
+  elements.subtotal.textContent = 'NT$ ' + subtotal;
+  elements.shipping.textContent = shipping === 0 ? (method === '面交' ? '免運費 (面交) ✓' : '免運費 ✓') : 'NT$ ' + shipping;
+  elements.total.textContent = 'NT$ ' + total;
+  
+  if (method === '面交') {
+    elements.notice.textContent = '🎉 面交免運費!';
+    elements.notice.style.background = '#d3f9d8';
+  } else if (quantity < CFG.FREE) {
+    elements.notice.textContent = '再買 ' + (CFG.FREE - quantity) + ' 罐即可免運 🎁';
+    elements.notice.style.background = '#fff3bf';
   } else {
-    const saved = m === '宅配' ? CFG.SHIP_D : CFG.SHIP_S;
-    el.notice.textContent = `🎉 已達免運門檻!恭喜省下 NT$ ${saved} 運費!`;
-    el.notice.style.background = '#d3f9d8';
+    const saved = method === '宅配' ? CFG.SHIP_D : CFG.SHIP_S;
+    elements.notice.textContent = '🎉 已達免運門檻!恭喜省下 NT$ ' + saved + ' 運費!';
+    elements.notice.style.background = '#d3f9d8';
   }
 }
 
-function renderStore(method) {
-  el.storeSec.innerHTML = '';
-  selStore = '';
-  if (!S[method]) return;
+function createStoreSelects(method) {
+  elements.storeSection.innerHTML = '';
+  selectedStore = '';
   
-  const stores = S[method];
-  const mkSel = (lbl, dis = false) => {
-    const d = document.createElement('div');
-    d.className = 'store-region';
-    const l = document.createElement('label');
-    l.textContent = lbl;
-    d.appendChild(l);
-    const s = document.createElement('select');
-    s.disabled = dis;
-    d.appendChild(s);
-    return { div: d, select: s };
-  };
+  if (!STORES[method]) return;
   
-  const city = mkSel('選擇城市');
-  cityS = city.select;
-  cityS.innerHTML = '<option value="">請選擇城市</option>';
-  Object.keys(stores).forEach(c => {
-    const o = document.createElement('option');
-    o.value = c;
-    o.textContent = c;
-    cityS.appendChild(o);
+  const stores = STORES[method];
+  
+  const cityDiv = document.createElement('div');
+  cityDiv.className = 'store-region';
+  const cityLabel = document.createElement('label');
+  cityLabel.textContent = '選擇城市';
+  cityDiv.appendChild(cityLabel);
+  citySelect = document.createElement('select');
+  citySelect.innerHTML = '<option value="">請選擇城市</option>';
+  Object.keys(stores).forEach(function(city) {
+    const option = document.createElement('option');
+    option.value = city;
+    option.textContent = city;
+    citySelect.appendChild(option);
   });
-  el.storeSec.appendChild(city.div);
+  cityDiv.appendChild(citySelect);
+  elements.storeSection.appendChild(cityDiv);
   
-  const dist = mkSel('選擇區域', true);
-  distS = dist.select;
-  distS.innerHTML = '<option value="">請先選擇城市</option>';
-  el.storeSec.appendChild(dist.div);
+  const distDiv = document.createElement('div');
+  distDiv.className = 'store-region';
+  const distLabel = document.createElement('label');
+  distLabel.textContent = '選擇區域';
+  distDiv.appendChild(distLabel);
+  distSelect = document.createElement('select');
+  distSelect.disabled = true;
+  distSelect.innerHTML = '<option value="">請先選擇城市</option>';
+  distDiv.appendChild(distSelect);
+  elements.storeSection.appendChild(distDiv);
   
-  const store = mkSel('選擇門市', true);
-  storeS = store.select;
-  storeS.innerHTML = '<option value="">請先選擇區域</option>';
-  el.storeSec.appendChild(store.div);
+  const storeDiv = document.createElement('div');
+  storeDiv.className = 'store-region';
+  const storeLabel = document.createElement('label');
+  storeLabel.textContent = '選擇門市';
+  storeDiv.appendChild(storeLabel);
+  storeSelect = document.createElement('select');
+  storeSelect.disabled = true;
+  storeSelect.innerHTML = '<option value="">請先選擇區域</option>';
+  storeDiv.appendChild(storeSelect);
+  elements.storeSection.appendChild(storeDiv);
   
   const otherDiv = document.createElement('div');
   otherDiv.id = 'otherStoreDiv';
@@ -301,250 +529,227 @@ function renderStore(method) {
   otherDiv.style.background = '#fff3bf';
   otherDiv.style.borderRadius = '8px';
   otherDiv.style.border = '2px dashed #ffa94d';
-  otherDiv.innerHTML = `
-    <div style="margin-bottom:10px;color:#b71c1c;font-weight:bold;">📝 請填寫其他門市資訊</div>
-    <div style="margin-bottom:10px;">
-      <label style="display:block;margin-bottom:5px;font-size:0.9em;color:#495057;">縣市 + 區域 *</label>
-      <input type="text" id="otherStoreCity" placeholder="例: 高雄市苓雅區" style="width:100%;padding:10px;border:2px solid #ddd;border-radius:6px;font-size:0.95em;">
-    </div>
-    <div>
-      <label style="display:block;margin-bottom:5px;font-size:0.9em;color:#495057;">門市名稱 *</label>
-      <input type="text" id="otherStoreName" placeholder="例: 武廟門市" style="width:100%;padding:10px;border:2px solid #ddd;border-radius:6px;font-size:0.95em;">
-    </div>
-  `;
-  el.storeSec.appendChild(otherDiv);
+  otherDiv.innerHTML = '<div style="margin-bottom:10px;color:#b71c1c;font-weight:bold;">📝 請填寫其他門市資訊</div><div style="margin-bottom:10px;"><label style="display:block;margin-bottom:5px;font-size:0.9em;color:#495057;">縣市 + 區域 *</label><input type="text" id="otherStoreCity" placeholder="例: 高雄市苓雅區" style="width:100%;padding:10px;border:2px solid #ddd;border-radius:6px;font-size:0.95em;"></div><div><label style="display:block;margin-bottom:5px;font-size:0.9em;color:#495057;">門市名稱 *</label><input type="text" id="otherStoreName" placeholder="例: 武廟門市" style="width:100%;padding:10px;border:2px solid #ddd;border-radius:6px;font-size:0.95em;"></div>';
+  elements.storeSection.appendChild(otherDiv);
   
-  cityS.addEventListener('change', function() {
-    const sc = this.value;
-    distS.innerHTML = '<option value="">請選擇區域</option>';
-    storeS.innerHTML = '<option value="">請先選擇區域</option>';
-    storeS.disabled = true;
-    selStore = '';
+  citySelect.addEventListener('change', function() {
+    const selectedCity = this.value;
+    distSelect.innerHTML = '<option value="">請選擇區域</option>';
+    storeSelect.innerHTML = '<option value="">請先選擇區域</option>';
+    storeSelect.disabled = true;
+    selectedStore = '';
     document.getElementById('otherStoreDiv').style.display = 'none';
     
-    if (sc && stores[sc]) {
-      distS.disabled = false;
-      Object.keys(stores[sc]).forEach(d => {
-        const o = document.createElement('option');
-        o.value = d;
-        o.textContent = d;
-        distS.appendChild(o);
+    if (selectedCity && stores[selectedCity]) {
+      distSelect.disabled = false;
+      Object.keys(stores[selectedCity]).forEach(function(district) {
+        const option = document.createElement('option');
+        option.value = district;
+        option.textContent = district;
+        distSelect.appendChild(option);
       });
     } else {
-      distS.disabled = true;
+      distSelect.disabled = true;
     }
   });
   
-  distS.addEventListener('change', function() {
-    const sc = cityS.value;
-    const sd = this.value;
-    storeS.innerHTML = '<option value="">請選擇門市</option>';
-    selStore = '';
+  distSelect.addEventListener('change', function() {
+    const selectedCity = citySelect.value;
+    const selectedDist = this.value;
+    storeSelect.innerHTML = '<option value="">請選擇門市</option>';
+    selectedStore = '';
     document.getElementById('otherStoreDiv').style.display = 'none';
     
-    if (sc && sd && stores[sc][sd]) {
-      storeS.disabled = false;
-      stores[sc][sd].forEach(s => {
-        const o = document.createElement('option');
-        o.value = `${sc}-${sd}-${s}`;
-        o.textContent = s;
-        storeS.appendChild(o);
+    if (selectedCity && selectedDist && stores[selectedCity][selectedDist]) {
+      storeSelect.disabled = false;
+      stores[selectedCity][selectedDist].forEach(function(store) {
+        const option = document.createElement('option');
+        option.value = selectedCity + '-' + selectedDist + '-' + store;
+        option.textContent = store;
+        storeSelect.appendChild(option);
       });
-      const other = document.createElement('option');
-      other.value = 'OTHER';
-      other.textContent = '🔍 附近沒有這些門市,選擇其他門市';
-      storeS.appendChild(other);
+      
+      const otherOption = document.createElement('option');
+      otherOption.value = 'OTHER';
+      otherOption.textContent = '🔍 附近沒有這些門市,選擇其他門市';
+      storeSelect.appendChild(otherOption);
     } else {
-      storeS.disabled = true;
+      storeSelect.disabled = true;
     }
   });
   
-  storeS.addEventListener('change', function() {
+  storeSelect.addEventListener('change', function() {
     if (this.value === 'OTHER') {
       document.getElementById('otherStoreDiv').style.display = 'block';
-      selStore = 'OTHER';
+      selectedStore = 'OTHER';
     } else {
       document.getElementById('otherStoreDiv').style.display = 'none';
-      selStore = this.value;
+      selectedStore = this.value;
     }
   });
 }
 
-el.pickup.addEventListener('change', function() {
-  const m = this.value;
-  const addr = document.getElementById('address');
-  const lbl = document.getElementById('addressLabel');
+elements.pickup.addEventListener('change', function() {
+  const method = this.value;
+  const address = document.getElementById('address');
+  const addressLabel = document.getElementById('addressLabel');
   
-  if (m === '7-11' || m === '全家') {
-    el.storeG.style.display = 'block';
-    el.addrG.style.display = 'none';
-    addr.value = '';
-    renderStore(m);
-  } else if (m === '宅配') {
-    el.storeG.style.display = 'none';
-    el.addrG.style.display = 'block';
-    lbl.textContent = '收貨地址 *';
-    addr.placeholder = '請填寫完整地址';
-    addr.value = '';
-    addr.readOnly = false;
-    addr.style.backgroundColor = '';
-  } else if (m === '面交') {
-    el.storeG.style.display = 'none';
-    el.addrG.style.display = 'block';
-    lbl.textContent = '面交地點';
-    addr.value = '802高雄市苓雅區武廟路206號';
-    addr.readOnly = true;
-    addr.style.backgroundColor = '#f0f0f0';
+  if (method === '7-11' || method === '全家') {
+    elements.storeGroup.style.display = 'block';
+    elements.addressGroup.style.display = 'none';
+    address.value = '';
+    createStoreSelects(method);
+  } else if (method === '宅配') {
+    elements.storeGroup.style.display = 'none';
+    elements.addressGroup.style.display = 'block';
+    addressLabel.textContent = '收貨地址 *';
+    address.placeholder = '請填寫完整地址';
+    address.value = '';
+    address.readOnly = false;
+    address.style.backgroundColor = '';
+  } else if (method === '面交') {
+    elements.storeGroup.style.display = 'none';
+    elements.addressGroup.style.display = 'block';
+    addressLabel.textContent = '面交地點';
+    address.value = '802高雄市苓雅區武廟路206號';
+    address.readOnly = true;
+    address.style.backgroundColor = '#f0f0f0';
   } else {
-    el.storeG.style.display = 'none';
-    el.addrG.style.display = 'none';
+    elements.storeGroup.style.display = 'none';
+    elements.addressGroup.style.display = 'none';
   }
   updatePrice();
 });
 
-el.plus.addEventListener('click', function(e) {
+elements.btnPlus.addEventListener('click', function(e) {
   e.preventDefault();
-  el.qty.value = parseInt(el.qty.value) + 1;
+  const currentQty = parseInt(elements.qty.value);
+  elements.qty.value = currentQty + 1;
   updatePrice();
 });
 
-el.minus.addEventListener('click', function(e) {
+elements.btnMinus.addEventListener('click', function(e) {
   e.preventDefault();
-  const v = parseInt(el.qty.value);
-  if (v > 1) {
-    el.qty.value = v - 1;
+  const currentQty = parseInt(elements.qty.value);
+  if (currentQty > 1) {
+    elements.qty.value = currentQty - 1;
     updatePrice();
   }
 });
 
-el.form.addEventListener('submit', async function(e) {
+elements.form.addEventListener('submit', function(e) {
   e.preventDefault();
   
-  const ph = document.getElementById('phone').value.trim();
-  const acc = document.getElementById('accountLast5').value.trim();
-  const m = el.pickup.value;
-  const addr = document.getElementById('address').value.trim();
+  const phone = document.getElementById('phone').value.trim();
+  const account = document.getElementById('accountLast5').value.trim();
+  const method = elements.pickup.value;
+  const address = document.getElementById('address').value.trim();
   
-  if (!/^09\d{8}$/.test(ph)) {
-    el.msg.innerHTML = '<div class="error-message">❌ 請輸入正確手機號碼(例:0912345678)</div>';
-    return;
-  }
-  if (!/^\d{5}$/.test(acc)) {
-    el.msg.innerHTML = '<div class="error-message">❌ 帳號後5碼必須是5位數字</div>';
+  if (!/^09\d{8}$/.test(phone)) {
+    elements.message.innerHTML = '<div class="error-message">❌ 請輸入正確手機號碼(例:0912345678)</div>';
     return;
   }
   
-  let finalAddr = '';
-  if (m === '7-11' || m === '全家') {
-    if (!selStore) {
-      el.msg.innerHTML = '<div class="error-message">❌ 請選擇門市</div>';
+  if (!/^\d{5}$/.test(account)) {
+    elements.message.innerHTML = '<div class="error-message">❌ 帳號後5碼必須是5位數字</div>';
+    return;
+  }
+  
+  let finalAddress = '';
+  if (method === '7-11' || method === '全家') {
+    if (!selectedStore) {
+      elements.message.innerHTML = '<div class="error-message">❌ 請選擇門市</div>';
       return;
     }
-    if (selStore === 'OTHER') {
+    if (selectedStore === 'OTHER') {
       const otherCity = document.getElementById('otherStoreCity').value.trim();
       const otherName = document.getElementById('otherStoreName').value.trim();
       if (!otherCity || !otherName) {
-        el.msg.innerHTML = '<div class="error-message">❌ 請填寫完整的門市資訊(縣市區域 + 門市名稱)</div>';
+        elements.message.innerHTML = '<div class="error-message">❌ 請填寫完整的門市資訊(縣市區域 + 門市名稱)</div>';
         return;
       }
-      finalAddr = `${m}-其他門市-${otherCity}-${otherName}`;
+      finalAddress = method + '-其他門市-' + otherCity + '-' + otherName;
     } else {
-      finalAddr = selStore;
+      finalAddress = selectedStore;
     }
-  } else if (m === '宅配' || m === '面交') {
-    if (addr.length < 5) {
-      el.msg.innerHTML = '<div class="error-message">❌ 請填寫完整地址</div>';
+  } else if (method === '宅配' || method === '面交') {
+    if (address.length < 5) {
+      elements.message.innerHTML = '<div class="error-message">❌ 請填寫完整地址</div>';
       return;
     }
-    finalAddr = addr;
+    finalAddress = address;
   } else {
-    el.msg.innerHTML = '<div class="error-message">❌ 請選擇取貨方式</div>';
+    elements.message.innerHTML = '<div class="error-message">❌ 請選擇取貨方式</div>';
     return;
   }
   
-  el.btn.disabled = true;
-  el.btn.textContent = '處理中...';
-  el.msg.innerHTML = '';
+  elements.submitBtn.disabled = true;
+  elements.submitBtn.textContent = '處理中...';
+  elements.message.innerHTML = '';
   
-  try {
-    const q = parseInt(el.qty.value);
-    const sub = CFG.PRICE * q;
-    let ship = 0;
-    if (m === '宅配') ship = q >= CFG.FREE ? 0 : CFG.SHIP_D;
-    else if (m === '7-11' || m === '全家') ship = q >= CFG.FREE ? 0 : CFG.SHIP_S;
-    
-    const tot = sub + ship;
-    const oid = genId();
-    const nm = document.getElementById('name').value;
-    const em = document.getElementById('email').value;
-    const nt = document.getElementById('note').value || '無';
-    
-    await fetch('https://api.web3forms.com/submit', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        access_key: CFG.KEY,
-        subject: `🛒 新訂單 ${oid} - 渝味食記`,
-        from_name: '渝味食記訂購系統',
-        email: CFG.EMAIL,
-        message: `訂單編號:${oid}\n姓名:${nm}\n電話:${ph}\nEmail:${em}\n取貨方式:${m}\n地址/門市:${finalAddr}\n帳號後5碼:${acc}\n數量:${q}罐\n小計:NT$ ${sub}\n運費:NT$ ${ship}\n總計:NT$ ${tot}\n備註:${nt}`
-      })
-    });
-    
-    await fetch('https://api.web3forms.com/submit', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        access_key: CFG.KEY,
-        from_name: '渝味食記訂購系統',
-        email: em,
-        message: `親愛的 ${nm} 您好,訂單編號:${oid}\n商品:四川辣椒醬 x ${q}罐\n總計:NT$ ${tot}\n取貨方式:${m}\n地址/門市:${finalAddr}`
-      })
-    });
-    
-    el.msg.innerHTML = `<div class="success-message">✅ 訂單已成功送出!<br><strong>訂單編號:${oid}</strong><br><br>我們已收到您的訂單,會盡快與您聯繫。</div>`;
-    el.form.reset();
-    el.qty.value = 1;
-    selStore = '';
-    el.storeG.style.display = 'none';
-    el.addrG.style.display = 'none';
-    updatePrice();
-    
-  } catch (err) {
-    console.error(err);
-    el.msg.innerHTML = '<div class="error-message">❌ 訂單送出失敗,請稍後再試</div>';
-  } finally {
-    el.btn.disabled = false;
-    el.btn.textContent = '確認訂購';
+  const quantity = parseInt(elements.qty.value);
+  const subtotal = CFG.PRICE * quantity;
+  let shipping = 0;
+  if (method === '宅配') {
+    shipping = quantity >= CFG.FREE ? 0 : CFG.SHIP_D;
+  } else if (method === '7-11' || method === '全家') {
+    shipping = quantity >= CFG.FREE ? 0 : CFG.SHIP_S;
   }
+  
+  const total = subtotal + shipping;
+  const orderId = generateOrderId();
+  const name = document.getElementById('name').value;
+  const email = document.getElementById('email').value;
+  const note = document.getElementById('note').value || '無';
+  
+  const formData1 = {
+    access_key: CFG.KEY,
+    subject: '🛒 新訂單 ' + orderId + ' - 渝味食記',
+    from_name: '渝味食記訂購系統',
+    email: CFG.EMAIL,
+    message: '訂單編號:' + orderId + '\n姓名:' + name + '\n電話:' + phone + '\nEmail:' + email + '\n取貨方式:' + method + '\n地址/門市:' + finalAddress + '\n帳號後5碼:' + account + '\n數量:' + quantity + '罐\n小計:NT$ ' + subtotal + '\n運費:NT$ ' + shipping + '\n總計:NT$ ' + total + '\n備註:' + note
+  };
+  
+  const formData2 = {
+    access_key: CFG.KEY,
+    from_name: '渝味食記訂購系統',
+    email: email,
+    message: '親愛的 ' + name + ' 您好,訂單編號:' + orderId + '\n商品:四川辣椒醬 x ' + quantity + '罐\n總計:NT$ ' + total + '\n取貨方式:' + method + '\n地址/門市:' + finalAddress
+  };
+  
+  fetch('https://api.web3forms.com/submit', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(formData1)
+  })
+  .then(function(response) {
+    return fetch('https://api.web3forms.com/submit', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(formData2)
+    });
+  })
+  .then(function(response) {
+    elements.message.innerHTML = '<div class="success-message">✅ 訂單已成功送出!<br><strong>訂單編號:' + orderId + '</strong><br><br>我們已收到您的訂單,會盡快與您聯繫。</div>';
+    elements.form.reset();
+    elements.qty.value = 1;
+    selectedStore = '';
+    elements.storeGroup.style.display = 'none';
+    elements.addressGroup.style.display = 'none';
+    updatePrice();
+  })
+  .catch(function(error) {
+    console.error(error);
+    elements.message.innerHTML = '<div class="error-message">❌ 訂單送出失敗,請稍後再試</div>';
+  })
+  .finally(function() {
+    elements.submitBtn.disabled = false;
+    elements.submitBtn.textContent = '確認訂購';
+  });
 });
 
 updatePrice();
 })();
 </script>
 </body>
-</html>東區店'],'南區':['南區店'],'西區':['西區店'],'北區':['北區店'],'西屯區':['逢甲店'],'南屯區':['南屯店'],'北屯區':['北屯店'],'豐原區':['豐原店'],'大里區':['大里店'],'太平區':['太平店'],'東勢區':['東勢店'],'大甲區':['大甲店'],'清水區':['清水店'],'沙鹿區':['沙鹿店'],'梧棲區':['梧棲店'],'后里區':['后里店'],'神岡區':['神岡店'],'潭子區':['潭子店'],'大雅區':['大雅店'],'新社區':['新社店'],'石岡區':['石岡店'],'外埔區':['外埔店'],'大安區':['大安店'],'烏日區':['烏日店'],'大肚區':['大肚店'],'龍井區':['龍井店'],'霧峰區':['霧峰店'],'和平區':['和平店']},
-'彰化縣':{'彰化市':['彰化店'],'員林市':['員林店'],'鹿港鎮':['鹿港店'],'和美鎮':['和美店'],'北斗鎮':['北斗店'],'溪湖鎮':['溪湖店'],'田中鎮':['田中店'],'二林鎮':['二林店']},
-'南投縣':{'南投市':['南投店'],'埔里鎮':['埔里店'],'草屯鎮':['草屯店'],'竹山鎮':['竹山店'],'集集鎮':['集集店'],'魚池鄉':['日月潭店']},
-'雲林縣':{'斗六市':['斗六店'],'斗南鎮':['斗南店'],'虎尾鎮':['虎尾店'],'西螺鎮':['西螺店'],'土庫鎮':['土庫店'],'北港鎮':['北港店']},
-'嘉義市':{'東區':['嘉義店'],'西區':['西區店']},
-'嘉義縣':{'太保市':['太保店'],'朴子市':['朴子店'],'布袋鎮':['布袋店'],'大林鎮':['大林店'],'民雄鄉':['民雄店']},
-'台南市':{'中西區':['台南店'],'東區':['東區店'],'南區':['南區店'],'北區':['北區店'],'安平區':['安平店'],'安南區':['安南店'],'永康區':['永康店'],'歸仁區':['歸仁店'],'新化區':['新化店'],'善化區':['善化店'],'新營區':['新營店']},
-'高雄市':{'新興區':['新興店','六合店'],'前金區':['前金店'],'苓雅區':['苓雅店','三多店','武廟店'],'鹽埕區':['鹽埕店'],'鼓山區':['鼓山店','美術館店'],'旗津區':['旗津店'],'前鎮區':['前鎮店','夢時代店'],'三民區':['三民店','建國店'],'左營區':['左營店','高鐵左營店'],'楠梓區':['楠梓店'],'小港區':['小港店'],'鳳山區':['鳳山店','大東店'],'林園區':['林園店'],'大寮區':['大寮店'],'大樹區':['大樹店'],'大社區':['大社店'],'仁武區':['仁武店'],'鳥松區':['鳥松店'],'岡山區':['岡山店'],'橋頭區':['橋頭店'],'燕巢區':['燕巢店'],'田寮區':['田寮店'],'阿蓮區':['阿蓮店'],'路竹區':['路竹店'],'湖內區':['湖內店'],'茄萣區':['茄萣店'],'永安區':['永安店'],'彌陀區':['彌陀店'],'梓官區':['梓官店'],'旗山區':['旗山店'],'美濃區':['美濃店'],'六龜區':['六龜店'],'甲仙區':['甲仙店'],'杉林區':['杉林店'],'內門區':['內門店'],'茂林區':['茂林店'],'桃源區':['桃源店'],'那瑪夏區':['那瑪夏店']},
-'屏東縣':{'屏東市':['屏東店'],'潮州鎮':['潮州店'],'東港鎮':['東港店'],'恆春鎮':['恆春店','墾丁店'],'萬丹鄉':['萬丹店'],'長治鄉':['長治店'],'麟洛鄉':['麟洛店'],'九如鄉':['九如店'],'里港鄉':['里港店'],'鹽埔鄉':['鹽埔店'],'高樹鄉':['高樹店'],'萬巒鄉':['萬巒店'],'內埔鄉':['內埔店'],'竹田鄉':['竹田店'],'新埤鄉':['新埤店'],'枋寮鄉':['枋寮店'],'新園鄉':['新園店'],'崁頂鄉':['崁頂店'],'林邊鄉':['林邊店'],'南州鄉':['南州店'],'佳冬鄉':['佳冬店'],'琉球鄉':['小琉球店'],'車城鄉':['車城店'],'滿州鄉':['滿州店'],'枋山鄉':['枋山店'],'三地門鄉':['三地門店'],'霧台鄉':['霧台店'],'瑪家鄉':['瑪家店'],'泰武鄉':['泰武店'],'來義鄉':['來義店'],'春日鄉':['春日店'],'獅子鄉':['獅子店'],'牡丹鄉':['牡丹店']},
-'宜蘭縣':{'宜蘭市':['宜蘭店'],'羅東鎮':['羅東店'],'蘇澳鎮':['蘇澳店'],'頭城鎮':['頭城店'],'礁溪鄉':['礁溪店'],'壯圍鄉':['壯圍店'],'員山鄉':['員山店'],'冬山鄉':['冬山店'],'五結鄉':['五結店'],'三星鄉':['三星店']},
-'花蓮縣':{'花蓮市':['花蓮店'],'鳳林鎮':['鳳林店'],'玉里鎮':['玉里店'],'新城鄉':['太魯閣店'],'吉安鄉':['吉安店'],'壽豐鄉':['壽豐店'],'瑞穗鄉':['瑞穗店'],'富里鄉':['富里店']},
-'台東縣':{'台東市':['台東店'],'成功鎮':['成功店'],'關山鎮':['關山店'],'卑南鄉':['卑南店'],'鹿野鄉':['鹿野店'],'池上鄉':['池上店'],'太麻里鄉':['太麻里店'],'綠島鄉':['綠島店'],'蘭嶼鄉':['蘭嶼店']},
-'澎湖縣':{'馬公市':['馬公店'],'湖西鄉':['湖西店'],'白沙鄉':['白沙店'],'西嶼鄉':['西嶼店'],'望安鄉':['望安店'],'七美鄉':['七美店']},
-'金門縣':{'金城鎮':['金城店'],'金湖鎮':['金湖店'],'金沙鎮':['金沙店'],'金寧鄉':['金寧店'],'烈嶼鄉':['烈嶼店']},
-'連江縣':{'南竿鄉':['南竿店'],'北竿鄉':['北竿店'],'莒光鄉':['莒光店'],'東引鄉':['東引店']}
-},
-'全家':{
-'台北市':{'中正區':['台北車站店','西門町店'],'大同區':['大同店'],'中山區':['中山店'],'松山區':['松山店'],'大安區':['大安店','東區店'],'萬華區':['萬華店'],'信義區':['信義店','101店'],'士林區':['士林店'],'北投區':['北投店'],'內湖區':['內湖店'],'南港區':['南港店'],'文山區':['文山店']},
-'新北市':{'板橋區':['板橋店'],'三重區':['三重店'],'中和區':['中和店'],'永和區':['永和店'],'新莊區':['新莊店'],'新店區':['新店店'],'樹林區':['樹林店'],'鶯歌區':['鶯歌店'],'三峽區':['三峽店'],'淡水區':['淡水店'],'汐止區':['汐止店'],'瑞芳區':['瑞芳店'],'土城區':['土城店'],'蘆洲區':['蘆洲店'],'五股區':['五股店'],'泰山區':['泰山店'],'林口區':['林口店']},
-'基隆市':{'仁愛區':['仁愛店'],'信義區':['信義店'],'中正區':['中正店'],'中山區':['中山店'],'安樂區':['安樂店'],'暖暖區':['暖暖店'],'七堵區':['七堵店']},
-'桃園市':{'桃園區':['桃園店'],'中壢區':['中壢店','中原店'],'平鎮區':['平鎮店'],'八德區':['八德店'],'楊梅區':['楊梅店'],'蘆竹區':['蘆竹店'],'大溪區':['大溪店'],'龍潭區':['龍潭店'],'龜山區':['龜山店'],'大園區':['大園店'],'觀音區':['觀音店'],'新屋區':['新屋店'],'復興區':['復興店']},
-'新竹市':{'東區':['新竹店'],'北區':['北區店'],'香山區':['香山店']},
-'新竹縣':{'竹北市':['竹北店'],'竹東鎮':['竹東店'],'新埔鎮':['新埔店'],'關西鎮':['關西店'],'湖口鄉':['湖口店'],'新豐鄉':['新豐店']},
-'苗栗縣':{'苗栗市':['苗栗店'],'頭份市':['頭份店'],'竹南鎮':['竹南店'],'通霄鎮':['通霄店'],'苑裡鎮':['苑裡店'],'後龍鎮':['後龍店']},
-'台中市':{'中區':['台中店'],'東區':['
+</html>
