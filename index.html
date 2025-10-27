@@ -155,7 +155,7 @@ body { font-family: 'Microsoft JhengHei', Arial, sans-serif; background: linear-
 
         <div class="form-group"><label>姓名 *</label><input type="text" id="name" required></div>
         <div class="form-group"><label>電話 *</label><input type="tel" id="phone" required placeholder="例:0912345678"></div>
-        <div class="form-group"><label>Email *</label><input type="email" id="email" required></div>
+        <div class="form-group"><label>Email *</label><input type="email" id="email" required placeholder="請填寫常用信箱以接收訂單確認信"></div>
         
         <div class="form-group">
           <label>取貨方式 *</label>
@@ -334,6 +334,7 @@ elements.form.addEventListener('submit', function(e) {
   const account = document.getElementById('accountLast5').value.trim();
   const method = elements.pickup.value;
   const address = document.getElementById('address').value.trim();
+  const email = document.getElementById('email').value.trim();
   
   if (!/^09\d{8}$/.test(phone)) {
     elements.message.innerHTML = '<div class="error-message">❌ 請輸入正確手機號碼(例:0912345678)</div>';
@@ -342,6 +343,11 @@ elements.form.addEventListener('submit', function(e) {
   
   if (!/^\d{5}$/.test(account)) {
     elements.message.innerHTML = '<div class="error-message">❌ 帳號後5碼必須是5位數字</div>';
+    return;
+  }
+  
+  if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+    elements.message.innerHTML = '<div class="error-message">❌ 請輸入有效的Email地址</div>';
     return;
   }
   
@@ -382,30 +388,80 @@ elements.form.addEventListener('submit', function(e) {
   const total = subtotal + shipping;
   const orderId = generateOrderId();
   const name = document.getElementById('name').value;
-  const email = document.getElementById('email').value;
   const note = document.getElementById('note').value || '無';
   
   const formData1 = {
     access_key: CFG.KEY,
     subject: '🛒 新訂單 ' + orderId + ' - 渝味食記',
     from_name: '渝味食記訂購系統',
+    replyTo: email,
     email: CFG.EMAIL,
-    message: '訂單編號:' + orderId + '\n姓名:' + name + '\n電話:' + phone + '\nEmail:' + email + '\n取貨方式:' + method + '\n地址/門市:' + finalAddress + '\n帳號後5碼:' + account + '\n數量:' + quantity + '罐\n小計:NT$ ' + subtotal + '\n運費:NT$ ' + shipping + '\n總計:NT$ ' + total + '\n備註:' + note
+    message: '=== 新訂單通知 ===\n\n' +
+             '訂單編號: ' + orderId + '\n' +
+             '訂購時間: ' + new Date().toLocaleString('zh-TW') + '\n\n' +
+             '--- 客戶資訊 ---\n' +
+             '姓名: ' + name + '\n' +
+             '電話: ' + phone + '\n' +
+             'Email: ' + email + '\n\n' +
+             '--- 訂單內容 ---\n' +
+             '商品: 四川濃香型辣椒醬\n' +
+             '數量: ' + quantity + ' 罐\n' +
+             '小計: NT$ ' + subtotal + '\n' +
+             '運費: NT$ ' + shipping + '\n' +
+             '總計: NT$ ' + total + '\n\n' +
+             '--- 配送資訊 ---\n' +
+             '取貨方式: ' + method + '\n' +
+             '地址/門市: ' + finalAddress + '\n\n' +
+             '--- 付款資訊 ---\n' +
+             '匯款帳號後5碼: ' + account + '\n\n' +
+             '--- 備註 ---\n' + note + '\n\n' +
+             '==============================\n' +
+             '請盡快與客戶聯繫確認訂單'
   };
   
   const formData2 = {
     access_key: CFG.KEY,
-    from_name: '渝味食記訂購系統',
+    subject: '✅ 訂單確認 ' + orderId + ' - 渝味食記',
+    from_name: '渝味食記',
+    replyTo: CFG.EMAIL,
     email: email,
-    message: '親愛的 ' + name + ' 您好,訂單編號:' + orderId + '\n商品:四川辣椒醬 x ' + quantity + '罐\n總計:NT$ ' + total + '\n取貨方式:' + method + '\n地址/門市:' + finalAddress
+    message: '親愛的 ' + name + ' 您好,\n\n' +
+             '感謝您的訂購!我們已收到您的訂單。\n\n' +
+             '=== 訂單資訊 ===\n' +
+             '訂單編號: ' + orderId + '\n' +
+             '訂購時間: ' + new Date().toLocaleString('zh-TW') + '\n\n' +
+             '--- 訂單明細 ---\n' +
+             '商品: 四川濃香型辣椒醬 x ' + quantity + ' 罐\n' +
+             '商品小計: NT$ ' + subtotal + '\n' +
+             '運費: NT$ ' + shipping + '\n' +
+             '訂單總計: NT$ ' + total + '\n\n' +
+             '--- 配送資訊 ---\n' +
+             '取貨方式: ' + method + '\n' +
+             '地址/門市: ' + finalAddress + '\n\n' +
+             '--- 付款資訊 ---\n' +
+             '您提供的帳號後5碼: ' + account + '\n\n' +
+             '我們會盡快與您聯繫確認訂單及付款事宜,\n' +
+             '請留意來電或訊息通知。\n\n' +
+             '如有任何問題,歡迎直接回覆此郵件或透過 Instagram 聯繫我們。\n\n' +
+             '渝味食記 敬上\n' +
+             'Instagram: @yuweishiji'
   };
   
+  // 發送店家通知信
   fetch('https://api.web3forms.com/submit', {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify(formData1)
   })
   .then(function(response) {
+    if (!response.ok) {
+      throw new Error('發送店家通知失敗');
+    }
+    return response.json();
+  })
+  .then(function(data) {
+    console.log('店家通知已發送:', data);
+    // 發送客戶確認信
     return fetch('https://api.web3forms.com/submit', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
@@ -413,17 +469,25 @@ elements.form.addEventListener('submit', function(e) {
     });
   })
   .then(function(response) {
-    elements.message.innerHTML = '<div class="success-message">✅ 訂單已成功送出!<br><strong>訂單編號:' + orderId + '</strong><br><br>我們已收到您的訂單,會盡快與您聯繫。</div>';
+    if (!response.ok) {
+      throw new Error('發送客戶確認信失敗');
+    }
+    return response.json();
+  })
+  .then(function(data) {
+    console.log('客戶確認信已發送:', data);
+    elements.message.innerHTML = '<div class="success-message">✅ 訂單已成功送出!<br><br><strong>訂單編號: ' + orderId + '</strong><br><br>我們已收到您的訂單,並已發送確認信至:<br><strong>' + email + '</strong><br><br>📧 請檢查您的信箱(包含垃圾郵件匣)<br>📞 我們會盡快與您聯繫確認訂單<br><br>感謝您的訂購!</div>';
     elements.form.reset();
     elements.qty.value = 1;
     selectedStore = '';
     elements.storeGroup.style.display = 'none';
     elements.addressGroup.style.display = 'none';
     updatePrice();
+    window.scrollTo({ top: 0, behavior: 'smooth' });
   })
   .catch(function(error) {
-    console.error(error);
-    elements.message.innerHTML = '<div class="error-message">❌ 訂單送出失敗,請稍後再試</div>';
+    console.error('發送失敗:', error);
+    elements.message.innerHTML = '<div class="error-message">❌ ' + error.message + '<br><br>請稍後再試,或直接透過 Instagram 聯繫我們:<br>@yuweishiji</div>';
   })
   .finally(function() {
     elements.submitBtn.disabled = false;
